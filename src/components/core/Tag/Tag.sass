@@ -1,0 +1,29 @@
+@import '@utility/vars.sass'
+
+$divider-height: $font-size-m
+
+.tag
+    position: relative
+    padding: $space-xs $space-s
+    
+    background: $bg-main
+
+
+.transparent
+    padding-left: 0
+    background: none
+
+
+.withDivider:before
+    position: absolute
+    left: 0
+    top: 50%
+    margin-top: -$divider-height / 2
+    display: block
+    content: ''
+
+    width: $border-width-m
+    height: $divider-height
+
+    background: $border-color-main
+
