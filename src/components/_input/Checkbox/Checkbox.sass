@@ -1,0 +1,35 @@
+@import '@utility/vars.sass'
+
+$checkbox-size: $space-m + $space-xs - $border-width-m
+
+.host
+    display: flex
+
+
+.checkbox
+    display: none
+
+
+.label
+    display: flex
+    flex-direction: row
+    align-items: center
+
+.label:before
+    display: block
+    content: ''
+    height: $checkbox-size
+    width: $checkbox-size
+    
+    margin-right: $space-xs
+
+    background: $bg-main-small
+    
+    border: $border-width-m solid transparent
+
+    .checkbox:checked + &
+        background: $bg-accent
+
+.label:hover, .checkbox:focus + .label
+    &:before
+        border-color: $border-color-main

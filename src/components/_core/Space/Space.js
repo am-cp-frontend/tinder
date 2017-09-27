@@ -7,10 +7,10 @@ const capitalize = str => {
 
 const Space = props => {
     const styles = {
-        marginTop: '0',
-        marginRight: '0',
-        marginBottom: '0',
-        marginLeft: '0'
+        paddingTop: '0',
+        paddingRight: '0',
+        paddingBottom: '0',
+        paddingLeft: '0'
     }
     let side
 
@@ -18,19 +18,19 @@ const Space = props => {
  
     if(props.horizontal) { 
         for(side of ['Right', 'Left']) {
-            styles['margin' + side] = spaces[props.horizontal]
+            styles['padding' + side] = spaces[props.horizontal]
         }
     }
 
     if(props.vertical) {
         for(side of ['Top', 'Bottom']) {
-            styles['margin' + side] = spaces[props.vertical] 
+            styles['padding' + side] = spaces[props.vertical] 
         }
     }
 
     for(side of ['top', 'right', 'bottom', 'left']) {
         if(props[side]) {
-            styles['margin' + capitalize(side)] = spaces[props[side]]
+            styles['padding' + capitalize(side)] = spaces[props[side]]
         }
     } 
 

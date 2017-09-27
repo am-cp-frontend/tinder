@@ -2,9 +2,10 @@ import React from 'react'
 import styles from './Card.sass'
 
 const Card = props => {
-    let classes = props.className ? ' ' + props.className : '' 
+    const classes = props.className ? styles.card + ' ' + props.className : styles.card
+
     return (
-        <div className={styles.card + classes}> 
+        <div className={classes}> 
             {props.children}
         </div>
     )

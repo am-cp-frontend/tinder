@@ -1,30 +1,42 @@
 @import '@utility/vars.sass'
 
+html
+    font-size: 10px
+
 body
     padding: 0
     margin: 0
-    
+
+hr
+    margin: 0
+    border: 0
+    height: $border-width-s
+    background: $border-color-main
+
+button, input
+    background: none
+    border: 0
+    padding: 0
+    margin: 0
+    font-size: $font-size-m
+    font-family: $font-main
+    font-weight: $font-weight-light
+
+.app
+    display: flex
+    flex-direction: row
+    justify-content: center
+
     font-size: $font-size-m
     font-family: $font-main
     font-weight: $font-weight-light
     color: $font-color-main
 
-h1, h2, h3, h4, h5, h6
-    margin: 0
-    padding: 0
+*
+    box-sizing: border-box
+// used to check quality
+//     background: rgba(0, 0, 255, .05) !important
 
-h1
-    font-size: $font-size-xl
-    font-weight: $font-weight-bold
-
-h2
-    font-size: $font-size-xl
-    font-weight: $font-weight-light
-
-h3
-    font-size: $font-size-m
-    font-weight: $font-weight-bold
-
-h4
-    font-size: $font-size-l
-    font-weight: $font-weight-light
+@media (max-width: 600px)
+    html
+        font-size: 7px

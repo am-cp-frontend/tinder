@@ -11,7 +11,7 @@ module.exports = function (__dirname) {
             import: false,
             modules: true,
             localIdentName: '[hash:base64:5]',
-            minimize: true
+            minimize: (process.env.NODE_ENV === 'production')
         }
     }
 

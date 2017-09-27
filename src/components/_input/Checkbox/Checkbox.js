@@ -5,7 +5,7 @@ import styles from './Checkbox.sass'
 
 const Checkbox = props => (
     <div className={styles.host}>
-        <input type='checkbox' className={styles.checkbox} id={props.id} checked={props.checked} />
+        <input type='checkbox' className={styles.checkbox} id={props.id} checked={props.checked} tabIndex='0' />
         
         <label className={styles.label} htmlFor={props.id}> 
             <div> {props.children} </div>
@@ -14,7 +14,8 @@ const Checkbox = props => (
 )
 
 Checkbox.propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    checked: PropTypes.bool
 }
 
 export default Checkbox

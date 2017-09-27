@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 
 import FindMentor from '@routes/FindMentor'
 
-import './index.sass'
+import styles from './index.sass'
 
-const App = () => <FindMentor />
+const App = () => <div className={styles.app}> <FindMentor /> </div>
 
 render(<App />, document.getElementById('root'))

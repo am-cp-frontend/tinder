@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Space from '@components/core/Space~'
+import Space from '@components/_core/Space~'
 
 const ListItem = props => (
     <Space className='listItem' 
