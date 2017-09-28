@@ -6,6 +6,7 @@ module.exports = function (__dirname) {
     const common = path.join(root, '../Common')
 
     const src = path.join(root, 'src')
+    const stories = path.join(root, 'stories')
 
     const entry = path.join(src, '/index.js')
     const template = path.join(src, '/index.html')
@@ -19,6 +20,7 @@ module.exports = function (__dirname) {
         src,
         entry,
         template,
-        dist
+        dist,
+        stories
     }
 }

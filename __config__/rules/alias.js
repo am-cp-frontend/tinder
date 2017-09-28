@@ -12,6 +12,7 @@ module.exports = function (__dirname) {
                 alias: {
                     "@common": paths.common,
                     "@src": paths.src,
+                    "@stories": paths.stories,
                     "@icons": path.join(paths.src, 'icons'),
                     "@routes": path.join(paths.src, 'routes'),
                     "@utility": path.join(paths.src, 'utility'),

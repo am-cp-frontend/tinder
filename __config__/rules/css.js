@@ -34,6 +34,7 @@ module.exports = function (__dirname) {
     return {
         test: /\.sass$/,
         use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
             use: [
                 cssLoader,
                 postCSSLoader,
