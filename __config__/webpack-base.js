@@ -10,7 +10,7 @@ module.exports = {
     //input
     entry: {
         app: paths.entry,
-        vendor: ["react", "react-dom"]
+        vendor: ['react', 'react-dom', 'prop-types', 'classnames', 'mobx', 'mobx-react']
     },
 
     //transform

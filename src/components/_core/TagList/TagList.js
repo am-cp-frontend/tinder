@@ -1,5 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 
 import Space from '@components/_core/Space~'
 import Tag from '@components/_core/Tag~'
@@ -7,7 +8,20 @@ import Tag from '@components/_core/Tag~'
 import styles from './TagList.sass' 
 
 
+const propTypes = {
+    tags: PropTypes.array,
+    actions: PropTypes.array,
+    tagProps: PropTypes.object
+}
+
+const defaultProps = {
+    tags: [],
+    actions: [],
+    tagProps: {}
+}
+
 const isRow = (tagListRef) => {
+    if(tagListRef.children.length === 0) return true
     let isSingleRow = true
 
     const topShift = tagListRef.children[0].getBoundingClientRect().top
@@ -22,7 +36,7 @@ const isRow = (tagListRef) => {
 
 const ListItem = props => (
     <Space bottom={props.spacing ? 's' : 0} right={props.spacing ? 's' : 0}>
-        <Tag transparent={props.transparent}
+        <Tag {...props.tagProps}
             withDivider={props.idx !== 0 && !props.spacing}> 
             {props.children} 
         </Tag>
@@ -38,7 +52,6 @@ class TagList extends React.Component {
     }
 
     responsiveChange() {
-        console.log
         const isSingleRow = isRow(this.base)
         if(this.state.isRow !== isSingleRow) this.setState({isRow: isSingleRow})
     }
@@ -52,6 +65,10 @@ class TagList extends React.Component {
         window.addEventListener('resize', this.responsiveChange)
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.responsiveChange)
+    }
+
     render() {
         const classes = classNames(styles.tagList, {
             [styles.multiline]: ! this.state.isRow
@@ -62,7 +79,7 @@ class TagList extends React.Component {
                 {this.props.tags.map((tag, i) => (
                     <ListItem key={i}
                               idx={i}
-                              transparent={this.props.transparent}
+                              tagProps={this.props.tagProps}
                               spacing={ ! this.state.isRow}>
                         {tag} 
                     </ListItem>)
@@ -71,5 +88,8 @@ class TagList extends React.Component {
         )   
     }
 }
+
+TagList.propTypes = propTypes
+TagList.defaultProps = defaultProps
 
 export default TagList

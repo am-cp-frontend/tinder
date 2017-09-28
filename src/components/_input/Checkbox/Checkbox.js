@@ -3,9 +3,19 @@ import PropTypes from 'prop-types'
 
 import styles from './Checkbox.sass'
 
+const propTypes = {
+    id: PropTypes.string.isRequired,
+    checked: PropTypes.bool
+}
+
 const Checkbox = props => (
     <div className={styles.host}>
-        <input type='checkbox' className={styles.checkbox} id={props.id} checked={props.checked} tabIndex='0' />
+        <input type='checkbox' 
+               tabIndex='0'
+               className={styles.checkbox} 
+               
+               id={props.id} 
+               checked={props.checked} /> 
         
         <label className={styles.label} htmlFor={props.id}> 
             <div> {props.children} </div>
@@ -13,9 +23,6 @@ const Checkbox = props => (
     </div>
 )
 
-Checkbox.propTypes = {
-    id: PropTypes.string.isRequired,
-    checked: PropTypes.bool
-}
+Checkbox.propTypes = propTypes
 
 export default Checkbox

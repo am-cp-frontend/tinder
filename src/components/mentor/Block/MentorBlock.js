@@ -11,7 +11,24 @@ import Accordion from '@components/_core/Accordion~'
 
 import TaskBlock from '@components/task/Block/TaskBlock'
 
+
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    contacts: PropTypes.arrayOf(PropTypes.string).isRequired,
+    
+    fields: PropTypes.arrayOf(PropTypes.string).isRequired,
+    
+    tasks: PropTypes.arrayOf(PropTypes.object),
+    expandAllTasks: PropTypes.bool
+}
+
+const defaultProps = {
+    expandAllTasks: false,
+    tasks: []
+}
+
 const MentorBlock = observer(props => {
+
     const tasks = props.short ? [] : props.tasks
     const tasksEl = tasks.map(task => (
         <div key={task.title}> 
@@ -37,21 +54,16 @@ const MentorBlock = observer(props => {
             </Space>
             
             { tasks.length ? (
-                <Accordion toOpenBtn='Показать предлагаемые темы исследований' 
-                           togglePos='after'> 
+                <Accordion toExpandBtn='Показать предлагаемые темы исследований' 
+                           togglePos='after'
+                           expanded={props.expandAllTasks}> 
                     {tasksEl} 
                 </Accordion>) : null }
         </div>
     )
 })
 
-MentorBlock.propTypes = {
-    name: PropTypes.string.isRequired,
-    contacts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    
-    fields: PropTypes.arrayOf(PropTypes.string).isRequired,
-    
-    tasks: PropTypes.arrayOf(PropTypes.object).isRequired
-}
+MentorBlock.propTypes = propTypes
+MentorBlock.defaultProps = defaultProps
 
 export default MentorBlock

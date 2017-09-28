@@ -1,7 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cls from 'classnames'
 
-import styles from './tag.sass'
+import styles from './Tag.sass'
+
+const propTypes = {
+    withDivider: PropTypes.bool,
+    transparent: PropTypes.bool
+}
 
 const Tag = props => {
     return (
