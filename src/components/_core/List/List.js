@@ -9,7 +9,10 @@ PropTypes.component = PropTypes.oneOfType([
 ])
 
 const propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.object
+    ]).isRequired,
     item: PropTypes.component,
     getKey: PropTypes.func,
 

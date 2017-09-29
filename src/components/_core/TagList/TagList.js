@@ -9,7 +9,10 @@ import styles from './TagList.sass'
 
 
 const propTypes = {
-    tags: PropTypes.array,
+    tags: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.objectOf(PropTypes.string)
+    ]).isRequired,
     actions: PropTypes.array,
     tagProps: PropTypes.object
 }

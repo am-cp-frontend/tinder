@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import Card from '@components/_core/Card~'
 import Space from '@components/_core/Space~'
 import List from '@components/_core/List~'
@@ -13,11 +12,7 @@ import MentorBlock from '@components/mentor/Block/MentorBlock'
 
 import styles from './FindMentor.sass'
 
-const MentorCard = props => (
-    <Card key={props.key}>
-        <MentorBlock {...props} hLevel={4} />
-    </Card>
-)
+const MentorCard = props => <Card> <MentorBlock {...props} hLevel={4} /> </Card>
 
 const FindMentor = props => (
     <Space all='m' className={styles.view}> 
@@ -25,14 +20,14 @@ const FindMentor = props => (
         <Space bottom='s' />
 
         <div className={styles.filter}> 
-            <Checkbox id='1'> Своя тема </Checkbox>
-            <TextInput id='text' 
+            <Checkbox id='ownTopic'> Своя тема </Checkbox>
+            <TextInput id='FieldOfStudy' 
                        placeholder='Область исследований'
                        className={styles.tagInput} />
         </div>
         <Space bottom='m' />
         
-        <List data={props.mentors} item={MentorCard} /> 
+        <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> 
     </Space>
 )
 
