@@ -57,11 +57,11 @@ const MentorBlock = observer(props => {
             <Link route='mentor' params={{id: props.id}} type='block'>
                 <Space all={props.innerSpace || 'm'}>
                     <H level={props.hLevel}> {props.name} </H>
-                    <Space bottom="s" />
+                    <Space bottom='s' />
 
                     {contactsEl}
                     
-                    <Space bottom="s" />
+                    <Space bottom='s' />
                     
                     {fieldsEl}
                 </Space>

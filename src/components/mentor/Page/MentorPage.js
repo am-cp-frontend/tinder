@@ -9,6 +9,8 @@ import TaskBlock from '@components/task/Block/TaskBlock'
 import TagList from '@components/_core/TagList~'
 
 
+import styles from './MentorPage.sass'
+
 const propTypes = {
     name: PropTypes.string.isRequired,
     contacts: PropTypes.oneOfType([
@@ -47,23 +49,27 @@ const MentorPage = props => {
     ))
 
     return (
-        <Space all={props.innerSpace || 'm'}>
+        <Space all={props.innerSpace || 'm'} className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
             <Space bottom='s' />
 
-            <Space bottom="m">
+            <Space bottom='m'>
                 <H level={3}> Контакты </H> 
                 {contactsEl}
             </Space>
             
-            <Space bottom="m">
+            <Space bottom='m'>
                 <H level={3}> Области исследований </H> 
                 {fieldsEl}
             </Space>
 
-            <H level={3}> Задачи </H>
-            <Space bottom='s' />
-            {tasksEl}
+            { props.tasks.length ? (
+                <Space bottom='0'>
+                    <H level={3}> Задачи </H>
+                    <Space bottom='s' />
+                    {tasksEl}
+                </Space>
+            ) : <H level={3}> Не предлагает задач </H> }
         </Space>
     )
 }
