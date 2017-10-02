@@ -28,9 +28,10 @@ class TagInput extends React.Component {
 
         this.state = {input: '', focused: false}
         
-        this.addTag = this.addTag.bind(this)
-        this.handleInput = this.handleInput.bind(this)
         this.focusInput = this.focusInput.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+        this.handleBlur = this.handleBlur.bind(this)
+        this.addTag = this.addTag.bind(this)
     }
 
     focusInput() {
@@ -45,14 +46,19 @@ class TagInput extends React.Component {
     handleInput(e) {
         if(e.which === 13) {
             this.addTag(this.state.input)
-            this.reset()
         } else {
             this.setState({input: this.textInput.value})
         }
     }
 
+    handleBlur() {
+        if(this.state.input) this.  addTag(this.state.input)
+        this.setState({focused: false})
+    }
+
     addTag(tagVal) {
         if(tagVal) this.tags.push(tagVal)
+        this.reset()
     }
 
     render() {
@@ -92,7 +98,7 @@ class TagInput extends React.Component {
                         <input className={styles.realInput}
                             onKeyUp={this.handleInput} 
                             onFocus={e => this.setState({focused: true})}
-                            onBlur={e => this.setState({focused: false})}
+                            onBlur={this.handleBlur}
                             ref={el => this.textInput = el} />
                     </TagList>
                     <div className={borderClasses} />
