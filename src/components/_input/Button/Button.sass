@@ -1,12 +1,23 @@
 @import '@utility/vars.sass'
 
 .button
+    display: block
     background: $bg-main
     font-size: $font-size-m
 
-    padding: $space-xs - $border-width-m $space-m
+    padding: $space-xxs - $border-width-m $space-m
     border: $border-width-m solid transparent
 
     &:hover, &:focus
         outline: 0
         border-color: $border-color-main
+
+.spaceless
+    padding: 0
+
+.transparent
+    background: transparent
+    border: 0
+    &:hover
+        background: $bg-main-small
+        border-color: transparent

@@ -5,7 +5,7 @@ import Space from '@components/_core/Space~'
 import List from '@components/_core/List~'
 
 import Checkbox from '@components/_input/Checkbox~'
-import TextInput from '@components/_input/Text~'
+import TagInput from '@components/_input/TagInput~'
 
 import MentorBlock from '@components/mentor/Block/MentorBlock'
 
@@ -21,13 +21,13 @@ const FindMentor = props => (
 
         <div className={styles.filter}> 
             <Checkbox id='ownTopic'> Своя тема </Checkbox>
-            <TextInput id='FieldOfStudy' 
-                       placeholder='Область исследований'
-                       className={styles.tagInput} />
+            <TagInput id='FieldOfStudy' 
+                      placeholder='Область исследований'
+                      className={styles.tagInput} 
+                      tags={props.selectedFields} />
         </div>
         <Space bottom='m' />
-        
-        <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> 
+        {props.mentors.length ? <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> : 'Loading...'}
     </Space>
 )
 

@@ -12,11 +12,7 @@ const routes = {
     }),
     mentor: new Route({
         path: '/mentor/:id',
-        component: <MentorPage />,
-        onEnter: (route, params, store) => {
-            //data fetching
-            store.route.load(store.mentors[params.id])
-        }
+        component: <MentorPage />
     })
 }
 

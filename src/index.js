@@ -3,6 +3,9 @@ import { render } from 'react-dom'
 import {MobxRouter, startRouter} from 'mobx-router'
 import {Provider} from 'mobx-react'
 
+import AppBar from '@components/_core/AppBar~'
+import Space from '@components/_core/Space~'
+
 import routes from '@src/store/routes'
 import store from '@src/store/mainStore'
 
@@ -13,10 +16,10 @@ startRouter(routes, store)
 
 const App = () => (
     <Provider store={store}>
-        <div className={styles.app}> 
-            <div className={styles.viewBox}>
-                <MobxRouter/>
-            </div>
+        <div className={styles.app}>
+            <MobxRouter/>
+            <Space vertical='xl' />
+            <AppBar />
         </div>
     </Provider>
 )

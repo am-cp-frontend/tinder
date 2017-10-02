@@ -27,13 +27,21 @@ const propTypes = {
             PropTypes.arrayOf(PropTypes.object),
             PropTypes.objectOf(PropTypes.object)
     ]),
+    acceptsOwn: PropTypes.oneOf(['none', 'any', 'inField']),
     hLevel: PropTypes.number,
     innerSpace: PropTypes.string
 }
 
 const defaultProps = {
     hLevel: 2,
+    acceptsOwn: 'none',
     tasks: []
+}
+
+const ownToRus = {
+    none: 'Не принимает со поднаучных своей темой исследования',
+    inField: 'Примает поднаучных со своими исследованиями в его области',
+    any: 'Примает поднаучных со своими исследованиями в любой области'
 }
 
 const MentorPage = props => {
@@ -51,7 +59,7 @@ const MentorPage = props => {
     return (
         <Space all={props.innerSpace || 'm'} className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
-            <Space bottom='s' />
+            <Space bottom='m' />
 
             <Space bottom='m'>
                 <H level={3}> Контакты </H> 
@@ -63,9 +71,13 @@ const MentorPage = props => {
                 {fieldsEl}
             </Space>
 
+            <Space bottom='m'>
+                <H level={3}> {ownToRus[props.acceptsOwn]} </H>
+            </Space>
+
             { props.tasks.length ? (
                 <Space bottom='0'>
-                    <H level={3}> Задачи </H>
+                    <H level={3}> Предлагаемые задачи </H>
                     <Space bottom='s' />
                     {tasksEl}
                 </Space>

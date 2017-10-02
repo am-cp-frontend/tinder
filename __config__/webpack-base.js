@@ -3,6 +3,7 @@ const path = require('path')
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
 
 const paths = require('./utility/paths')(__dirname)
 
@@ -10,7 +11,9 @@ module.exports = {
     //input
     entry: {
         app: paths.entry,
-        vendor: ['react', 'react-dom', 'prop-types', 'classnames', 'mobx', 'mobx-react']
+        vendor: ['react', 'react-dom',
+                 'prop-types', 'classnames',
+                 'mobx', 'mobx-react', 'mobx-router']
     },
 
     //transform
@@ -43,6 +46,7 @@ module.exports = {
             name: 'vendor',
             minChunks: Infinity,
         }),
+        new SpriteLoaderPlugin()
     ],
 
     //dev

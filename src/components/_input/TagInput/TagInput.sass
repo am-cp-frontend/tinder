@@ -6,19 +6,38 @@
     position: relative
 
 
-.input
-    display: block
-    width: 100%
-    padding: $space-xxs 0
 
-    &:placeholder
-        color: $font-color-grey
-    
+.input
+    display: flex
+    flex-direction: row
+    align-items: center
+
+
+
+.placeholder
+    position: absolute
+
+
+
+.tagList
+    width: 100%
+    flex: 1
+
+
+
+.realInputHost
+    flex: 1
+
+.realInput
+    display: block
+    width: 0
+    padding: $space-xxs 0
     &:focus
         outline: 0
+        min-width: 20rem
+        width: 100%
 
-    &:focus + .border, &:hover + .border
-        background: $bg-accent      
+
 
 .border
     position: absolute
@@ -30,6 +49,5 @@
 
     background: $border-color-main
     transition: $transition-m
-
-.label
-    display: block
+.borderFocused
+    background: $bg-accent  

@@ -1,20 +1,21 @@
 import {observable} from 'mobx'
 
 export default class AsyncDataStore {
-    @observable loading
+    @observable loaded
     @observable data
 
-    constructor() {
+    constructor(defaults) {
+        this.defaults = defaults
         this.reset()
     }
 
     load(data) {
-       this.loading = false
-       this.data = data  
+        this.data = data 
+        this.loaded = true
     }
 
     reset() {
-        this.loading = true
-        this.data = {}
+        this.loaded = false
+        this.data = this.defaults
     }
 }

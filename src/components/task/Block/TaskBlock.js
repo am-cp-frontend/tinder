@@ -7,16 +7,16 @@ import Space from '@components/_core/Space~'
 const TaskBlock = props => (
     <Space all={props.innerSpace || 'm'}>
          <H level={props.hLevel}> {props.title} </H>
-         <Space bottom='xs' />
+         <Space bottom='xxs' />
 
          <H level={props.hLevel + 1}> Описание </H>
-         <Space bottom='xs' />
+         <Space bottom='xxs' />
          {props.desc} 
          
          <Space bottom='s' />
 
          <H level={props.hLevel + 1}> Необходимые навки </H>
-         <Space bottom='xs' />
+         <Space bottom='xxs' />
          {props.skills} 
     </Space>
 )

@@ -37,12 +37,19 @@ const isRow = (tagListRef) => {
     return isSingleRow
 }
 
+const makeTag = props => (
+    <Tag {...props.tagProps}
+        withDivider={props.idx !== 0 && !props.spacing}
+        actions={props.tagActions}> 
+        {props.tagValue}
+    </Tag>
+)
+
 const ListItem = props => (
-    <Space bottom={props.spacing ? 's' : 0} right={props.spacing ? 's' : 0}>
-        <Tag {...props.tagProps}
-            withDivider={props.idx !== 0 && !props.spacing}> 
-            {props.children} 
-        </Tag>
+    <Space bottom={props.spacing ? 's' : 0} 
+           right={props.spacing && props.last !== 0 ? 's' : 0}
+           className={props.className}>
+        {props.children ? props.children : makeTag(props)}
     </Space>
 )
 
@@ -74,7 +81,8 @@ class TagList extends React.Component {
 
     render() {
         const classes = classNames(styles.tagList, {
-            [styles.multiline]: ! this.state.isRow
+            [styles.multiline]: ! this.state.isRow,
+            [this.props.className]: this.props.className
         })
 
         return (
@@ -83,10 +91,18 @@ class TagList extends React.Component {
                     <ListItem key={i}
                               idx={i}
                               tagProps={this.props.tagProps}
-                              spacing={ ! this.state.isRow}>
-                        {tag} 
-                    </ListItem>)
-                )}         
+                              spacing={ ! this.state.isRow}
+                              tagActions={this.props.tagActions}
+                              tagValue={tag}
+                              last={this.props.tags.length === i+1 && !this.props.children} />)
+                )}
+                {this.props.children ? (
+                    <ListItem spacing={ ! this.state.isRow}
+                              className={this.props.childClassName}
+                              last={true}> 
+                        {this.props.children}
+                    </ListItem>) : null
+                }
             </div>
         )   
     }

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 
 import styles from './Text.sass'
 
+const propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    placeholder: PropTypes.string
+}
+
 const TextInput = props => {
     const type = props.type || 'text'
     const classes = props.className ? styles.host + ' ' + props.className : styles.host 
@@ -19,10 +25,6 @@ const TextInput = props => {
     )
 }
 
-TextInput.propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    placeholder: PropTypes.string
-}
+TextInput.propTypes = propTypes
 
 export default TextInput

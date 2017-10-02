@@ -1,6 +1,6 @@
 module.exports = () => {
     return {
         test: /\.svg$/,
-        use: ['react-svg-loader'],
+        use: ['svg-sprite-loader']
     }
 }
