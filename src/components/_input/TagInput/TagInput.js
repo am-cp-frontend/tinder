@@ -47,8 +47,9 @@ class TagInput extends React.Component {
         if(e.which === 13) {
             this.addTag(this.state.input)
         } else {
+            if(e.which === 8 && this.state.input === '') this.tags.pop()
             this.setState({input: this.textInput.value})
-        }
+        }        
     }
 
     handleBlur() {

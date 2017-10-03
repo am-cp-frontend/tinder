@@ -4,6 +4,7 @@ import {observer} from 'mobx-react'
 import {observable, action} from 'mobx'
 
 import Card from '@components/_core/Card~'
+import List from '@components/_core/List~'
 import H from '@components/_core/Header~'
 import Space from '@components/_core/Space~'
 import TagList from '@components/_core/TagList~'
@@ -35,8 +36,10 @@ const propTypes = {
 }
 
 const defaultProps = {
+    tasks: [],
     expandAllTasks: false,
-    tasks: []
+    hLevel: 4,
+    innerSpace: 'm'
 }
 
 const MentorBlock = observer(props => {
@@ -44,18 +47,13 @@ const MentorBlock = observer(props => {
     const contactsEl = <TagList tags={props.contacts} tagProps={{transparent: true}} />
     const fieldsEl = <TagList tags={props.fields} />
     
-    const tasksEl = props.tasks.map(task => (
-        <div key={task.title}> 
-            <Space horizontal='m'> <hr /> </Space>
-            <TaskBlock {...task} hLevel={props.hLevel + 1} /> 
-        </div>
-    ))
+    const taskEl = task => <TaskBlock {...task} hLevel={props.hLevel + 1} innerSpace={props.innerSpace} />
 
 
     return (
         <div>
             <Link route='mentor' params={{id: props.id}} type='block'>
-                <Space all={props.innerSpace || 'm'}>
+                <Space all={props.innerSpace}>
                     <H level={props.hLevel}> {props.name} </H>
                     <Space bottom='s' />
 
@@ -71,7 +69,9 @@ const MentorBlock = observer(props => {
                 <Accordion toExpandBtn='Показать предлагаемые темы исследований' 
                            togglePos='after'
                            expanded={props.expandAllTasks}> 
-                    {tasksEl} 
+                    <List data={props.tasks}
+                          divider={<Space horizontal={props.innerSpace}> <hr /> </Space>}
+                          item={taskEl} />
                 </Accordion>) : null }
         </div>
     )

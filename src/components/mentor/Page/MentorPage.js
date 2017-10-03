@@ -2,31 +2,30 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Card from '@components/_core/Card~'
+import List from '@components/_core/List~'
 import Space from '@components/_core/Space~'
 import H from '@components/_core/Header~'
+import TagList from '@components/_core/TagList~'
 
 import TaskBlock from '@components/task/Block/TaskBlock'
-import TagList from '@components/_core/TagList~'
+import StudentBlock from '@components/student/Block/StudentBlock'
 
 
 import styles from './MentorPage.sass'
 
+const containerOf = type => PropTypes.oneOfType([
+    PropTypes.arrayOf(type),
+    PropTypes.objectOf(type)
+])
+
 const propTypes = {
     name: PropTypes.string.isRequired,
-    contacts: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.string),
-        PropTypes.objectOf(PropTypes.string)
-    ]).isRequired,
+    contacts: containerOf(PropTypes.string).isRequired,
+    fields: containerOf(PropTypes.string).isRequired,
     
-    fields: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.string),
-        PropTypes.objectOf(PropTypes.string)
-    ]).isRequired,
+    tasks: containerOf(PropTypes.object),
+    ex: containerOf(PropTypes.object),
     
-    tasks: PropTypes.oneOfType([
-            PropTypes.arrayOf(PropTypes.object),
-            PropTypes.objectOf(PropTypes.object)
-    ]),
     acceptsOwn: PropTypes.oneOf(['none', 'any', 'inField']),
     hLevel: PropTypes.number,
     innerSpace: PropTypes.string
@@ -34,12 +33,14 @@ const propTypes = {
 
 const defaultProps = {
     hLevel: 2,
+    innerSpace: 'm',
     acceptsOwn: 'none',
-    tasks: []
+    tasks: [],
+    ex: []
 }
 
 const ownToRus = {
-    none: 'Не принимает со поднаучных своей темой исследования',
+    none: 'Не принимает поднаучных со своей темой исследования',
     inField: 'Примает поднаучных со своими исследованиями в его области',
     any: 'Примает поднаучных со своими исследованиями в любой области'
 }
@@ -48,16 +49,11 @@ const MentorPage = props => {
     const contactsEl = <TagList tags={props.contacts} tagProps={{transparent: true}} />
     const fieldsEl = <TagList tags={props.fields} tagProps={{transparent: true}} />
 
-    const tasksEl = props.tasks.map((task, idx) => (
-        <Space top={idx ? 'm' : 0} key={task.title}>
-            <Card> 
-                <TaskBlock {...task} hLevel={5} /> 
-            </Card>
-        </Space>
-    ))
+    const taskCard = props => <Card> <TaskBlock {...props} hLevel={5} /> </Card>
+    const exCard = props => <Card> <StudentBlock {...props} hLevel={5} /> </Card>
 
     return (
-        <Space all={props.innerSpace || 'm'} className={styles.view}>
+        <Space all={props.innerSpace} className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
             <Space bottom='m' />
 
@@ -75,13 +71,27 @@ const MentorPage = props => {
                 <H level={3}> {ownToRus[props.acceptsOwn]} </H>
             </Space>
 
-            { props.tasks.length ? (
-                <Space bottom='0'>
-                    <H level={3}> Предлагаемые задачи </H>
+            <Space bottom='m'>
+                { props.tasks.length ? (
+                    <div>
+                        <H level={3}> Предлагаемые задачи </H>
+                        <Space bottom='s' />
+                        <List data={props.tasks} 
+                                item={taskCard}
+                                divider={<Space top={props.innerSpace} />} />
+                    </div>
+                ) : <H level={3}> Не предлагает задач </H> }
+            </Space>
+
+            { props.ex.length ? (
+                <div>
+                    <H level={3}> Прошлые поднаучные </H>
                     <Space bottom='s' />
-                    {tasksEl}
-                </Space>
-            ) : <H level={3}> Не предлагает задач </H> }
+                    <List data={props.ex}
+                          item={exCard} 
+                          divider={<Space top={props.innerSpace} />} />
+                </div>
+            ) : <H level={3}> Прошлые поднаучные не оставили своих контактов </H> }
         </Space>
     )
 }
