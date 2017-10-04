@@ -9,11 +9,19 @@ class MainStore {
         auth: false,
         type: 'student'
     }
-    @observable selectedFields = []
+    @observable mounted = {}
     constructor() {
-        this.route = new AsyncDataStore()
+        this.nextMountId = 0
+    }
 
-        this.mount = {}
+    mount(subStore) {
+        this.nextMountId++
+        this.mounted[this.nextMountId] = subStore
+        return this.nextMountId
+    }
+
+    unmount(id) {
+        delete this.mounted[id]
     }
 }
 

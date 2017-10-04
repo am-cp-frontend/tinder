@@ -20,14 +20,22 @@ const FindMentor = props => (
         <Space bottom='s' />
 
         <div className={styles.filter}> 
-            <Checkbox id='ownTopic'> Своя тема </Checkbox>
+            <Checkbox id='ownTopic'
+                      checked={props.hasOwnTopicValue}
+                      onChange={props.hasOwnTopicChange}>
+                Своя тема 
+            </Checkbox>
             <TagInput id='FieldOfStudy' 
                       placeholder='Область исследований'
                       className={styles.tagInput} 
                       tags={props.selectedFields} />
         </div>
         <Space bottom='m' />
-        {props.mentors.length ? <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> : 'Loading...'}
+        {
+            props.mentors.length 
+            ? <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> 
+            : 'Таких научруков нет :('
+        }
     </Space>
 )
 

@@ -5,7 +5,12 @@ import styles from './Checkbox.sass'
 
 const propTypes = {
     id: PropTypes.string.isRequired,
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+    onChange: PropTypes.func
+}
+
+const defaultProps = {
+    onChange: e => console.warn('No onchange handler for checkbox')
 }
 
 const Checkbox = props => (
@@ -15,7 +20,8 @@ const Checkbox = props => (
                className={styles.checkbox} 
                
                id={props.id} 
-               checked={props.checked} /> 
+               checked={props.checked}
+               onChange={props.onChange} /> 
         
         <label className={styles.label} htmlFor={props.id}> 
             <div> {props.children} </div>
@@ -24,5 +30,6 @@ const Checkbox = props => (
 )
 
 Checkbox.propTypes = propTypes
+Checkbox.defaultProps = defaultProps
 
 export default Checkbox

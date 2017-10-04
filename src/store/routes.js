@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Route, Switch } from 'react-mobx-router'
+import { Route, Switch, Redirect } from 'react-mobx-router'
 
 import ErrorPage from '@components/_utility/ErrorPage~'
 
@@ -10,9 +10,11 @@ import MentorEdit from '@routes/MentorEdit~'
 
 const Routes = props => (
     <Switch>
-        <Route exact path='/' component={<FindMentor />} />
+        <Route exact path='/find' component={<FindMentor />} />
 
-        <Route path='/mentor/:id/' component={<MentorPage />} />
+        <Route exact path='/mentor/:id/' component={<MentorPage />} />
+
+        <Redirect form='/' to='/find' />
 
         <Route component={<ErrorPage code={404} />} />
     </Switch>

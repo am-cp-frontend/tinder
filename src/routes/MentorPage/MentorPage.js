@@ -2,6 +2,8 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { autorun } from 'mobx'
 
+import { Redirect } from 'react-mobx-router'
+
 import ViewBox from '@components/_utility/ViewBox~'
 import MentorPageView from '@components/mentor/Page/MentorPage'
 
@@ -14,29 +16,32 @@ import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
 export default class MentorPage extends React.Component {
     constructor(props) {
         super(props)
-        
     }
 
     componentWillMount() {
         const store = this.props.store
-        
-        store.mount.mentor = new AsyncDataStore({})
+        this.store = new AsyncDataStore({})
+
+        this.mountId = store.mount(this.store)
 
         //shhoudl use id
-        fetchMentorData(mentorData => store.mount.mentor.load(mentorData))
+        fetchMentorData(mentorData => this.store.load(mentorData))
         
         
         autorun(() => {
-            document.title = store.mount.mentor.data.name || '...'
+            document.title = this.store.data.name || '...'
         })
     }
 
+    componentWillUnmount() {
+        this.props.store.unmount(this.mountId)
+    }
+
     render() {
-        const mentorStore = this.props.store.mount.mentor
+        if(this.store.loaded && this.store.data.error) return <Redirect to='/404/' />
         return (
             <ViewBox>
-                {mentorStore.loaded ? <MentorPageView {...(mentorStore.data)} /> : 'Loading...' }
-
+                {this.store.loaded ? <MentorPageView {...(this.store.data)} /> : 'Loading...' }
             </ViewBox>
         )
     }

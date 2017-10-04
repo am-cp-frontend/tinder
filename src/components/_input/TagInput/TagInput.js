@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
+
 import TagList from '@components/_core/TagList~'
 import Icon from '@components/_utility/Icon~'
 import CloseGlyph from '@icons/close.svg'
-
-import { observer } from 'mobx-react'
-import { observable } from 'mobx'
 
 import styles from './TagInput.sass'
 
@@ -27,7 +27,7 @@ class TagInput extends React.Component {
         this.tags = this.props.tags
 
         this.state = {input: '', focused: false}
-        
+    
         this.focusInput = this.focusInput.bind(this)
         this.handleInput = this.handleInput.bind(this)
         this.handleBlur = this.handleBlur.bind(this)

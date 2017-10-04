@@ -52,7 +52,7 @@ const MentorBlock = observer(props => {
 
     return (
         <div>
-            <Link to={`mentor/${props.id}`} type='block'>
+            <Link to={`/mentor/${props.id}`} type='block'>
                 <Space all={props.innerSpace}>
                     <H level={props.hLevel}> {props.name} </H>
                     <Space bottom='s' />
