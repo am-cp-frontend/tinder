@@ -11,13 +11,13 @@ import styles from './AppBar.sass'
 const AppBar = props => (
     <Space horizontal='m' vertical='s' className={styles.appBar}>
         <nav  className={styles.nav}>
-            <Link route='find' type='block' highlight={true}> 
+            <Link to='/' type='block' highlight={true}> 
                 <Button> Поиск научрука </Button>
             </Link>
             
             <Space left='m' />
             
-            <Link route='find' type='block' highlight={true}> 
+            <Link to='/mentor-edit' type='block' highlight={true}> 
                 <Button> Я — научный руководитель </Button>
             </Link>
         </nav>

@@ -1,45 +1,21 @@
 import React from 'react'
 
-import { Route } from 'mobx-router'
-import { autorun } from 'mobx'
+import { Route, Switch } from 'react-mobx-router'
 
+import ErrorPage from '@components/_utility/ErrorPage~'
 
 import FindMentor from '@routes/FindMentor~'
 import MentorPage from '@routes/MentorPage~'
+import MentorEdit from '@routes/MentorEdit~'
 
-import AsyncDataStore from '@src/store/AsyncDataStore'
+const Routes = props => (
+    <Switch>
+        <Route exact path='/' component={<FindMentor />} />
 
-//stabs
-import {fetchMentors, fetchMentorData} from './fetchStabs.toRemove'
+        <Route path='/mentor/:id/' component={<MentorPage />} />
 
-const routes = {
-    find: new Route({
-        path: '/',
-        component: <FindMentor />,
-        onEnter: (router, params, store) => {
-            store.mount.mentors = new AsyncDataStore([])   
-            fetchMentors(mentorsData => 
-                store.mount.mentors.load(mentorsData))
-            
-            document.title = 'Поиск научрука'
-        }
-    }),
-    mentor: new Route({
-        path: '/mentor/:id',
-        component: <MentorPage />,
-        onEnter: (router, params, store) => {
-            store.mount.mentor = new AsyncDataStore({
-                name: 'Loading...'
-            })
-            fetchMentorData(mentorData => 
-                    store.mount.mentor.load(mentorData))
-            
-            
-            autorun(() => {
-                document.title = store.mount.mentor.data.name
-            })
-        }
-    })
-}
+        <Route component={<ErrorPage code={404} />} />
+    </Switch>
+)
 
-export default routes
+export default Routes
