@@ -5894,10 +5894,6 @@ react-komposer@^2.0.0:
     react-stubber "^1.0.0"
     shallowequal "^0.2.2"
 
-react-lite@^0.15.39:
-  version "0.15.39"
-  resolved "https://registry.yarnpkg.com/react-lite/-/react-lite-0.15.39.tgz#6b505450ce029e58fb8c0a71df96b79433e28639"
-
 react-mobx-router@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/react-mobx-router/-/react-mobx-router-0.8.1.tgz#150939677a14b6f6f2c8ecec745d0f5159cc85db"

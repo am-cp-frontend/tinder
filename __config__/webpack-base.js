@@ -11,7 +11,7 @@ module.exports = {
     //input
     entry: {
         app: paths.entry,
-        vendor: ['react-lite',
+        vendor: ['react', 'react-dom',
                  'prop-types', 'classnames',
                  'mobx', 'mobx-react', 'react-mobx-router']
     },
@@ -24,13 +24,6 @@ module.exports = {
             require('./rules/svg')(__dirname),
             require('./rules/css')(__dirname)
         ]
-    },
-
-    resolve: {
-        alias: {
-            'react': 'react-lite',
-            'react-dom': 'react-lite'
-        }
     },
 
     //output

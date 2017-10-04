@@ -37,7 +37,6 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-lite": "^0.15.39",
     "react-mobx-router": "^0.8.1",
     "react-router": "^4.2.0",
     "sass-loader": "^6.0.6",
