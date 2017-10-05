@@ -8,8 +8,10 @@ class FindMentorStore extends AsyncDataStore {
     @computed get mentors() {
         return this.data
     }
-
+    
     @computed get stortedMentors() {
+        if(!this.hasOwnTopic && this.selectedFields.length === 0) return this.mentors
+        
         const fullDataMentors = this.mentors.map(mentorData => {
             let inField = this.selectedFields.length === 0
             let hasTasks = mentorData.tasks.length > 0

@@ -58,3 +58,8 @@ export const fetchMentorData = cb => setTimeout(() => cb({
         contacts: ['seva.trofimov2@gmail.com', 'vk.com/v-trof']
     }]
 }), LOADTIME)
+
+export const auth = cb => setTimeout(() => cb({
+    token: '24x541fd',
+    type: 'mentor'
+}), LOADTIME)

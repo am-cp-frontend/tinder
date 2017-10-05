@@ -40,7 +40,7 @@ export default class MentorPage extends React.Component {
     render() {
         if(this.store.loaded && this.store.data.error) return <Redirect to='/404/' />
         return (
-            <ViewBox>
+            <ViewBox center='horizontal'>
                 {this.store.loaded ? <MentorPageView {...(this.store.data)} /> : 'Loading...' }
             </ViewBox>
         )

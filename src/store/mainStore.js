@@ -7,8 +7,10 @@ import AsyncDataStore from './AsyncDataStore'
 class MainStore {
     @observable user = {
         auth: false,
-        type: 'student'
+        type: 'student',
+        token: ''
     }
+    @observable notifications = []
     @observable mounted = {}
     constructor() {
         this.nextMountId = 0

@@ -91,7 +91,7 @@ class FindMentor extends React.Component {
 
     render() {
         return (
-            <ViewBox>
+            <ViewBox center='horizontal'>
                 <FindMentorView mentors={this.store.stortedMentors}
                                 hasOwnTopicValue={this.store.hasOwnTopic}
                                 hasOwnTopicChange={this.hasOwnTopicChange}

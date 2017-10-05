@@ -12,14 +12,14 @@ import styles from './AppBar.sass'
 const NavBlock ={
     student: user => (
         <nav  className={styles.nav}>
-            <Link to='/' type='block' highlight={true}> 
+            <Link to='/find/' type='block' highlight={true}> 
                 <Button> Поиск научрука </Button>
             </Link>
     
             <Space left='m' />
     
-            <Link to='/mentor-edit' type='block' highlight={true}> 
-                <Button> Я — научный руководитель </Button>
+            <Link to='/login/' type='block' highlight={true}> 
+                <Button> Войти как научрук </Button>
             </Link>
         </nav>
     )

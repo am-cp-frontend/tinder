@@ -15,12 +15,14 @@ const TextInput = props => {
     
     return (
         <div className={classes}>
-            <input type={type} id={props.id} className={styles.input} placeholder={props.placeholder} />
-            <div className={styles.border} />
-
             <label className={styles.label} htmlFor={props.id}> 
-                <div> {props.children} </div>
+                {props.children}
             </label>
+
+            <div className={styles.inputWrapper}>
+                <input type={type} id={props.id} className={styles.input} placeholder={props.placeholder} />
+                <div className={styles.border} />
+            </div>
         </div>
     )
 }
