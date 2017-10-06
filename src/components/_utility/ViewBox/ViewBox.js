@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import Space from '@components/_core/Space~'
 import styles from './ViewBox.sass'
 
 
@@ -21,8 +22,10 @@ const ViewBox = props => {
         <div className={classNames(styles.viewBox, {
             [styles.centerHoriz]: centerHoriz,
             [styles.centerVert]: centerVert,
-        })}> 
-         {props.children} 
+        })}>
+            <Space top='m' />
+            {props.children}
+            <Space bottom='m' />
         </div>
     )
 }

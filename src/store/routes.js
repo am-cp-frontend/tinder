@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-mobx-router'
 import ErrorPage from '@components/_utility/ErrorPage~'
 
 import Login from '@routes/Login~'
+import Logout from '@routes/Logout~'
 import FindMentor from '@routes/FindMentor~'
 import MentorPage from '@routes/MentorPage~'
 import MentorEdit from '@routes/MentorEdit~'
@@ -13,6 +14,7 @@ const Routes = props => (
     <Switch>
         <Redirect exact form='/' to='/find/' />
         <Route exact path='/login/' component={<Login />} />
+        <Route exact path='/logout/' component={<Logout />} />
     
         <Route exact path='/find/' component={<FindMentor />} />
         <Route exact path='/mentor/:id/' component={<MentorPage />} />

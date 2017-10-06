@@ -16,7 +16,6 @@ const App = () => (
         <Provider store={store}>
             <div className={styles.app}>
                 <Routes />
-                <Space vertical='xl' />
                 <AppBar />
             </div>
         </Provider>

@@ -53,7 +53,7 @@ const MentorPage = props => {
     const exCard = props => <Card> <StudentBlock {...props} hLevel={5} /> </Card>
 
     return (
-        <Space all={props.innerSpace} className={styles.view}>
+        <div className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
             <Space bottom='m' />
 
@@ -92,7 +92,7 @@ const MentorPage = props => {
                           divider={<Space top={props.innerSpace} />} />
                 </div>
             ) : <H level={3}> Прошлые поднаучные не оставили своих контактов </H> }
-        </Space>
+        </div>
     )
 }
 

@@ -15,7 +15,7 @@ import styles from './FindMentor.sass'
 const MentorCard = props => <Card> <MentorBlock {...props} hLevel={4} /> </Card>
 
 const FindMentor = props => (
-    <Space all='m' className={styles.view}> 
+    <div className={styles.view}>
         <h2> Поиск научрука </h2>
         <Space bottom='s' />
 
@@ -36,7 +36,7 @@ const FindMentor = props => (
             ? <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> 
             : 'Таких научруков нет :('
         }
-    </Space>
+    </div>
 )
 
 export default FindMentor

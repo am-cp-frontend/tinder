@@ -11,30 +11,31 @@ import styles from './Login.sass'
 
 const Login = props => (
     <Card> 
-        <Space all='m' className={styles.host}> 
-            <H level={2}> Вход </H>
-            <table><tbody>
-                <tr>
-                    <td> <Space right='xs'> SPBU login </Space> </td>
-                    <td> 
-                        <TextInput id='login' 
-                                   placeholder='как в BlackBoard' /> 
-                    </td>
-                </tr>
-                <tr>
-                    <td> <Space right='xs'> Пароль </Space> </td>
-                    <td> 
-                        <TextInput type='password'
-                                   id='pass'
-                                   placeholder='как в BlackBoard' />
-                    </td>
-                </tr>
-            </tbody></table>
-            <Space bottom='s' />
-            <div>
-                <Button> Войти </Button>
-            </div>
-        </Space>
+    <Space all='m' className={styles.host}> 
+        <H level={2}> Вход </H>
+        <Space bottom='xxs' />
+        <table><tbody>
+            <tr>
+                <td> <Space right='xs'> SPBU login </Space> </td>
+                <td> 
+                    <TextInput id='login' 
+                                placeholder='как в BlackBoard' /> 
+                </td>
+            </tr>
+            <tr>
+                <td> <Space right='xs'> Пароль </Space> </td>
+                <td> 
+                    <TextInput type='password'
+                                id='pass'
+                                placeholder='как в BlackBoard' />
+                </td>
+            </tr>
+        </tbody></table>
+        <Space bottom='s' />
+        <div>
+            <Button> Войти </Button>
+        </div>
+    </Space>
     </Card>
 )
 

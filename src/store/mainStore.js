@@ -4,10 +4,13 @@ import {observable} from 'mobx'
 
 import AsyncDataStore from './AsyncDataStore'
 
+const defaultUserType = 'student'
+
 class MainStore {
     @observable user = {
         auth: false,
-        type: 'student',
+        defaultType: defaultUserType,
+        type: defaultUserType,
         token: ''
     }
     @observable notifications = []
