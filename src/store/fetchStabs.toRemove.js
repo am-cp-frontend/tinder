@@ -59,7 +59,18 @@ export const fetchMentorData = cb => setTimeout(() => cb({
     }]
 }), LOADTIME)
 
-export const auth = cb => setTimeout(() => cb({
-    token: '24x541fd',
-    type: 'mentor'
-}), LOADTIME)
+export const auth = (data, cb) => {
+    console.log(data)
+    if(data.login === 'err') {
+        setTimeout(() => cb({
+            error: 'wrong login',
+            message: 'Такой пары логин \\ пароль нет'
+        }), LOADTIME)
+        return false
+    }
+    
+    setTimeout(() => cb({
+        token: '24x541fd',
+        type: 'mentor'
+    }), LOADTIME)
+}

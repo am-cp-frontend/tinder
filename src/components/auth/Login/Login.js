@@ -18,8 +18,12 @@ const Login = props => (
             <tr>
                 <td> <Space right='xs'> SPBU login </Space> </td>
                 <td> 
-                    <TextInput id='login' 
-                                placeholder='как в BlackBoard' /> 
+                    <TextInput id='login'
+                               onChange={props.handleLoginChange}
+                               onKeyUp={[
+                                    {key: 13, cb: props.onSubmit}
+                                ]}
+                               placeholder='как в BlackBoard' /> 
                 </td>
             </tr>
             <tr>
@@ -27,13 +31,17 @@ const Login = props => (
                 <td> 
                     <TextInput type='password'
                                 id='pass'
+                                onChange={props.handlePasswordChange}
+                                onKeyUp={[
+                                    {key: 13, cb: props.onSubmit}
+                                ]}
                                 placeholder='как в BlackBoard' />
                 </td>
             </tr>
         </tbody></table>
         <Space bottom='s' />
         <div>
-            <Button> Войти </Button>
+            <Button onClick={props.onSubmit}> Войти </Button>
         </div>
     </Space>
     </Card>

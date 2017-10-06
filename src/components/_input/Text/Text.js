@@ -6,7 +6,19 @@ import styles from './Text.sass'
 const propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
+}
+
+const defaultProps = {
+    onChange: () => {}
+}
+
+
+const composeKeyHandler = reactions => e => {
+    reactions.forEach(reaction => {
+        if(e.which === reaction.key) reaction.cb(e)
+    })
 }
 
 const TextInput = props => {
@@ -20,7 +32,12 @@ const TextInput = props => {
             </label>
 
             <div className={styles.inputWrapper}>
-                <input type={type} id={props.id} className={styles.input} placeholder={props.placeholder} />
+                <input type={type} 
+                       id={props.id}
+                       className={styles.input}
+                       onChange={props.onChange}
+                       onKeyUp={composeKeyHandler(props.onKeyUp)}
+                       placeholder={props.placeholder} />
                 <div className={styles.border} />
             </div>
         </div>
