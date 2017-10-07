@@ -21,6 +21,7 @@ const FindMentor = props => (
 
         <div className={styles.filter}> 
             <Checkbox id='ownTopic'
+                      autoFocus
                       checked={props.hasOwnTopicValue}
                       onChange={props.hasOwnTopicChange}>
                 Своя тема 

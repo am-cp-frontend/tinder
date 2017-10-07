@@ -13,7 +13,7 @@ hr
     height: $border-width-s
     background: $border-color-main
 
-button, input
+button, input, select, option
     background: none
     border: 0
     padding: 0
@@ -21,7 +21,13 @@ button, input
     font-size: $font-size-m
     font-family: $font-main
     font-weight: $font-weight-light
+    color: $font-color-main
 
+select, option
+    padding: $space-xxs $space-s
+    background: $bg-main 
+    &:focus
+        outline: $border-width-m solid $border-color-main
 .app
     display: flex
     flex-direction: column
@@ -36,6 +42,10 @@ button, input
     box-sizing: border-box
     // used to check quality
     // background: rgba(0, 0, 255, .05) !important
+
+*[tabindex='-1']
+    &:focus, &:hover
+        border: $border-width-m solid transparent
 
 @media (max-width: 600px)
     html

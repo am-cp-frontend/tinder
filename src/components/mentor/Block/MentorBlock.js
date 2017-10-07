@@ -13,6 +13,7 @@ import Link from '@components/_core/Link~'
 
 import TaskBlock from '@components/task/Block/TaskBlock'
 
+import styles from './MentorBlock.sass'
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -42,6 +43,8 @@ const defaultProps = {
     innerSpace: 'm'
 }
 
+const TaskDivider = props => <Space horizontal={props.innerSpace}> <hr /> </Space>
+
 const MentorBlock = observer(props => {
     
     const contactsEl = <TagList tags={props.contacts} tagProps={{transparent: true}} />
@@ -53,7 +56,7 @@ const MentorBlock = observer(props => {
     return (
         <div>
             <Link to={`/mentor/${props.id}`} type='block'>
-                <Space all={props.innerSpace}>
+                <div className={styles.linkInnerSpace}>
                     <H level={props.hLevel}> {props.name} </H>
                     <Space bottom='s' />
 
@@ -62,15 +65,16 @@ const MentorBlock = observer(props => {
                     <Space bottom='s' />
                     
                     {fieldsEl}
-                </Space>
+                </div>
             </Link>
             
             { props.tasks.length ? (
                 <Accordion toExpandBtn='Показать предлагаемые темы исследований' 
                            togglePos='after'
-                           expanded={props.expandAllTasks}> 
+                           expanded={props.expandAllTasks}>
+                    <TaskDivider innerSpace={props.innerSpace} />
                     <List data={props.tasks}
-                          divider={<Space horizontal={props.innerSpace}> <hr /> </Space>}
+                          divider={<TaskDivider innerSpace={props.innerSpace} />}
                           item={taskEl} />
                 </Accordion>) : null }
         </div>

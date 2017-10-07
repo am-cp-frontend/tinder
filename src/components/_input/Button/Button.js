@@ -13,7 +13,11 @@ const Button = props => {
     })
 
     return (
-        <button onClick={props.onClick} id={props.id} className={classes}> 
+        <button 
+            id={props.id}
+            className={classes}
+            tabIndex={props.tabIndex}
+            onClick={props.onClick}>
             {props.children}
         </button>
     )

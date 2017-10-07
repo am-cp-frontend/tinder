@@ -3,10 +3,9 @@ import { inject, observer } from 'mobx-react'
 import { autorun, untracked } from 'mobx'
 
 import ViewBox from '@components/_utility/ViewBox~'
+import Spinner from '@components/_utility/Spinner~'
 import FindMentorView from '@components/mentor/Find/FindMentor'
 import FindMentorStore from './FindMentorStore'
-
-
 
 //stabs
 import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
@@ -90,14 +89,22 @@ class FindMentor extends React.Component {
     }
 
     render() {
-        return (
-            <ViewBox center='horizontal'>
-                <FindMentorView mentors={this.store.stortedMentors}
-                                hasOwnTopicValue={this.store.hasOwnTopic}
-                                hasOwnTopicChange={this.hasOwnTopicChange}
-                                selectedFields={this.store.selectedFields} />
-            </ViewBox>
-        )
+        if(this.store.loaded) {
+            return (
+                <ViewBox center='horizontal'>
+                    <FindMentorView mentors={this.store.stortedMentors}
+                                    hasOwnTopicValue={this.store.hasOwnTopic}
+                                    hasOwnTopicChange={this.hasOwnTopicChange}
+                                    selectedFields={this.store.selectedFields} />
+                </ViewBox>
+            )
+        } else {
+            return (
+                <ViewBox center='horizontal'>
+                    <Spinner />
+                </ViewBox>
+            )
+        }
     }
 }
 

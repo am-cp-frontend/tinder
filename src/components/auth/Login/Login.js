@@ -19,6 +19,7 @@ const Login = props => (
                 <td> <Space right='xs'> SPBU login </Space> </td>
                 <td> 
                     <TextInput id='login'
+                               autoFocus
                                onChange={props.handleLoginChange}
                                onKeyUp={[
                                     {key: 13, cb: props.onSubmit}

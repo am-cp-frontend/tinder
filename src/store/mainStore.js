@@ -11,7 +11,8 @@ class MainStore {
         auth: false,
         defaultType: defaultUserType,
         type: defaultUserType,
-        token: ''
+        token: '',
+        destination: ''
     }
     @observable notifications = []
     @observable mounted = {}

@@ -10,18 +10,27 @@ const propTypes = {
 }
 
 const defaultProps = {
+    name: '0',
+    tabIndex: '0',
     onChange: e => console.warn('No onchange handler for checkbox')
+}
+
+const handleKeyUp = e => {
+    if(e.which === 13) e.target.click()
 }
 
 const Checkbox = props => (
     <div className={styles.host}>
         <input type='checkbox' 
-               tabIndex='0'
+               name={props.group}
+               tabIndex={props.tabIndex}
                className={styles.checkbox} 
                
                id={props.id} 
                checked={props.checked}
-               onChange={props.onChange} /> 
+               onChange={props.onChange}
+               onKeyUp={handleKeyUp}
+               autoFocus={props.autoFocus} /> 
         
         <label className={styles.label} htmlFor={props.id}> 
             <div> {props.children} </div>

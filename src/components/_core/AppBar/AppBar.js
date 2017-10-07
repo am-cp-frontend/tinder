@@ -13,26 +13,26 @@ const NavBlock ={
     student: user => (
         <nav  className={styles.nav}>
             <Link to='/find/' type='block'> 
-                <Button> Поиск научрука </Button>
+                <Button tabIndex='-1'> Поиск научрука </Button>
             </Link>
     
             <Space left='m' />
     
-            <Link to='/login/' type='block'> 
-                <Button> Войти как научрук </Button>
+            <Link to='/mentor-edit/' type='block'> 
+                <Button tabIndex='-1'> Я &mdash; научый руководитель </Button>
             </Link>
         </nav>
     ),
     mentor: user => (
         <nav  className={styles.nav}>
             <Link to='/mentor-edit/' type='block'> 
-                <Button> Редактировать данные о себе </Button>
+                <Button tabIndex='-1'> Редактировать данные о себе </Button>
             </Link>
     
             <Space left='m' />
     
             <Link to='/logout/' type='block' highlight={true}> 
-                <Button> Выйти </Button>
+                <Button tabIndex='-1'> Выйти </Button>
             </Link>
         </nav>
     ),

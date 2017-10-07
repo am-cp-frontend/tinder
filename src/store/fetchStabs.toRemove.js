@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LOADTIME = 0
+const LOADTIME = 1000 * 0
 
 //stabs
 export const fetchMentors = cb => setTimeout(() => cb([{

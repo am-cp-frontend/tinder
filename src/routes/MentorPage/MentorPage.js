@@ -5,6 +5,7 @@ import { autorun } from 'mobx'
 import { Redirect } from 'react-mobx-router'
 
 import ViewBox from '@components/_utility/ViewBox~'
+import Spinner from '@components/_utility/Spinner~'
 import MentorPageView from '@components/mentor/Page/MentorPage'
 
 import AsyncDataStore from '@src/store/AsyncDataStore'
@@ -41,7 +42,7 @@ export default class MentorPage extends React.Component {
         if(this.store.loaded && this.store.data.error) return <Redirect to='/404/' />
         return (
             <ViewBox center='horizontal'>
-                {this.store.loaded ? <MentorPageView {...(this.store.data)} /> : 'Loading...' }
+                {this.store.loaded ? <MentorPageView {...(this.store.data)} /> : <Spinner /> }
             </ViewBox>
         )
     }

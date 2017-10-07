@@ -15,7 +15,20 @@ class LoginStore {
     @observable password = ''
 }
 
-@inject('store')
+const handleLogin = (authData, userStore, historyStore) => {
+    userStore.auth = true
+    userStore.type = authData.type
+    userStore.token = authData.token
+
+    if(userStore.destination) {
+        historyStore.push(userStore.destination)
+        userStore.destination = ''
+    } else {
+        historyStore.push('/mentor-edit')
+    }
+}
+
+@inject('store', 'history')
 class AuthRoute extends React.Component {
     constructor(props) { 
         super(props)
@@ -30,20 +43,21 @@ class AuthRoute extends React.Component {
     }
 
     attemptLogin() {
-        const mainStore = this.props.store
-        console.log('trying to log in w/', this.store)
-
         auth({
             login: this.store.login,
             password: this.store.password,
         }, data => {
-            console.log(data)
-            if(data.error) 
-                return mainStore.notifications.push({type: 'error', message: data.message})
-            
-                mainStore.user.auth = true
-            mainStore.user.type = data.type
-            mainStore.user.token = data.token
+            if(data.error) {
+                return mainStore.notifications.push({
+                    type: 'error', message: data.message
+                })
+            } 
+
+            handleLogin(
+                data,
+                this.props.store.user,
+                this.props.history,
+            )
         })
 
         return false

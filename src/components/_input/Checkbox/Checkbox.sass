@@ -7,7 +7,8 @@ $checkbox-size: $space-m + $space-xxs - $border-width-m
 
 
 .checkbox
-    display: none
+    position: absolute
+    opacity: 0
 
 
 .label
@@ -28,8 +29,12 @@ $checkbox-size: $space-m + $space-xxs - $border-width-m
     border: $border-width-m solid transparent
 
     .checkbox:checked + &
-        background: $bg-accent
+        background: $bg-accent-fallback
 
 .label:hover, .checkbox:focus + .label
     &:before
         border-color: $border-color-main
+
+.checkbox:checked:focus + .label:before
+    border-color: transparent
+    box-shadow: inset 0 0 0 $border-width-m $bg-solid, inset 0 0 0 $border-width-m*2 $bg-accent-fallback

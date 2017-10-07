@@ -100,7 +100,8 @@ class TagInput extends React.Component {
                             onKeyUp={this.handleInput} 
                             onFocus={e => this.setState({focused: true})}
                             onBlur={this.handleBlur}
-                            ref={el => this.textInput = el} />
+                            ref={el => this.textInput = el}
+                            autoFocus={this.props.autoFocus} />
                     </TagList>
                     <div className={borderClasses} />
                 </div>

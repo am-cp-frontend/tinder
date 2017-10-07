@@ -15,11 +15,13 @@ const defaultProps = {
 }
 
 
-const composeKeyHandler = reactions => e => {
-    reactions.forEach(reaction => {
-        if(e.which === reaction.key) reaction.cb(e)
-    })
-}
+const composeKeyHandler = reactions => reactions ? 
+    e => {
+        reactions.forEach(reaction => {
+            if(e.which === reaction.key) reaction.cb(e)
+        })
+    } 
+    : () => {}
 
 const TextInput = props => {
     const type = props.type || 'text'
@@ -35,9 +37,11 @@ const TextInput = props => {
                 <input type={type} 
                        id={props.id}
                        className={styles.input}
+                       defaultValue={props.value}
                        onChange={props.onChange}
-                       onKeyUp={composeKeyHandler(props.onKeyUp)}
-                       placeholder={props.placeholder} />
+                       onKeyDown={composeKeyHandler(props.onKeyUp)}
+                       placeholder={props.placeholder}
+                       autoFocus={props.autoFocus} />
                 <div className={styles.border} />
             </div>
         </div>
