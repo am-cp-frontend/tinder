@@ -2,8 +2,6 @@ import React from 'react'
 
 import {observable} from 'mobx'
 
-import AsyncDataStore from './AsyncDataStore'
-
 const defaultUserType = 'student'
 
 class MainStore {

@@ -39,7 +39,6 @@ export default class MentorEdit extends React.Component {
     }
 
     render() {
-        console.log('mentorEdit')
         const user = this.props.store.user
 
         if( ! user.auth || ! user.type === 'mentor') {
