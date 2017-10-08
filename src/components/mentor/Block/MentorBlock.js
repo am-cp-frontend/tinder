@@ -28,8 +28,8 @@ const propTypes = {
     ]).isRequired,
     
     tasks: PropTypes.oneOfType([
-            PropTypes.arrayOf(PropTypes.object),
-            PropTypes.objectOf(PropTypes.object)
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.objectOf(PropTypes.string)
     ]),
     hLevel: PropTypes.number,
     expandAllTasks: PropTypes.bool,

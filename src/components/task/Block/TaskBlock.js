@@ -4,6 +4,12 @@ import PropTypes from 'prop-types'
 import H from '@components/_core/Header~'
 import Space from '@components/_core/Space~'
 
+const propTypes = {
+    title: PropTypes.string.isRequired,
+    skills: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired
+}
+
 const TaskBlock = props => (
     <Space all={props.innerSpace || 'm'}>
          <H level={props.hLevel}> {props.title} </H>
@@ -21,10 +27,6 @@ const TaskBlock = props => (
     </Space>
 )
 
-TaskBlock.propTypes = {
-    title: PropTypes.string.isRequired,
-    skills: PropTypes.element.isRequired,
-    desc: PropTypes.element.isRequired
-}
+TaskBlock.propTypes = propTypes
 
 export default TaskBlock

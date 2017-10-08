@@ -23,7 +23,7 @@ const propTypes = {
     contacts: containerOf(PropTypes.string).isRequired,
     fields: containerOf(PropTypes.string).isRequired,
     
-    tasks: containerOf(PropTypes.object),
+    tasks: containerOf(PropTypes.string),
     ex: containerOf(PropTypes.object),
     
     acceptsOwn: PropTypes.oneOf(['none', 'any', 'inField']),

@@ -25,12 +25,12 @@ export const fetchMentors = cb => setTimeout(() => cb([{
     contacts: ['best@apmath.spbu','447 каб.'],
     tasks: [{
         title: "Восстановление параметров модели морского подвижного объекта",
-        desc: <div>  Надо будет... </div>,
-        skills: <div> Fluid Dynamics, OpenGL, Cuda </div>
+        desc:  'Надо будет...',
+        skills: 'Fluid Dynamics, OpenGL, Cuda'
     }, {
         title: "Алгоритм классификации графов заданного порядка",
-        desc: <div> Из названия понятно </div>,
-        skills: <div> Графы, любой язык программирования </div>
+        desc:  'Из названия понятно',
+        skills: 'Графы, любой язык программирования'
     }]
 }]), LOADTIME)
 
@@ -43,12 +43,12 @@ export const fetchMentorData = cb => setTimeout(() => cb({
     contacts: ['best@apmath.spbu','447 каб.'],
     tasks: [{
         title: "Восстановление параметров модели морского подвижного объекта",
-        desc: <div>  Надо будет... </div>,
-        skills: <div> Fluid Dynamics, OpenGL, Cuda </div>
+        desc:  'Надо будет...',
+        skills: 'Fluid Dynamics, OpenGL, Cuda'
     }, {
         title: "Алгоритм классификации графов заданного порядка",
-        desc: <div> Из названия понятно </div>,
-        skills: <div> Графы, любой язык программирования </div>
+        desc:  'Из названия понятно',
+        skills: 'Графы, любой язык программирования'
     }],
     ex: [{
         name: 'Трофимов Всеволод',

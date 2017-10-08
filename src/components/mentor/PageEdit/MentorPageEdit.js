@@ -8,6 +8,7 @@ import H from '@components/_core/Header~'
 
 import Button from '@components/_input/Button~'
 import TextInput from '@components/_input/Text~'
+import RichEditor from '@components/_input/RTE~'
 import TagInput from '@components/_input/TagInput~'
 
 
@@ -23,7 +24,7 @@ const propTypes = {
     contacts: containerOf(PropTypes.string).isRequired,
     fields: containerOf(PropTypes.string).isRequired,
     
-    tasks: containerOf(PropTypes.object),
+    tasks: containerOf(PropTypes.string),
     
     acceptsOwn: PropTypes.oneOf(['none', 'any', 'inField']),
     hLevel: PropTypes.number,
@@ -50,18 +51,22 @@ const TaskEl = props => (
         <Space bottom='m'>
             <H level={6}> Заголовок задачи </H>
             <TextInput id={'task-'+props.key} 
-                       value={props.title} 
+                       defaultValue={props.title} 
                        placeholder='Например: Алгоритм классификации графов заданного порядка' />
         </Space>
 
         <Space bottom='m'>
-            <H level={6}> Необходимые навыки </H>
-            ...desc editor
+            <H level={6}> Описание задачи </H>
+            <RichEditor id={'desc'+props.key}
+                        defaultValue={props.desc}
+                        placeholder='bla' />
         </Space>
 
         <Space bottom='m'>
             <H level={6}> Необходимые навыки </H>
-            ...skills editor
+            <RichEditor id={'skills'+props.key} 
+                        defaultValue={props.skills}
+                        placeholder='bla' />
         </Space>
 
         <Button> Удалить </Button>
@@ -88,7 +93,7 @@ const MentorPageEdit = props => {
 
             <Space bottom='m'>
                 <H level={3}> ФИО </H>
-                <TextInput id='fullName' value={props.name} autofocus /> 
+                <TextInput id='fullName' defaultValue={props.name} autofocus /> 
             </Space>
         
             <Space bottom='m'>
