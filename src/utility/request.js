@@ -53,4 +53,4 @@ const request = (req, dataStore, options) => {
     return dataStore
 }
 
-export default 
+export default request

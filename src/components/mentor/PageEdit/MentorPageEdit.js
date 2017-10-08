@@ -6,9 +6,9 @@ import List from '@components/_core/List~'
 import Space from '@components/_core/Space~'
 import H from '@components/_core/Header~'
 
+import Button from '@components/_input/Button~'
 import TextInput from '@components/_input/Text~'
 import TagInput from '@components/_input/TagInput~'
-
 
 
 import styles from './MentorPageEdit.sass'
@@ -44,6 +44,31 @@ const ownToRus = {
     any: 'В любой области'
 }
 
+const TaskEl = props => (
+    <Card>
+    <Space all='m'>
+        <Space bottom='m'>
+            <H level={6}> Заголовок задачи </H>
+            <TextInput id={'task-'+props.key} 
+                       value={props.title} 
+                       placeholder='Например: Алгоритм классификации графов заданного порядка' />
+        </Space>
+
+        <Space bottom='m'>
+            <H level={6}> Необходимые навыки </H>
+            ...desc editor
+        </Space>
+
+        <Space bottom='m'>
+            <H level={6}> Необходимые навыки </H>
+            ...skills editor
+        </Space>
+
+        <Button> Удалить </Button>
+    </Space>
+    </Card>
+)
+
 const MentorPageEdit = props => {
     const acceptsOwnEl = []
     for(let option in ownToRus) {
@@ -54,6 +79,7 @@ const MentorPageEdit = props => {
         )
     }
     
+    
     return (
         <div className={styles.view}>
             <Space bottom='m'>
@@ -62,14 +88,11 @@ const MentorPageEdit = props => {
 
             <Space bottom='m'>
                 <H level={3}> ФИО </H>
-                {/* <Space bottom='xxs' /> */}
-                <TextInput id='fullName' value={props.name} autofocus> 
-                </TextInput> 
+                <TextInput id='fullName' value={props.name} autofocus /> 
             </Space>
         
             <Space bottom='m'>
                 <H level={3}> Контакты </H>
-                {/* <Space bottom='xxs' /> */}
                 <TagInput tags={props.contacts} tagProps={{transparent: true}} />
             </Space>
 
@@ -91,7 +114,24 @@ const MentorPageEdit = props => {
             <Space bottom='m'>
                 <H level={3}> Задачи для поднаунчных </H> 
                 <Space bottom='xs' />
-                ...Tasks
+                
+                <List data={props.tasks} 
+                      divider={<hr />}
+                      item={TaskEl} />
+                <Space bottom='m' />
+
+                <Button> Добавить задачу </Button> 
+            </Space>
+
+            <Space bottom='0'>
+                <H level={3}> Сохранить изменения? </H> 
+                <Space bottom='xs' />
+                <div className={styles.row}>
+                    <Space right='s'>
+                        <Button> Да </Button> 
+                    </Space>
+                    <Button> Вернуть как было </Button>
+                </div>
             </Space>
             
         </div>
