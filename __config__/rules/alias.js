@@ -10,13 +10,15 @@ module.exports = function (__dirname) {
             loader: 'universal-alias-loader',
             options: {
                 alias: {
-                    "@common": paths.common,
-                    "@src": paths.src,
-                    "@stories": paths.stories,
-                    "@icons": path.join(paths.src, 'icons'),
-                    "@routes": path.join(paths.src, 'routes'),
-                    "@utility": path.join(paths.src, 'utility'),
-                    "@components": path.join(paths.src, 'components'),
+                    '@common': paths.common,
+                    '@src': paths.src,
+                    '@server': path.join(paths.root, 'server'),
+                    '@store': path.join(paths.src, 'store'),
+                    '@stories': paths.stories,
+                    '@icons': path.join(paths.src, 'icons'),
+                    '@routes': path.join(paths.src, 'routes'),
+                    '@utility': path.join(paths.src, 'utility'),
+                    '@components': path.join(paths.src, 'components'),
                     '@thisView': (alias, foundPath, filePath) => {
                         let splitFilePath = filePath.split(path.sep)
                         let pagePath = splitFilePath.slice(0, splitFilePath.indexOf('views') + 2).join('/')

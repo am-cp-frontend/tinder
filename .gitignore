@@ -28,3 +28,5 @@ build/Release
 node_modules
 
 __config__/\.rempl_endpoint_id
+
+server/db/

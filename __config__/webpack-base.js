@@ -12,7 +12,7 @@ module.exports = {
     entry: {
         app: paths.entry,
         vendor: ['react', 'react-dom',
-                 'prop-types', 'classnames',
+                 'prop-types', 'classnames', 'history', 'deepCopy', 'buffer', 'fbjs',
                  'mobx', 'mobx-react', 'react-mobx-router']
     },
 
