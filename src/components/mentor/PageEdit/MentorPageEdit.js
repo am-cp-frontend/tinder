@@ -82,7 +82,7 @@ const MentorPageEdit = props => {
                 <TextInput id='fullName' 
                            value={props.name}
                            onChange={props.handleNameChange}
-                           autofocus /> 
+                           autoFocus /> 
             </Space>
         
             <Space bottom='m'>

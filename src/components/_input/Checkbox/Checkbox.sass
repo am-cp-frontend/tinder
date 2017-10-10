@@ -1,9 +1,12 @@
 @import '@utility/vars.sass'
 
 $checkbox-size: $space-m + $space-xxs - $border-width-m
+$checkbox-padding: $border-width-m
+$checkbox-inner-size: $checkbox-size - $checkbox-padding * 2
 
 .host
     display: flex
+    position: relative
 
 
 .checkbox
@@ -16,25 +19,45 @@ $checkbox-size: $space-m + $space-xxs - $border-width-m
     flex-direction: row
     align-items: center
 
-.label:before
-    display: block
-    content: ''
-    height: $checkbox-size
-    width: $checkbox-size
-    
-    margin-right: $space-xxs
+    &:before
+        display: block
+        content: ''
+        height: $checkbox-size
+        width: $checkbox-size
+        
+        margin-right: $space-xxs
 
-    background: $bg-main-small
-    
-    border: $border-width-m solid transparent
+        background: $bg-main-small
+        
+        border: $border-width-m solid transparent
 
-    .checkbox:checked + &
-        background: $bg-accent-fallback
+        .checkbox:checked + &
+            background: $bg-accent
+    &:after
+        display: block
+        content: ''
+        
+        position: absolute
+        left: $checkbox-padding
+
+
+        height: $checkbox-inner-size
+        width: $checkbox-inner-size
+
+        border: $border-width-m solid tranparent
+        background: transparent
+
+        .checkbox:checked + &
+            border: $border-width-m solid $bg-solid
 
 .label:hover, .checkbox:focus + .label
     &:before
         border-color: $border-color-main
 
-.checkbox:checked:focus + .label:before
-    border-color: transparent
-    box-shadow: inset 0 0 0 $border-width-m $bg-solid, inset 0 0 0 $border-width-m*2 $bg-accent-fallback
+
+
+.checkbox:checked:focus
+    & + .label:after
+        background: $border-color-main
+        
+
