@@ -62,6 +62,10 @@ class TagInput extends React.Component {
         this.reset()
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.tags = nextProps.tags
+    }
+
     render() {
         const hostClasses = classNames(styles.host, {
             [this.props.className]: this.props.className

@@ -2,11 +2,11 @@ import React from 'react'
 
 import {observable} from 'mobx'
 
-const defaultUserType = 'mentor'
+const defaultUserType = 'student'
 
 class MainStore {
     @observable user = {
-        auth: true,
+        auth: false,
         defaultType: defaultUserType,
         type: defaultUserType,
         token: '',

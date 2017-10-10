@@ -8,9 +8,9 @@ import H from '@components/_core/Header~'
 
 import Button from '@components/_input/Button~'
 import TextInput from '@components/_input/Text~'
-import RichEditor from '@components/_input/RTE~'
 import TagInput from '@components/_input/TagInput~'
 
+import TaskEdit from '@components/task/Edit/TaskEdit'
 
 import styles from './MentorPageEdit.sass'
 
@@ -45,34 +45,21 @@ const ownToRus = {
     any: 'В любой области'
 }
 
-const TaskEl = props => (
-    <Card>
-    <Space all='m'>
-        <Space bottom='m'>
-            <H level={6}> Заголовок задачи </H>
-            <TextInput id={'task-'+props.key} 
-                       defaultValue={props.title} 
-                       placeholder='Например: Алгоритм классификации графов заданного порядка' />
-        </Space>
+class TaskEditItem extends React.Component {
+    render() {
+        const handlers = this.props.makeTaskHandlers(this.props.keyValue)
 
-        <Space bottom='m'>
-            <H level={6}> Описание задачи </H>
-            <RichEditor id={'desc'+props.key}
-                        defaultValue={props.desc}
-                        placeholder='bla' />
-        </Space>
-
-        <Space bottom='m'>
-            <H level={6}> Необходимые навыки </H>
-            <RichEditor id={'skills'+props.key} 
-                        defaultValue={props.skills}
-                        placeholder='bla' />
-        </Space>
-
-        <Button> Удалить </Button>
-    </Space>
-    </Card>
-)
+        return (
+            <Card>
+                <TaskEdit {...(this.props)}
+                          handleTitleChange = {handlers.titleChange}
+                          handleDescChange  = {handlers.descChange}
+                          handleSkillsChange= {handlers.skillsChange}
+                          handleRemove      = {handlers.remove} />
+            </Card>
+        )
+    }
+}
 
 const MentorPageEdit = props => {
     const acceptsOwnEl = []
@@ -84,7 +71,6 @@ const MentorPageEdit = props => {
         )
     }
     
-    
     return (
         <div className={styles.view}>
             <Space bottom='m'>
@@ -93,7 +79,10 @@ const MentorPageEdit = props => {
 
             <Space bottom='m'>
                 <H level={3}> ФИО </H>
-                <TextInput id='fullName' defaultValue={props.name} autofocus /> 
+                <TextInput id='fullName' 
+                           value={props.name}
+                           onChange={props.handleNameChange}
+                           autofocus /> 
             </Space>
         
             <Space bottom='m'>
@@ -111,7 +100,7 @@ const MentorPageEdit = props => {
             <Space bottom='m'>
                 <H level={3}> Принимаете поднаучных со своей темой исследований </H> 
                 <Space bottom='xxs' />
-                <select defaultValue={props.acceptsOwn}>
+                <select value={props.acceptsOwn} onChange={props.handleAcceptsOwnChange}>
                     {acceptsOwnEl} 
                 </select>
             </Space>
@@ -120,12 +109,14 @@ const MentorPageEdit = props => {
                 <H level={3}> Задачи для поднаунчных </H> 
                 <Space bottom='xs' />
                 
-                <List data={props.tasks} 
+                <List data={props.tasks}
+                      getKey={(data, idx) => idx}
                       divider={<hr />}
-                      item={TaskEl} />
+                      item={TaskEditItem}
+                      itemProps={{makeTaskHandlers: props.makeTaskHandlers}} />
                 <Space bottom='m' />
 
-                <Button> Добавить задачу </Button> 
+                <Button onClick={props.handleAddTask}> Добавить задачу </Button> 
             </Space>
 
             <Space bottom='0'>
@@ -133,12 +124,11 @@ const MentorPageEdit = props => {
                 <Space bottom='xs' />
                 <div className={styles.row}>
                     <Space right='s'>
-                        <Button> Да </Button> 
+                        <Button onClick={props.handleSave}> Сохранить </Button> 
                     </Space>
-                    <Button> Вернуть как было </Button>
+                    <Button onClick={props.handleRevert}> Вернуть как было </Button>
                 </div>
             </Space>
-            
         </div>
     )
 }

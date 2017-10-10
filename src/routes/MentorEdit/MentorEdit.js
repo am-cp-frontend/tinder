@@ -8,7 +8,7 @@ import ViewBox from '@components/_utility/ViewBox~'
 import Spinner from '@components/_utility/Spinner~'
 
 import MentorEditPage from '@components/mentor/PageEdit/MentorPageEdit'
-import AsyncDataStore from '@src/store/AsyncDataStore'
+import MentorEditStore from './MentorEditStore'
 
 //stabs
 import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
@@ -21,13 +21,12 @@ export default class MentorEdit extends React.Component {
 
     componentWillMount() {
         const store = this.props.store
-        this.store = new AsyncDataStore({})
-
-        this.mountId = store.mount(this.store)
-
-        //shhoudl use id
-        fetchMentorData(mentorData => this.store.load(mentorData))
+        this.store = new MentorEditStore({})
         
+        this.mountId = store.mount(this.store)
+        
+        //should use id
+        fetchMentorData(mentorData => this.store.load(mentorData))
         
         autorun(() => {
             document.title = 'Ред. ' + this.store.data.name || '...'
@@ -38,8 +37,40 @@ export default class MentorEdit extends React.Component {
         this.props.store.unmount(this.mountId)
     }
 
+    handleNameChange(e) {
+        this.store.data.name = e.target.value
+    }
+
+    handleAcceptsOwnChange(e) {
+        this.store.data.acceptsOwn = e.target.value
+    }
+
+    handleAddTask() {
+        this.store.addTask()
+    }
+
+    makeTaskHandlers(idx) {
+        const tasks = this.store.data.tasks
+        return {
+            titleChange: (e) => tasks[idx].title = e.target.value,
+            descChange: (e) => tasks[idx].desc = e.target.value,
+            skillsChange: (e) => tasks[idx].skills = e.target.value,
+            remove: () => tasks.splice(idx, 1)
+        }
+    }
+
+    handleRevert() {
+        this.store.revert()
+    }
+
+    handleSave() {
+        //request
+        this.store.save()
+    }
+
     render() {
         const user = this.props.store.user
+        const mentorData = this.store.data
 
         if( ! user.auth || ! user.type === 'mentor') {
             user.destination = this.props.history.location.pathname
@@ -56,7 +87,15 @@ export default class MentorEdit extends React.Component {
         
         return (
             <ViewBox center='horizontal'>
-                <MentorEditPage  {...(this.store.data)} />  
+                <MentorEditPage  {...mentorData}
+                                 handleNameChange={e => this.handleNameChange(e)}
+                                 handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
+                                 
+                                 handleAddTask={e => this.handleAddTask(e)}
+                                 makeTaskHandlers={idx => this.makeTaskHandlers(idx)}
+
+                                 handleRevert={() => this.handleRevert()}
+                                 handleSave={() => this.handleSave()} />  
             </ViewBox>
         )
     }

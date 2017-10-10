@@ -12,7 +12,6 @@ import {auth} from '@src/store/fetchStabs.toRemove'
 
 class LoginStore {
     @observable login = ''
-    @observable password = ''
 }
 
 const handleLogin = (authData, userStore, historyStore) => {

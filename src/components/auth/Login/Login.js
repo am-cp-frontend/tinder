@@ -16,27 +16,16 @@ const Login = props => (
         <Space bottom='xxs' />
         <table><tbody>
             <tr>
-                <td> <Space right='xs'> SPBU login </Space> </td>
+                <td> <Space right='xs'> Email </Space> </td>
                 <td> 
                     <TextInput id='login'
+                               className={styles.input}
                                autoFocus
                                onChange={props.handleLoginChange}
                                onKeyUp={[
                                     {key: 13, cb: props.onSubmit}
                                 ]}
-                               placeholder='как в BlackBoard' /> 
-                </td>
-            </tr>
-            <tr>
-                <td> <Space right='xs'> Пароль </Space> </td>
-                <td> 
-                    <TextInput type='password'
-                                id='pass'
-                                onChange={props.handlePasswordChange}
-                                onKeyUp={[
-                                    {key: 13, cb: props.onSubmit}
-                                ]}
-                                placeholder='как в BlackBoard' />
+                               placeholder='Указанный на сайте ПМ-ПУ' /> 
                 </td>
             </tr>
         </tbody></table>

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
 import Space from '@components/_core/Space~'
 
@@ -33,11 +34,18 @@ const ListItem = props => (
     </div>
 )
 
-const List = props => {
-    const items = props.data.map(data => ({
-        el: React.createElement(props.item, data),
-        key: props.getKey(data)
-    }))
+const List = observer(props => {
+    const items = props.data.map((data, idx) => {
+        const key = props.getKey(data, idx)
+        return {
+            el: React.createElement(props.item, Object.assign(
+                    {keyValue: key},
+                    data,
+                    props.itemProps)
+            ),
+            key: key
+        }
+    })
     
     const itemEls = items.map((item, i) => (
         <ListItem key={item.key} idx={i} divider={props.divider}> 
@@ -46,7 +54,7 @@ const List = props => {
     ))
 
     return <div> {itemEls} </div>
-}
+})
 
 List.propTypes = propTypes
 List.defaultProps = defaultProps

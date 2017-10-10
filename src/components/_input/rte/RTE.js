@@ -59,6 +59,7 @@ class RichEditor extends React.Component {
                     <textarea ref={el => this.editor = el}
                               className={styles.input}
                               defaultValue={props.defaultValue}
+                              value={props.value}
                               onChange={props.onChange}
                               onKeyDown={composeKeyHandler(props.onKeyUp)}
                               placeholder={props.placeholder}

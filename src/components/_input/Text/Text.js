@@ -38,6 +38,7 @@ const TextInput = props => {
                        id={props.id}
                        className={styles.input}
                        defaultValue={props.defaultValue}
+                       value={props.value}
                        onChange={props.onChange}
                        onKeyDown={composeKeyHandler(props.onKeyUp)}
                        placeholder={props.placeholder}
