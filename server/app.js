@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser')
 const config = require('./config')
 const setup = require('./setup/index')
 const router = require('./routers/index')
+const setHeaders = require('./utility/setHeaders')
 
 const logger = config.logger
 const app = new Koa()
@@ -14,6 +15,7 @@ setup().then(() => {
 })
 
 app.use(bodyParser())
+app.use(setHeaders())
 
 // logger
 app.use(async (ctx, next) => {

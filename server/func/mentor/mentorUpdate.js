@@ -16,6 +16,7 @@ const mentorUpdate = async (_id, patch) => {
             data: mentor
         }
     } catch (err) {
+        config.logger.error(err)
         return {
             ok: false,
             data: err

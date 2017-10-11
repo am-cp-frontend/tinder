@@ -10,8 +10,7 @@ import Spinner from '@components/_utility/Spinner~'
 import MentorEditPage from '@components/mentor/PageEdit/MentorPageEdit'
 import MentorEditStore from './MentorEditStore'
 
-//stabs
-import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
+import request from '@utility/request'
 
 @inject('store', 'history') @observer
 export default class MentorEdit extends React.Component {
@@ -20,13 +19,13 @@ export default class MentorEdit extends React.Component {
     }
 
     componentWillMount() {
-        const store = this.props.store
+        const mainStore = this.props.store
         this.store = new MentorEditStore({})
         
-        this.mountId = store.mount(this.store)
+        this.mountId = mainStore.mount(this.store)
         
-        //should use id
-        fetchMentorData(mentorData => this.store.load(mentorData))
+        if(mainStore.user.auth && mainStore.user.type === 'mentor')
+            request('/data/mentor/' + mainStore.user.id, this.store)
         
         autorun(() => {
             document.title = 'Ред. ' + this.store.data.name || '...'
@@ -75,6 +74,10 @@ export default class MentorEdit extends React.Component {
         if( ! user.auth || ! user.type === 'mentor') {
             user.destination = this.props.history.location.pathname
             return <Redirect to='/login' />
+        }
+
+        if( mentorData.error ) {
+            return <Redirect to='/404' />
         }
 
         if( ! this.store.loaded) {

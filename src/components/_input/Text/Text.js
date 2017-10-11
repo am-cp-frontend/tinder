@@ -23,30 +23,36 @@ const composeKeyHandler = reactions => reactions ?
     } 
     : () => {}
 
-const TextInput = props => {
-    const type = props.type || 'text'
-    const classes = props.className ? styles.host + ' ' + props.className : styles.host 
-    
-    return (
-        <div className={classes}>
-            <label className={styles.label} htmlFor={props.id}> 
-                {props.children}
-            </label>
+class TextInput extends React.Component {
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.value) this.input.value = nextProps.value
+    }
+    render() {
+        const props = this.props
+        const type = props.type || 'text'
+        const classes = props.className ? styles.host + ' ' + props.className : styles.host 
+        
+        return (
+            <div className={classes}>
+                <label className={styles.label} htmlFor={props.id}> 
+                    {props.children}
+                </label>
 
-            <div className={styles.inputWrapper}>
-                <input type={type} 
-                       id={props.id}
-                       className={styles.input}
-                       defaultValue={props.defaultValue}
-                       value={props.value}
-                       onChange={props.onChange}
-                       onKeyDown={composeKeyHandler(props.onKeyUp)}
-                       placeholder={props.placeholder}
-                       autoFocus={props.autoFocus} />
-                <div className={styles.border} />
+                <div className={styles.inputWrapper}>
+                    <input type={type} 
+                        id={props.id}
+                        className={styles.input}
+                        defaultValue={props.defaultValue || props.value}
+                        ref={el => this.input = el}
+                        onChange={props.onChange}
+                        onKeyDown={composeKeyHandler(props.onKeyUp)}
+                        placeholder={props.placeholder}
+                        autoFocus={props.autoFocus} />
+                    <div className={styles.border} />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 TextInput.propTypes = propTypes

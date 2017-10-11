@@ -7,8 +7,7 @@ import Spinner from '@components/_utility/Spinner~'
 import FindMentorView from '@components/mentor/Find/FindMentor'
 import FindMentorStore from './FindMentorStore'
 
-//stabs
-import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
+import request from '@utility/request'
 
 @inject('store', 'history') @observer
 class FindMentor extends React.Component {
@@ -30,8 +29,11 @@ class FindMentor extends React.Component {
 
         this.mountId = mainStore.mount(this.store)
 
-        fetchMentors(mentorsData => 
-            this.store.load(mentorsData))
+        request('/data/mentors/', this.store)
+
+        autorun(() => {
+            console.log(this.store.data)
+        })
 
         document.title = 'Поиск научрука'
         

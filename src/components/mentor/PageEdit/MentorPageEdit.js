@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
 import Card from '@components/_core/Card~'
 import List from '@components/_core/List~'
@@ -61,7 +62,7 @@ class TaskEditItem extends React.Component {
     }
 }
 
-const MentorPageEdit = props => {
+const MentorPageEdit = observer(props => {
     const acceptsOwnEl = []
     for(let option in ownToRus) {
         acceptsOwnEl.push(
@@ -110,11 +111,11 @@ const MentorPageEdit = props => {
                 <Space bottom='xs' />
                 
                 <List data={props.tasks}
-                      getKey={(data, idx) => idx}
-                      divider={<hr />}
-                      item={TaskEditItem}
-                      itemProps={{makeTaskHandlers: props.makeTaskHandlers}} />
-                <Space bottom='m' />
+                    getKey={(data, idx) => idx}
+                    divider={<hr />}
+                    item={TaskEditItem}
+                    itemProps={{makeTaskHandlers: props.makeTaskHandlers}} />
+                {props.tasks.length ? <Space bottom='m' /> : null}
 
                 <Button onClick={props.handleAddTask}> Добавить задачу </Button> 
             </Space>
@@ -131,7 +132,7 @@ const MentorPageEdit = props => {
             </Space>
         </div>
     )
-}
+})
 
 MentorPageEdit.propTypes    = propTypes
 MentorPageEdit.defaultProps = defaultProps

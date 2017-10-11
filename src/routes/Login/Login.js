@@ -18,6 +18,7 @@ const handleLogin = (authData, userStore, historyStore) => {
     userStore.auth = true
     userStore.type = authData.type
     userStore.token = authData.token
+    userStore.id = authData.id
 
     if(userStore.destination) {
         historyStore.push(userStore.destination)

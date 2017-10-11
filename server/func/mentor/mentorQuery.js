@@ -12,6 +12,7 @@ const mentorQuery = async () => {
             data: mentors
         }
     } catch (err) {
+        config.logger.error(err)
         return {
             ok: false,
             data: err

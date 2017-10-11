@@ -7,15 +7,21 @@ const defaultUserType = 'student'
 class MainStore {
     @observable user = {
         auth: false,
-        defaultType: defaultUserType,
         type: defaultUserType,
         token: '',
+        id: '',
         destination: ''
     }
     @observable notifications = []
     @observable mounted = {}
     constructor() {
         this.nextMountId = 0
+    }
+
+    resetUser() {
+        this.user.auth = false,
+        this.user.id = '',
+        this.user.type= defaultUserType
     }
 
     mount(subStore) {

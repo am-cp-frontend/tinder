@@ -12,6 +12,7 @@ const mentorGet = async _id => {
             data: mentor
         }
     } catch (err) {
+        config.logger.error(err)
         return {
             ok: false,
             data: err

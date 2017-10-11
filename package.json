@@ -26,7 +26,6 @@
     "babel-preset-stage-1": "^6.24.1",
     "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
-    "deepcopy": "^0.6.3",
     "extract-text-webpack-plugin": "^3.0.0",
     "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",

@@ -18,8 +18,7 @@ class AuthRoute extends React.Component {
 
     componentWillMount() {
         document.title = 'Выход'
-        this.props.store.user.auth = false
-        this.props.store.user.type = this.props.store.user.defaultType
+        this.props.store.resetUser()
     }
 
     render() {

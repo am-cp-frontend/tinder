@@ -10,8 +10,7 @@ import MentorPageView from '@components/mentor/Page/MentorPage'
 
 import AsyncDataStore from '@src/store/AsyncDataStore'
 
-//stabs
-import {fetchMentors, fetchMentorData} from '@src/store/fetchStabs.toRemove'
+import request from '@utility/request'
 
 @inject('store') @observer
 export default class MentorPage extends React.Component {
@@ -25,8 +24,7 @@ export default class MentorPage extends React.Component {
 
         this.mountId = store.mount(this.store)
 
-        //shhoudl use id
-        fetchMentorData(mentorData => this.store.load(mentorData))
+        request('/data/mentor/' + this.props.id, this.store)
         
         
         autorun(() => {

@@ -10,13 +10,14 @@ utilityRouter
     .get('/', (ctx, next) => {
         ctx.body = `utils router`
     })
-    .post('/start/', (ctx, next) => {
+    .post('/start', (ctx, next) => {
         ctx.body = `utils login`
     })
-    .get('/mentor/add/', async (ctx, next) => {
+    .get('/mentor/add', async (ctx, next) => {
+        ctx.responceType = 'html'
         await send(ctx, config.path.forms + '/mentorAdd.html', { root: config.path.root })
     })
-    .post('/mentor/add/', async (ctx, next) => {
+    .post('/mentor/add', async (ctx, next) => {
         const mentor = {}
         mentor.name = ctx.request.body.name
         mentor.mainEmail = ctx.request.body.email
@@ -24,6 +25,7 @@ utilityRouter
         const result = await mentorAdd(mentor)
         
         // Returned UI
+        ctx.responceType = 'html'
         ctx.body = '<!Doctype html>'
 
         if(result.ok) ctx.body += 'Добавлен'

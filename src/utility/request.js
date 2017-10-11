@@ -1,4 +1,4 @@
-import AsyncDataStore from './AsyncDataStore'
+import AsyncDataStore from '@store/AsyncDataStore'
 
 const memory = {}
 
@@ -10,17 +10,22 @@ const handleRequest = {
     'GET': (req, dataStore, options) => {
         if( ! options.noCache && memory[req.url]) 
             dataStore.load(memory[req.url])
-        else 
-            fetch(req.url).then(dataStore.load).catch(handleError)
+        else {
+            fetch(req.url)
+                .then(options.parser)
+                .then(data => {
+                    if( ! options.noCache) memory[req.url] = data
+                    dataStore.load(data)
+                })
+                .catch(handleError)
+        }
     },
     'POST': (req, dataStore, options) => {
         const xhr = new XMLHttpRequest()
-        const formData = new FromData()
+        const formData = req.data instanceof FormData ? req.data : new FromData()
 
-        if(req.data instanceof FormData) 
+        if( ! req.data instanceof FormData) 
             for(key in req.data) formData.append(key, req[key])
-        else 
-            formData = req.data
 
         xhr.onreadystatechange = data => {
             if(xhr.readyState == 4 && xhr.status == 200) 
@@ -34,11 +39,12 @@ const handleRequest = {
 }
 
 const defaults = {
-    noCache: false
+    noCache: false,
+    parser: responce => responce.clone().json()
 }
 
 const request = (req, dataStore, options) => {
-    if(typeof req === 'String' || req instanceof String) {
+    if(typeof req === 'string' || req instanceof String) {
         req = {
             type: 'GET',
             url: req
@@ -47,9 +53,9 @@ const request = (req, dataStore, options) => {
 
     if( ! dataStore) dataStore = new AsyncDataStore({})
     
-    options = Object.Assign({}, defaults, options)
+    options = Object.assign({}, defaults, options)
 
-    handleRequest(req, dataStore, options)        
+    handleRequest[req.type](req, dataStore, options)        
     return dataStore
 }
 

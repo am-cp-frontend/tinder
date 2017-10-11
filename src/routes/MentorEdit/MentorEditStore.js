@@ -1,5 +1,4 @@
 import { toJS, observable, computed } from 'mobx'
-import deepCopy from 'deepcopy'
 
 import AsyncDataStore from '@src/store/AsyncDataStore'
 
@@ -11,7 +10,7 @@ class MentorEditStore extends AsyncDataStore {
 
     load(data) {
         super.load(data)
-        this.backup = deepCopy(data)
+        this.backup = Object.assign(data)
     }
 
     addTask() {
