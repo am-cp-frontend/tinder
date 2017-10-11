@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { autorun } from 'mobx'
+import { autorun, toJS } from 'mobx'
 
 import { Redirect } from 'react-mobx-router'
 
@@ -63,7 +63,11 @@ export default class MentorEdit extends React.Component {
     }
 
     handleSave() {
-        //request
+        request({
+            type: 'POST',
+            url: '/update/mentor/' + this.props.store.user.id,
+            data: toJS(this.store.data)
+        }, {load: console.log})
         this.store.save()
     }
 

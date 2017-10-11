@@ -22,19 +22,17 @@ const handleRequest = {
     },
     'POST': (req, dataStore, options) => {
         const xhr = new XMLHttpRequest()
-        const formData = req.data instanceof FormData ? req.data : new FromData()
-
-        if( ! req.data instanceof FormData) 
-            for(key in req.data) formData.append(key, req[key])
 
         xhr.onreadystatechange = data => {
             if(xhr.readyState == 4 && xhr.status == 200) 
                 dataStore.load(xhr.response)
         }
         xhr.onerror = handleError
-
+        
         xhr.open(req.type, req.url, true)
-        xhr.send(formData)
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
+        
+        xhr.send(JSON.stringify(req.data))
     }
 }
 

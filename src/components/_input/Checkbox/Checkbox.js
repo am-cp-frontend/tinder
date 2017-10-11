@@ -15,7 +15,7 @@ const defaultProps = {
     onChange: e => console.warn('No onchange handler for checkbox')
 }
 
-const handleKeyUp = e => {
+const handleKeyDown = e => {
     if(e.which === 13) e.target.click()
 }
 
@@ -29,7 +29,7 @@ const Checkbox = props => (
                id={props.id} 
                checked={props.checked}
                onChange={props.onChange}
-               onKeyUp={handleKeyUp}
+               onKeyDown={handleKeyDown}
                autoFocus={props.autoFocus} /> 
         
         <label className={styles.label} htmlFor={props.id}> 
