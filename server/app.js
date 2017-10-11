@@ -1,30 +1,53 @@
-const mongoose = require('mongoose'); mongoose.Promise = global.Promise
+const Koa = require('koa')
+const Router = require('koa-router')
 
 const config = require('./config')
-const Mentor = require('./models/mentorModel')
-const Student = require('./models/studentModel')
+const setup = require('./setup/index')
+const utilityRouter = require('./utilityRouter')
 
-mongoose.connect(config.mongoURL, { useMongoClient: true })
+const logger = config.logger
+const app = new Koa()
+const router = new Router()
 
-const Jakushken = new Mentor({
-    name: 'Oleg Jakushkin',
-    contacts: ['room 447', 'mrj@sbpu.ru'],
-    fields: ['clusters'],
-    acceptsOwn: 'inField',
-    mainEmail: 'mrj@sbpu.ru'
+setup().then(() => {
+    logger.log('listening on port:', config.appPort)
+    app.listen(config.appPort)
 })
 
-const run = async () => {
-    try {
-        await Jakushken.save()
-    } catch(err) {
-        console.error(err)
-    }
-    
 
-    await Mentor.find({}, (err, mentors) => {
-        console.error('metors:', mentors)
+router
+    .get('/auth/:token/', async (ctx, next) => {
+        ctx.body = `auth or not w/ ${ctx.params.token} \n`
+        
+        await next()
     })
-}
+    .get('/data/mentors/', async (ctx, next) => {
+        ctx.body = 'mentorlsit'
+    })
+    .get('/data/mentor/:id/', (ctx, next) => {
+        ctx.body = `mentor id: ${ctx.params.id}`
+    })
+    .post('/update/mentor/:id/', (ctx, next) => {
+        
+    })
 
-run()
+router.use('/utility', utilityRouter.routes(), utilityRouter.allowedMethods())
+
+router.get('*', (ctx, next) => {
+    ctx.body = ctx.body || ''
+
+    ctx.body += 'spa'
+})
+
+
+// logger
+app.use(async (ctx, next) => {
+    const start = Date.now()
+    await next()
+    const ms = Date.now() - start
+    logger.log(`${ctx.method} ${ctx.url} - ${ms}`)
+})
+
+app
+    .use(router.routes())
+    .use(router.allowedMethods())

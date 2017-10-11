@@ -10,14 +10,14 @@ const mentorSchema = new mongoose.Schema({
     
     fields: {
         type: [String],
-        index: true
+        index: true,
     },
     
     acceptsOwn: {
         type: String, 
         enum: ['none', 'any', 'inField'],
         default: 'none',
-        index: true
+        index: true,
     },
     
     tasks: [taskSchema],
