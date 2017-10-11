@@ -30,11 +30,7 @@ class FindMentor extends React.Component {
         this.mountId = mainStore.mount(this.store)
 
         request('/data/mentors/', this.store)
-
-        autorun(() => {
-            console.log(this.store.data)
-        })
-
+        
         document.title = 'Поиск научрука'
         
         //url -> state

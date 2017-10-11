@@ -28,7 +28,7 @@ appRouter
         else ctx.body = {error: result.data}
     })
     .post('/update/mentor/:id', async (ctx, next) => {
-        const result = await mentorUpdate(ctx.params.id)
+        const result = await mentorUpdate(ctx.params.id, ctx.request.body)
         ctx.responceType = 'html'
         
         if(result.ok) ctx.body = result

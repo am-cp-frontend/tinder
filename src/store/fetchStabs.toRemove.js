@@ -71,6 +71,6 @@ export const auth = (data, cb) => {
     setTimeout(() => cb({
         token: '24x541fd',
         type: 'mentor',
-        id: '59dd48f3bf153812142bb4f3'
+        id: '59de8b97ed2db72c7a8ff506'
     }), LOADTIME)
 }
