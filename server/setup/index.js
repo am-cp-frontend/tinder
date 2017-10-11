@@ -5,7 +5,7 @@ const setups = [
     {
         funcs: require('./db'),
         args: {
-            prepare: [config.dbPath],
+            prepare: [config.path.db],
             execute: [config.mongoUrl]
         }
     }

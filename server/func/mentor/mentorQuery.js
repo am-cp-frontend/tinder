@@ -2,18 +2,14 @@ const mongoose = require('mongoose')
 
 const config  = require('../../config')
 const Mentor  = require('../../models/mentorModel')
-const mentorGet = require('./mentorGet')
 
-const mentorUpdate = async (_id, patch) => {
-    const mentor = mentorGet(_id)
-
+const mentorQuery = async () => {
     try {
-        Object.assign(mentor, patch)
-        await mentor.save()
+        const mentors = await Mentor.find({})
 
         return {
             ok: true,
-            data: mentor
+            data: mentors
         }
     } catch (err) {
         return {
@@ -23,4 +19,4 @@ const mentorUpdate = async (_id, patch) => {
     }
 }
 
-module.exports = mentorUpdate
+module.exports = mentorQuery

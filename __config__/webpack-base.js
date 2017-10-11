@@ -60,8 +60,8 @@ module.exports = {
             }]
         },
         proxy: {
-            '/data': 'http://localhost:8080',
-            '/static': 'http://localhost:8080'
+            '/data': 'http://localhost:8082',
+            '/update': 'http://localhost:8082'
         }
     }
 }

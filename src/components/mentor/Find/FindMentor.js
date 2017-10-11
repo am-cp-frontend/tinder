@@ -34,7 +34,7 @@ const FindMentor = props => (
         <Space bottom='m' />
         {
             props.mentors.length 
-            ? <List data={props.mentors} item={MentorCard} getKey={data => data.id}/> 
+            ? <List data={props.mentors} item={MentorCard} getKey={data => data._id}/> 
             : 'Таких научруков нет :('
         }
     </div>
