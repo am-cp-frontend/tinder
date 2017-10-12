@@ -29,7 +29,7 @@ class FindMentor extends React.Component {
 
         this.mountId = mainStore.mount(this.store)
 
-        request('/data/mentors/', this.store)
+        request('/data/mentors', this.store)
         
         document.title = 'Поиск научрука'
         

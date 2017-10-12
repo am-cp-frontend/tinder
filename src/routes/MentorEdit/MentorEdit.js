@@ -67,7 +67,12 @@ export default class MentorEdit extends React.Component {
             type: 'POST',
             url: '/update/mentor/' + this.props.store.user.id,
             data: toJS(this.store.data)
-        }, {load: console.log})
+        }, {
+            load: data => {
+                request.forget('/data/mentors')
+                request.forget('/data/mentor/'  + this.props.store.user.id)
+            }
+        })
         this.store.save()
     }
 

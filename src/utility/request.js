@@ -6,6 +6,10 @@ const handleError = error => {
     console.error(error)
 }
 
+const forget = url => {
+    delete memory[url]
+}
+
 const handleRequest = {
     'GET': (req, dataStore, options) => {
         if( ! options.noCache && memory[req.url]) 
@@ -56,5 +60,7 @@ const request = (req, dataStore, options) => {
     handleRequest[req.type](req, dataStore, options)        
     return dataStore
 }
+
+request.forget = forget
 
 export default request
