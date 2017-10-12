@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 require('mongoose-type-email')
 
-const studentSchema = require('./studentSchema')
 const taskSchema = require('./taskSchema')
 
 const mentorSchema = new mongoose.Schema({
@@ -21,7 +20,7 @@ const mentorSchema = new mongoose.Schema({
     },
     
     tasks: [taskSchema],
-    ex: [studentSchema],
+    ex: [{type: mongoose.Schema.Types.ObjectId, ref: 'Student'}],
 
     //db-utils
     mainEmail: {

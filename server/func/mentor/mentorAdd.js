@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 const config  = require('../../config')
 const Mentor  = require('../../models/mentorModel')
-const Student = require('../../models/studentModel')
 
 const mentorAdd = async mentorData => {
     const newMentor = new Mentor(mentorData)
