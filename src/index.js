@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import {BrowserRouter} from 'react-mobx-router'
 import {Provider} from 'mobx-react'
 
+import Notifications from '@components/_core/Notifications~'
 import AppBar from '@components/_core/AppBar~'
 import Space from '@components/_core/Space~'
 
@@ -15,6 +16,7 @@ const App = () => (
     <BrowserRouter> 
         <Provider store={store}>
             <div className={styles.app}>
+                <Notifications />
                 <Routes />
                 <AppBar />
             </div>

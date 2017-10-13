@@ -1,6 +1,8 @@
 import { observable, computed } from 'mobx'
 import AsyncDataStore from '@src/store/AsyncDataStore'
 
+import simplify from '@utility/simplify'
+
 class FindMentorStore extends AsyncDataStore {
     @observable selectedFields = []
     @observable hasOwnTopic = false
@@ -12,12 +14,14 @@ class FindMentorStore extends AsyncDataStore {
     @computed get stortedMentors() {
         if(!this.hasOwnTopic && this.selectedFields.length === 0) return this.mentors
         
+        const simpleFields = this.selectedFields.map(simplify)
+
         const fullDataMentors = this.mentors.map(mentorData => {
             let inField = this.selectedFields.length === 0
             let hasTasks = mentorData.tasks.length > 0
 
-            this.selectedFields.forEach(field => {
-                if(mentorData.fields.includes(field)) inField = true
+            simpleFields.forEach(field => {
+                if(mentorData._simpleFields.includes(field)) inField = true
             })
 
             return {
@@ -44,6 +48,13 @@ class FindMentorStore extends AsyncDataStore {
                     .filter(mentor => mentor.hasTasks && mentor.inField)
                     .map(mentor => mentor.data)
         }        
+    }
+
+    load(data) {
+        data.forEach(mentor => {
+            mentor._simpleFields = mentor.fields.map(simplify)
+        })
+        super.load(data)
     }
 }
 

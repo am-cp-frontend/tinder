@@ -16,6 +16,7 @@ import request from '@utility/request'
 export default class MentorEdit extends React.Component {
     constructor(props) {
         super(props)
+        this.handleSaveResponce = this.handleSaveResponce.bind(this)
     }
 
     componentWillMount() {
@@ -68,12 +69,30 @@ export default class MentorEdit extends React.Component {
             url: '/update/mentor/' + this.props.store.user.id,
             data: toJS(this.store.data)
         }, {
-            load: data => {
-                request.forget('/data/mentors')
-                request.forget('/data/mentor/'  + this.props.store.user.id)
-            }
+            load: this.handleSaveResponce
+                
         })
-        this.store.save()
+    }
+
+    handleSaveResponce(responce) {
+        const mainStore = this.props.store
+
+        if(responce.ok) {
+            mainStore.notifications.add({
+                type: 'success',
+                message: 'Изменения сохранены'
+            })
+
+            request.forget('/data/mentors')
+            request.forget('/data/mentor/'  + mainStore.user.id)
+
+            this.store.save()
+        } else {
+            mainStore.notifications.add({
+                type: 'error',
+                message: responce.data
+            })
+        }
     }
 
     render() {

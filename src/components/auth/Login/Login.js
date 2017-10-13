@@ -9,8 +9,7 @@ import Button from '@components/_input/Button~'
 
 import styles from './Login.sass'
 
-const Login = props => (
-    <Card> 
+const Login = props => ( 
     <Space all='m' className={styles.host}> 
         <H level={2}> Вход </H>
         <Space bottom='xxs' />
@@ -34,7 +33,6 @@ const Login = props => (
             <Button onClick={props.onSubmit}> Войти </Button>
         </div>
     </Space>
-    </Card>
 )
 
 export default Login

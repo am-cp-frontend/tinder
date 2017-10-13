@@ -1,0 +1,22 @@
+@import '@utility/vars.sass'
+
+.host
+    display: flex
+    flex-direction: column
+
+    width: 50rem
+    max-width: 100vw
+
+    position: fixed
+    right: $space-m
+    bottom: $space-xl + $space-l
+
+    overflow: auto
+
+    z-index: 99
+
+@media (max-width: 600px)
+    .host
+        width: 100%
+        left: 0
+        padding: $space-m
