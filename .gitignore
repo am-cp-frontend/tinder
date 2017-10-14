@@ -30,3 +30,5 @@ node_modules
 __config__/\.rempl_endpoint_id
 
 server/db/
+
+server/scrapers/results/
