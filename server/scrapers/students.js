@@ -71,7 +71,7 @@ const collect = async () => {
     
 
     logger.log('Writing mentors`s students data')
-    await fse.writeJson(STUDENT_DATA_FILE, mentorStudentData)
+    await fse.writeJson(STUDENT_DATA_FILE, mentorStudentData, collect)
 }
 
 module.exports = {fetchMentorStudentData}

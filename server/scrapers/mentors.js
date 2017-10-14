@@ -61,9 +61,19 @@ const fetchMentorData = async mentorUrl => {
         mentorData.mainEmail = emails[0]
 
     } else {
-        logger.warn(`${mentorData.name} has no email`)
-        mentorData.mainEmail = 'not found'
+        // logger.warn(`${mentorData.name} has no email`)
+        mentorData.contacts = []
+        mentorData.mainEmail = false
     }
+
+    const postRoomString = personalInfoText.split('Комн.')[1]
+    if(postRoomString) {
+        const roomNumberLine = postRoomString.replace(' к.', '').match(/[0-9, ]+/)
+
+        const roomNumbers = roomNumberLine[0].split(',').map(s => s.trim()).filter(s => s.length)
+        mentorData.contacts = [...mentorData.contacts, ...roomNumbers.map(s => 'Каб. ' + s)]
+    }
+
 
     return mentorData
 }
@@ -99,4 +109,4 @@ const collect = async () => {
     return {ok: errors.length === 0, errors}
 }
 
-module.exports = {fetchMentorLinks, fetchMentorData}
+module.exports = {fetchMentorLinks, fetchMentorData, collect}
