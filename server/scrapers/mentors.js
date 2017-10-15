@@ -55,6 +55,15 @@ const fetchMentorData = async mentorUrl => {
     if(postEmailString) {
         const emailCores = postEmailString.split('@')
         const emails = postEmailString.split(' ').slice(1, emailCores.length)
+                            .reduce((oldVal, email) => {
+                                let newEmails = []
+                                if(email.indexOf(';')) 
+                                    newEmails = newEmails.concat(email.split(';').filter(s => s.length))
+                                else if(email.indexOf(',')) 
+                                    newEmails = newEmails.concat(email.split(',').filter(s => s.length))
+                    
+                                return oldVal.concat(newEmails)
+                            }, [])
                             .map(substr => substr.replace(/[,;]/g, ''))
 
         mentorData.contacts = emails
@@ -106,6 +115,7 @@ const collect = async () => {
     logger.log('Collecting errors')
     const errors = writeResults.filter(res => !res.ok).map(res => res.error)
 
+    logger.log('Done')
     return {ok: errors.length === 0, errors}
 }
 
