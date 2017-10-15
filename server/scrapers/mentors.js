@@ -53,7 +53,7 @@ const fetchMentorData = async mentorUrl => {
     const postEmailString = personalInfoText.split('E-mail:')[1]
 
     if(postEmailString) {
-        const emailCores = postEmailString.split('@')
+        const emailCores = postEmailString.replace('[at]', '@').split('@')
         const emails = postEmailString.split(' ').slice(1, emailCores.length)
                             .reduce((oldVal, email) => {
                                 let newEmails = []
