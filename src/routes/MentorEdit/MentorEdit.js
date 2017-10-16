@@ -12,6 +12,12 @@ import MentorEditStore from './MentorEditStore'
 
 import request from '@utility/request'
 
+
+const serverErrorsToRus = {
+    'No rights': 'У вас нет прав для редактирования этой страницы',
+    'No login': 'Сначала нужно войти'
+}
+
 @inject('store', 'history') @observer
 export default class MentorEdit extends React.Component {
     constructor(props) {
@@ -90,7 +96,7 @@ export default class MentorEdit extends React.Component {
         } else {
             mainStore.notifications.add({
                 type: 'error',
-                message: responce.data
+                message: serverErrorsToRus[responce.data.error]
             })
         }
     }

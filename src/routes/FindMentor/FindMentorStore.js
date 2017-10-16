@@ -1,6 +1,8 @@
 import { observable, computed } from 'mobx'
 import AsyncDataStore from '@src/store/AsyncDataStore'
 
+import mainStore from '@store/mainStore'
+
 import simplify from '@utility/simplify'
 
 class FindMentorStore extends AsyncDataStore {
@@ -12,7 +14,8 @@ class FindMentorStore extends AsyncDataStore {
     }
     
     @computed get stortedMentors() {
-        if(!this.hasOwnTopic && this.selectedFields.length === 0) return this.mentors
+        if(!this.hasOwnTopic && this.selectedFields.length === 0) 
+            return this.mentors
         
         const simpleFields = this.selectedFields.map(simplify)
 
@@ -51,6 +54,13 @@ class FindMentorStore extends AsyncDataStore {
     }
 
     load(data) {
+        if(data.ok === false) {
+            mainStore.notifications.add({
+                type: 'error',
+                message: 'Не удалось получть список научруков с сервера'
+            })
+            data = []
+        }
         data.forEach(mentor => {
             mentor._simpleFields = mentor.fields.map(simplify)
         })

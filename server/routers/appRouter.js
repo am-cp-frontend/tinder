@@ -6,10 +6,13 @@ const mentorGet = require('../func/mentor/mentorGet')
 const mentorQuery = require('../func/mentor/mentorQuery')
 const mentorUpdate = require('../func/mentor/mentorUpdate')
 
+const magicLinkGet = require('../func/magicLink/magicLinkGet')
+
 appRouter
+    //wouldn't bother with security right now
     .get('/auth/:token', async (ctx, next) => {
-        ctx.body = `auth or not w/ ${ctx.params.token} \n`
-        
+        config.logger.log(ctx.params.token)
+        ctx.session.token = ctx.params.token
         await next()
     })
     .get('/data/mentors', async (ctx, next) => {
@@ -28,11 +31,36 @@ appRouter
         else ctx.body = {error: result.data}
     })
     .post('/update/mentor/:id', async (ctx, next) => {
-        const result = await mentorUpdate(ctx.params.id, ctx.request.body)
-        ctx.responceType = 'html'
-        
-        if(result.ok) ctx.body = result
-        else ctx.body = {error: result.data}
+        //verification
+        if(ctx.session.token) {
+            const tokenResult = await magicLinkGet(ctx.session.token)
+            
+            if(tokenResult.ok === true
+                && tokenResult.data.type === 'mentor' 
+                && tokenResult.data.targetId.toString() === ctx.params.id) {
+                //update
+                const result = await mentorUpdate(ctx.params.id, ctx.request.body)
+                ctx.responceType = 'html'
+                
+                ctx.body = result
+            } else {
+                ctx.body = {
+                    ok: false,
+                    data: {
+                        type: 401,
+                        error: 'No rights'
+                    }
+                }
+            }
+        } else {
+            ctx.body = {
+                ok: false,
+                data: {
+                    type: 401,
+                    error: 'No login'
+                }
+            }
+        }
     })
     .get('/*', (ctx, next) => {
         ctx.body = ctx.body || ''

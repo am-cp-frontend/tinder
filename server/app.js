@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
+const session = require('koa-session')
 
 const config = require('./config')
 const setup = require('./setup/index')
@@ -8,11 +9,15 @@ const setHeaders = require('./utility/setHeaders')
 
 const logger = config.logger
 const app = new Koa()
+app.keys = ['Secret?']
+
 
 setup().then(() => {
     logger.log('listening on port:', config.appPort)
     app.listen(config.appPort)
 })
+
+app.use(session(config.session, app))
 
 app.use(bodyParser())
 app.use(setHeaders())

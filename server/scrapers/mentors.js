@@ -10,6 +10,23 @@ const RESULTS_DIR        = __dirname + '/results'
 const MENTOR_DATA_DIR    = RESULTS_DIR + '/mentors'
 const MENTOR_LINKS_FILE  = RESULTS_DIR + '/mentorLinks.txt'
 
+const MENTOR_FALLBACK_EMAILS = {
+    'Бедрина Марина Евгеньевна': 'm.bedrina@mail.ru',
+    'Шишкин Виктор Иванович': 'visvi@mail.ru',
+    'Буре Владимир Мансурович': 'vlb310154@gmail.com',
+    'Виноградова Екатерина Михайловна': 'vincat2008@yandex.ru',
+    'Владимирова Людмила Васильевна': 'sergvlad@sp.ru',
+    'Гончарова Анастасия Борисовна': 'a.goncharova@spbu.ru',
+    'Дривотин Олег Игоревич': 'drivotin@yandex.ru',
+    'Зубов Афанасий Владимирович': 'a_v_zubov@mail.ru',
+    'Камачкин Александр Михайлович': 'akamachkin@mail.ru',
+    'Котина Елена Дмитриевна': 'ekotina123@mail.ru',
+    'Митрофанова Ольга Александровна': 'omitrofa@gmail.com',
+    'Плоских Виктор Александрович': 'manac@yandex.ru',
+    'Свистунов Юрий Александрович': 'svistunov@luts.niiefa.spb.su',
+    'Стрекопытова Мария Владимировна': 'ddemidova@mail.ru',
+    'Чистяков Сергей Владимирович': 'svch50@mail.ru',
+}
 
 const setup = async () => {
     await fse.ensureDir(RESULTS_DIR)
@@ -70,9 +87,14 @@ const fetchMentorData = async mentorUrl => {
         mentorData.mainEmail = emails[0]
 
     } else {
-        // logger.warn(`${mentorData.name} has no email`)
-        mentorData.contacts = []
-        mentorData.mainEmail = false
+        if(MENTOR_FALLBACK_EMAILS[mentor.name]) {
+            mentor.mainEmail = MENTOR_FALLBACK_EMAILS[mentor.name]
+            mentor.contacts = [mentor.mainEmail]
+        } else {
+            logger.warn(`${mentorData.name} has no email`)
+            mentorData.contacts = []
+            mentorData.mainEmail = false
+        }
     }
 
     const postRoomString = personalInfoText.split('Комн.')[1]

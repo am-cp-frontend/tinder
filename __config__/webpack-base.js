@@ -61,7 +61,8 @@ module.exports = {
         },
         proxy: {
             '/data': 'http://localhost:8082',
-            '/update': 'http://localhost:8082'
+            '/auth': 'http://localhost:8082',
+            '/update': 'http://localhost:8082',
         }
     }
 }

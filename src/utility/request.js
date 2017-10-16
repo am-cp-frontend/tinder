@@ -40,7 +40,6 @@ const handleRequest = {
         xhr.onreadystatechange = data => {
             if(xhr.readyState == 4 && xhr.status == 200) {
                 try {
-                    console.log(xhr.responseXML)
                     dataStore.load(JSON.parse(xhr.response))
                 } catch(err) {
                     dataStore.load(xhr.response)
