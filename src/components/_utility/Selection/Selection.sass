@@ -1,0 +1,25 @@
+@import '@utility/vars.sass'
+
+.host
+    position: relative
+    width: 100%
+    height: 1px
+
+.selection
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    background: $bg-solid
+    border: $border-width-m solid $border-color-main
+
+.option
+    padding: $space-xxs $space-s
+    border-top-color: $border-color-main
+
+.optionFocused
+    background: $bg-main
+
+.optionSelected
+    color: $bg-accent-fallback
+    font-weight: $font-weight-bold

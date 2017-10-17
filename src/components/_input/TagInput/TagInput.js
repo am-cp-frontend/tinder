@@ -6,6 +6,7 @@ import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 
 import TagList from '@components/_core/TagList~'
+import Selection from '@components/_utility/Selection~'
 import Icon from '@components/_utility/Icon~'
 import CloseGlyph from '@icons/close.svg'
 
@@ -19,19 +20,21 @@ const removeTagAction = tags => ({
     children: <Icon glyph={CloseGlyph} />
 })
 
+const possibleTags = ['FieldSome', 'b', 'c', 'd']
+
 @observer
 class TagInput extends React.Component {
+    @observable inputValue = ''
+    @observable focused = false
     constructor(props) {
         super(props)
 
-        this.tags = this.props.tags
-
-        this.state = {input: '', focused: false}
-    
+        this.tags = this.props.tags    
         this.focusInput = this.focusInput.bind(this)
         this.handleInput = this.handleInput.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
         this.addTag = this.addTag.bind(this)
+        this.handleAutocomplete = this.handleAutocomplete.bind(this)
     }
 
     focusInput() {
@@ -40,21 +43,26 @@ class TagInput extends React.Component {
     
     reset() {
         this.textInput.value = ''
-        this.setState({input: ''})
+        this.inputValue = ''
     }
 
     handleInput(e) {
         if(e.which === 13) {
-            this.addTag(this.state.input)
+            this.addTag(this.inputValue)
         } else {
-            if(e.which === 8 && this.state.input === '') this.tags.pop()
-            this.setState({input: this.textInput.value})
+            if(e.which === 8 && this.inputValue === '') this.tags.pop()
+            this.inputValue = this.textInput.value
         }        
     }
 
-    handleBlur() {
-        if(this.state.input) this.  addTag(this.state.input)
-        this.setState({focused: false})
+    handleBlur(event) {
+        if(this.inputValue) this.addTag(this.inputValue)
+        this.focused = false
+    }
+
+    handleAutocomplete(value) {
+        this.inputValue = value
+        setTimeout(() => this.focusInput(), 0)
     }
 
     addTag(tagVal) {
@@ -72,10 +80,10 @@ class TagInput extends React.Component {
         })
 
         const borderClasses = classNames(styles.border, {
-            [styles.borderFocused]: this.state.focused
+            [styles.borderFocused]: this.focused
         }) 
         
-        const shouldRenderPlaceholder = this.tags.length === 0 && this.state.input.length === 0
+        const shouldRenderPlaceholder = this.tags.length === 0 && this.inputValue === ''
         
         return (
             <div className={hostClasses} onClick={this.focusInput}>
@@ -102,12 +110,16 @@ class TagInput extends React.Component {
                     >
                         <input className={styles.realInput}
                             onKeyUp={this.handleInput} 
-                            onFocus={e => this.setState({focused: true})}
+                            onFocus={e => this.focused = true}
                             onBlur={this.handleBlur}
                             ref={el => this.textInput = el}
                             autoFocus={this.props.autoFocus} />
                     </TagList>
                     <div className={borderClasses} />
+                    <Selection className={styles.autocomplete}
+                               focus={this.focused}
+                               onChange={this.handleAutocomplete}
+                               options={possibleTags.slice(this.tags.length)} />
                 </div>
             </div>
         )
