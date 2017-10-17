@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 
+const WebpackChunkHash = require('webpack-chunk-hash')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
@@ -34,7 +35,8 @@ module.exports = {
         chunkFilename: 'src/[name].js'
     },
     plugins: [
-        new ExtractTextPlugin("app.css"),
+        new WebpackChunkHash({algorithm: 'md5'}),
+        new ExtractTextPlugin("src/app-[md5:contenthash].css"),
         new HtmlWebpackPlugin({
             title: 'Apmath tinder',
             template: paths.template,

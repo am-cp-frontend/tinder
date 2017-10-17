@@ -11,7 +11,7 @@ module.exports = function (__dirname) {
     const entry = path.join(src, '/index.js')
     const template = path.join(src, '/index.html')
 
-    const dist = path.join(root, 'dist')
+    const dist = path.join(root, 'server', 'dist')
 
     return {
         root,

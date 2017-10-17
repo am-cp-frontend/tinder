@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
-const WebpackChunkHash = require('webpack-chunk-hash')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const RuntimeAnalyzerPlugin = require('webpack-runtime-analyzer')
 
@@ -18,12 +17,11 @@ const mergedConfig = webpackMerge(baseConfig, {
 
     plugins: [
         new WebpackCleanupPlugin(),
-        new WebpackChunkHash({algorithm: 'md5'}),
-
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: 'production',
+                NODE_ENV:  JSON.stringify('production'),
             },
+            NODE_ENV: JSON.stringify('production'),
             VERSION: JSON.stringify(process.env.VERSION)
         }),
 
