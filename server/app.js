@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
+const serve = require('koa-static')
 
 const config = require('./config')
 const setup = require('./setup/index')
@@ -30,6 +31,14 @@ app.use(async (ctx, next) => {
     logger.log(`${ctx.method} ${ctx.url} - ${ms}`)
 })
 
+app.use(serve('./dist', {
+    index: 'none',
+    maxage: 31536000
+}))
+
+app.use(serve('./static', {
+    maxage: 31536000
+}))
 
 app
     .use(router.routes())

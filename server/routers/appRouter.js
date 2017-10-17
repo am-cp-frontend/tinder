@@ -1,4 +1,5 @@
 const Router = require('koa-router')
+const send = require('koa-send')
 const appRouter = new Router() 
 
 const config = require('../config')
@@ -11,8 +12,24 @@ const magicLinkGet = require('../func/magicLink/magicLinkGet')
 appRouter
     //wouldn't bother with security right now
     .get('/auth/:token', async (ctx, next) => {
-        config.logger.log(ctx.params.token)
-        ctx.session.token = ctx.params.token
+        config.logger.log('auth attemot with', ctx.params.token)
+
+        const tokenResult = await magicLinkGet(ctx.params.token)
+        const user = {}
+        let authError = false
+
+
+        if(tokenResult.ok) {
+            ctx.session.token = ctx.params.token
+            user.type = tokenResult.data.type
+            user.id = tokenResult.data.targetId
+        } else {
+            authError = tokenResult.data
+        }
+ 
+        ctx.cookies.set('user', JSON.stringify(user), {httpOnly:false, overwrite: true})
+        ctx.cookies.set('authError', authError, {httpOnly:false, overwrite: true})
+
         await next()
     })
     .get('/data/mentors', async (ctx, next) => {
@@ -35,9 +52,8 @@ appRouter
         if(ctx.session.token) {
             const tokenResult = await magicLinkGet(ctx.session.token)
             
-            if(tokenResult.ok === true
-                && tokenResult.data.type === 'mentor' 
-                && tokenResult.data.targetId.toString() === ctx.params.id) {
+            if(tokenResult.ok && tokenResult.data.type === 'mentor' 
+               && tokenResult.data.targetId.toString() === ctx.params.id) {
                 //update
                 const result = await mentorUpdate(ctx.params.id, ctx.request.body)
                 ctx.responceType = 'html'
@@ -62,10 +78,8 @@ appRouter
             }
         }
     })
-    .get('/*', (ctx, next) => {
-        ctx.body = ctx.body || ''
-
-        ctx.body += 'spa'
+    .get('/*', async (ctx, next) => {
+        await send(ctx, config.path.dist + '/index.html', { root: '/' })
     })
 
 module.exports = appRouter

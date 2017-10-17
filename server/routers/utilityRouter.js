@@ -15,7 +15,7 @@ utilityRouter
     })
     .get('/mentor/add', async (ctx, next) => {
         ctx.responceType = 'html'
-        await send(ctx, config.path.forms + '/mentorAdd.html', { root: config.path.root })
+        await send(ctx, config.path.forms + '/mentorAdd.html', { root: '/' })
     })
     .post('/mentor/add', async (ctx, next) => {
         const mentor = {}

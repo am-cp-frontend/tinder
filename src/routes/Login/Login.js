@@ -29,7 +29,7 @@ const handleLogin = (authData, userStore, historyStore) => {
 }
 
 @inject('store', 'history')
-class AuthRoute extends React.Component {
+class LoginRoute extends React.Component {
     constructor(props) { 
         super(props)
     }
@@ -81,4 +81,4 @@ class AuthRoute extends React.Component {
     }
 }
 
-export default AuthRoute
+export default LoginRoute

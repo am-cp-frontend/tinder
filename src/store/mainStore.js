@@ -13,7 +13,12 @@ class MainStore {
         type: defaultUserType,
         token: '',
         id: '',
-        destination: ''
+        destination: '',
+        reset: () => {
+            this.auth = false,
+            this.id = '',
+            this.type= defaultUserType
+        }
     }
     @observable notifications = []
     @observable mounted = {}
@@ -33,12 +38,6 @@ class MainStore {
                 
             }, notificationTimeout)
         }
-    }
-
-    resetUser() {
-        this.user.auth = false,
-        this.user.id = '',
-        this.user.type= defaultUserType
     }
 
     mount(subStore) {

@@ -9,8 +9,9 @@ const config = {
 
     path: {
         root: __dirname,
-        db: 'db',
-        forms: 'forms'
+        db: __dirname + '/db',
+        forms: __dirname + '/forms',
+        dist: __dirname + '/dist'
     },
     
     logger: console,
