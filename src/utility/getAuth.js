@@ -3,7 +3,7 @@ const getCookie = name => {
     if (match) return match[2]
 }
 
-const getAuth = store => {
+const getAuth = () => {
     const userCookie = getCookie('user')
     const error = getCookie('authError')
     const userData = userCookie ? JSON.parse(userCookie) : {}

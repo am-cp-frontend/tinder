@@ -32,3 +32,7 @@ __config__/\.rempl_endpoint_id
 server/db/
 
 server/scrapers/results/
+
+server/dist/
+
+dist/

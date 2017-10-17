@@ -107,7 +107,7 @@ export default class MentorEdit extends React.Component {
 
         if( ! user.auth || ! user.type === 'mentor') {
             user.destination = this.props.history.location.pathname
-            return <Redirect to='/login' />
+            return <Redirect to='/auth/r' />
         }
 
         if( mentorData.error ) {

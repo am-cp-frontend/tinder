@@ -9,7 +9,7 @@ const errorToRus = {
 }
 
 const AuthRoute = inject('store')(props => {
-    const authResult = getAuth(props.store)
+    const authResult = getAuth()
     const user = props.store.user
 
     if(authResult.ok) {

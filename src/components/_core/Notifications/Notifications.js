@@ -10,7 +10,8 @@ import styles from './Notifications.sass'
 
 @inject('store') @observer
 class Notifications extends React.Component {
-    render() {    
+    render() {  
+        if(this.props.store.notifications.length === 0) return null  
         return (
             <div className={styles.host}>
                 <List data={this.props.store.notifications} 

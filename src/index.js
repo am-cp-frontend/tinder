@@ -12,6 +12,17 @@ import store from '@src/store/mainStore'
 
 import styles from './index.sass'
 
+
+//first auth
+import getAuth from '@utility/getAuth'
+const authResult = getAuth()
+if(authResult.ok) {
+    store.user.auth = true
+    store.user.type = authResult.data.type
+    store.user.id = authResult.data.id
+}
+
+
 const App = () => (
     <BrowserRouter> 
         <Provider store={store}>
