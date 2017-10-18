@@ -1,6 +1,8 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
+import { untracked, action } from 'mobx'
 import { Redirect } from 'react-mobx-router'
+import Cookies from 'js-cookie'
 
 import ViewBox from '@components/_utility/ViewBox~'
 import Spinner from '@components/_utility/Spinner~'
@@ -24,15 +26,21 @@ class AuthRoute extends React.Component {
         request('/auth/logout', this.store)
     }
 
+    @action resetUser() {
+        console.log(this.props.store.user.reset())
+    }
+
     render() {
         if(this.store.loaded && this.store.data.ok) {
-            this.props.store.user.reset()
+            this.resetUser()
+            Cookies.remove('user')
+            Cookies.remove('authError')
             return <Redirect to='/find' />
         }
 
         return (
             <ViewBox center='horizontal'>
-                <Spinner /> }
+                <Spinner />
             </ViewBox>
         )
     }

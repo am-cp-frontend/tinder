@@ -11,13 +11,15 @@ class MainStore {
     @observable user = {
         auth: false,
         type: defaultUserType,
-        token: '',
         id: '',
         destination: '',
-        reset: () => {
+        reset: function() {
+            console.log('reset', this, this.auth)
             this.auth = false,
             this.id = '',
             this.type= defaultUserType
+
+            return this.auth
         }
     }
     @observable notifications = []

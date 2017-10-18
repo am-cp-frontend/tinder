@@ -12,10 +12,16 @@ const sendEmail = require('../utility/sendEmail')
 const magicLinkGet = require('../func/magicLink/magicLinkGet')
 const magicLinkGenerate = require('../func/magicLink/magicLinkGenerate')
 
+const cookieOptions = {
+    httpOnly:false,
+    overwrite: true,
+    maxAge: 24 * 60 * 60 * 1000
+}
+
 appRouter
     //wouldn't bother with security right now
     .get('/auth/magic/:token', async (ctx, next) => {
-        config.logger.log('auth attemot with', ctx.params.token)
+        config.logger.log('auth attempt with', ctx.params.token)
 
         const tokenResult = await magicLinkGet(ctx.params.token)
         const user = {}
@@ -30,10 +36,16 @@ appRouter
             authError = tokenResult.data
         }
  
-        ctx.cookies.set('user', JSON.stringify(user), {httpOnly:false, overwrite: true})
-        ctx.cookies.set('authError', authError, {httpOnly:false, overwrite: true})
+        ctx.cookies.set('user', JSON.stringify(user), cookieOptions)
+        ctx.cookies.set('authError', authError, cookieOptions)
 
         await next()
+    })
+    .get('/auth/logout', async (ctx, next) => {
+        ctx.session.token = undefined
+        ctx.body = {
+            ok: true
+        }
     })
     .post('/auth/sendMagic', async ctx => {
         const mentorResult = await mentorQuery({mainEmail: ctx.request.body.email})
@@ -59,14 +71,6 @@ appRouter
         } else {
             console.log('fail')
             ctx.body = {ok: false, data: {error: result.data}}
-        }
-    })
-    .get('/auth/logout', async (ctx, next) => {
-        console.log('logout')
-        ctx.cookies.set('authError', null, {httpOnly:false, overwrite: true})
-        ctx.cookies.set('user', null, {httpOnly:false, overwrite: true})
-        ctx.body = {
-            ok: true
         }
     })
     .get('/data/mentors', async (ctx, next) => {
