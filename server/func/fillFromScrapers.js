@@ -8,7 +8,7 @@ const mentorUpdate = require('./mentor/mentorUpdate')
 const studentAdd = require('./student/studentAdd')
 
 const Mentor  = require('../models/mentorModel')
-const Student  = require('../models/studentModel')
+const Student = require('../models/studentModel')
 
 const logger = config.logger
 
@@ -38,8 +38,10 @@ const mentors = async () => {
 const students = async () => {
     logger.log('Fetching mentor-student data')
     const mentorStudentData = await studentScraper.fetchMentorStudentData()
+    const existingStudents = await Student.find({})
+    const existingStudentContacts = existingStudents.map(student => student.contacts[0])
 
-    const occuredStudentContacts = new Set([])
+    const occuredStudentContacts = new Set(existingStudentContacts)
     const students = mentorStudentData.reduce((oldVal, data) => {
         const newStudents = data.students.filter(student =>
                                 !occuredStudentContacts.has(student.contacts[0]))

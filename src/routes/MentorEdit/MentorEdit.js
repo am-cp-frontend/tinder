@@ -51,6 +51,10 @@ class MentorEdit extends React.Component {
     handleAcceptsOwnChange(e) {
         this.store.data.acceptsOwn = e.target.value
     }
+    
+    handleAboutChange(e) {
+        this.store.data.about = e.target.value
+    }
 
     handleAddTask() {
         this.store.addTask()
@@ -128,7 +132,8 @@ class MentorEdit extends React.Component {
                 <MentorEditPage  {...mentorData}
                                  handleNameChange={e => this.handleNameChange(e)}
                                  handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
-                                 
+                                 handleAboutChange={e => this.handleAboutChange(e)}
+
                                  handleAddTask={e => this.handleAddTask(e)}
                                  makeTaskHandlers={idx => this.makeTaskHandlers(idx)}
 

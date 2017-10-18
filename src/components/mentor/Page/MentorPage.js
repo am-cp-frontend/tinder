@@ -23,6 +23,8 @@ const propTypes = {
     contacts: containerOf(PropTypes.string).isRequired,
     fields: containerOf(PropTypes.string).isRequired,
     
+    about: PropTypes.string,
+
     tasks: containerOf(PropTypes.string),
     ex: containerOf(PropTypes.object),
     
@@ -56,6 +58,16 @@ const MentorPage = props => {
         <div className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
             <Space bottom='m' />
+
+            {props.about ? 
+                (
+                    <Space bottom='m'>
+                        <H level={3}> О себе </H> 
+                        {props.about}
+                    </Space>
+                ) : null    
+            }
+            
 
             <Space bottom='m'>
                 <H level={3}> Контакты </H> 

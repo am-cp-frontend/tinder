@@ -12,6 +12,7 @@ import TextInput from '@components/_input/Text~'
 import TagInput from '@components/_input/TagInput~'
 
 import TaskEdit from '@components/task/Edit/TaskEdit'
+import RichEditor from '@components/_input/RTE~'
 
 import styles from './MentorPageEdit.sass'
 
@@ -104,6 +105,13 @@ const MentorPageEdit = observer(props => {
                 <select value={props.acceptsOwn} onChange={props.handleAcceptsOwnChange}>
                     {acceptsOwnEl} 
                 </select>
+            </Space>
+
+            <Space bottom='m'>
+                <H level={3}> О себе </H>
+                <RichEditor value={props.about}
+                            placeholder='Необязательно, как и все остальное, но помогает получить поднаучных'
+                            onChange={props.handleAboutChange} />
             </Space>
 
             <Space bottom='m'>

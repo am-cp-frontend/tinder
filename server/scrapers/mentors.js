@@ -9,6 +9,7 @@ const APMATH_MENTORS_URL = 'http://www.apmath.spbu.ru/ru/staff'
 const RESULTS_DIR        = __dirname + '/results'
 const MENTOR_DATA_DIR    = RESULTS_DIR + '/mentors'
 const MENTOR_LINKS_FILE  = RESULTS_DIR + '/mentorLinks.txt'
+const MENTOR_FIELDS_FILE = RESULTS_DIR + '/fields.txt'
 
 const MENTOR_FALLBACK_EMAILS = {
     'Бедрина Марина Евгеньевна': 'm.bedrina@mail.ru',
@@ -70,8 +71,9 @@ const fetchMentorData = async mentorUrl => {
     const postEmailString = personalInfoText.split('E-mail:')[1]
 
     if(postEmailString) {
-        const emailCores = postEmailString.replace('[at]', '@').split('@')
-        const emails = postEmailString.split(' ').slice(1, emailCores.length)
+        const fixedPostEmail = postEmailString.replace('[at]', '@')
+        const emailCores = fixedPostEmail.split('@')
+        const emails = fixedPostEmail.split(' ').slice(1, emailCores.length)
                             .reduce((oldVal, email) => {
                                 let newEmails = []
                                 if(email.indexOf(';')) 
@@ -87,9 +89,9 @@ const fetchMentorData = async mentorUrl => {
         mentorData.mainEmail = emails[0]
 
     } else {
-        if(MENTOR_FALLBACK_EMAILS[mentor.name]) {
-            mentor.mainEmail = MENTOR_FALLBACK_EMAILS[mentor.name]
-            mentor.contacts = [mentor.mainEmail]
+        if(MENTOR_FALLBACK_EMAILS[mentorData.name]) {
+            mentorData.mainEmail = MENTOR_FALLBACK_EMAILS[mentorData.name]
+            mentorData.contacts = [mentorData.mainEmail]
         } else {
             logger.warn(`${mentorData.name} has no email`)
             mentorData.contacts = []
@@ -105,6 +107,23 @@ const fetchMentorData = async mentorUrl => {
         mentorData.contacts = [...mentorData.contacts, ...roomNumbers.map(s => 'Каб. ' + s)]
     }
 
+    /*
+    mentorData.fields = []
+
+    const triggers = document.querySelectorAll('.trigger')
+    const toggleContainers = document.querySelectorAll('.toggle_container')
+    let fieldsIdx = -1
+
+    triggers.forEach(($el, idx) => {
+        if($el.textContent.trim() === 'Области научных интересов') fieldsIdx = idx
+    })
+
+    if(fieldsIdx !== -1) {
+        const filedsString = toggleContainers[fieldsIdx].textContent
+        // console.log(filedsString)
+    
+        mentorData.fields = filedsString.split(/[.,]/).map(s => s.trim())
+    } */
 
     return mentorData
 }
@@ -122,6 +141,15 @@ const collect = async () => {
     
     logger.log('Fetching mentor data')
     const mentorsData = await Promise.all(mentorsLinks.map(fetchMentorData))
+
+    logger.log('Retrieving fields')
+    const fields = new Set([])
+    mentorsData.forEach(mentor => {
+        mentor.fields.forEach(field => fields.add(field))
+    })
+
+    logger.log('Writing fields')
+    await fse.writeFile(MENTOR_FIELDS_FILE, [...fields].join('\n'))
 
     logger.log('Writing mentor data')
     const writeResults = await Promise.all(mentorsData.map(async data => {

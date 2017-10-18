@@ -12,6 +12,8 @@ const mentorSchema = new mongoose.Schema({
         index: true,
     },
     
+    about: String,
+
     acceptsOwn: {
         type: String, 
         enum: ['none', 'any', 'inField'],
