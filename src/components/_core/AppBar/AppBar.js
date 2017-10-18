@@ -48,10 +48,11 @@ class AppBar extends React.Component {
 
     render() {
         const user = this.props.store.user
-        
+        const nav = NavBlock[user.type] || NavBlock['student']
+
         return (
             <Space horizontal='m' vertical='s' className={styles.appBar}>
-                {NavBlock[user.type](user)}
+                {nav(user)}
             </Space>
         )
     }

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+const crypto = require('crypto')
 
 const config  = require('../../config')
 const MagicLink = require('../../models/magicLinkModel')
@@ -14,7 +14,10 @@ const magicLinkGenerate = async (type, target) => {
     if(target.mainEmail) maginLinkData.email = target.mainEmail
     else maginLinkData.contact = target.contact[0]
 
-    maginLinkData.token = jwt.sign({ id: target._id }, config.secret)
+    maginLinkData.token = crypto.createHmac('sha256', config.secret)
+                                .update(target._id.toString())
+                                .update(Math.random().toString())
+                                .digest('hex')
 
     try {
         if(oldLink) {

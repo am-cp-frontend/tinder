@@ -1,16 +1,18 @@
 import React from 'react'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { Redirect } from 'react-mobx-router'
 
 import ViewBox from '@components/_utility/ViewBox~'
-import LoginView from '@components/auth/Login~'
+import Spinner from '@components/_utility/Spinner~'
+import AsyncDataStore from '@store/AsyncDataStore'
 
-
+import request from '@utility/request'
 
 //stabs
 import {auth} from '@src/store/fetchStabs.toRemove'
 
 @inject('store')
+@observer
 class AuthRoute extends React.Component {
     constructor(props) { 
         super(props)
@@ -18,11 +20,21 @@ class AuthRoute extends React.Component {
 
     componentWillMount() {
         document.title = 'Выход'
-        this.props.store.resetUser()
+        this.store = new AsyncDataStore({})
+        request('/auth/logout', this.store)
     }
 
     render() {
-        return <Redirect to='/find' />
+        if(this.store.loaded && this.store.data.ok) {
+            this.props.store.user.reset()
+            return <Redirect to='/find' />
+        }
+
+        return (
+            <ViewBox center='horizontal'>
+                <Spinner /> }
+            </ViewBox>
+        )
     }
 }
 

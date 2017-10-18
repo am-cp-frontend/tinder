@@ -20,8 +20,6 @@ const removeTagAction = tags => ({
     children: <Icon glyph={CloseGlyph} />
 })
 
-const possibleTags = ['FieldSome', 'b', 'c', 'd']
-
 @observer
 class TagInput extends React.Component {
     @observable inputValue = ''
@@ -82,6 +80,8 @@ class TagInput extends React.Component {
         const borderClasses = classNames(styles.border, {
             [styles.borderFocused]: this.focused
         }) 
+
+        const options = this.props.autocomplete.filter(s => s.startsWith(this.inputValue))
         
         const shouldRenderPlaceholder = this.tags.length === 0 && this.inputValue === ''
         
@@ -117,9 +117,9 @@ class TagInput extends React.Component {
                     </TagList>
                     <div className={borderClasses} />
                     <Selection className={styles.autocomplete}
-                               focus={this.focused}
+                               focus={this.focused && options.length}
                                onChange={this.handleAutocomplete}
-                               options={possibleTags.slice(this.tags.length)} />
+                               options={options} />
                 </div>
             </div>
         )
@@ -127,12 +127,14 @@ class TagInput extends React.Component {
 }
 
 TagInput.propTypes = {
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    autocomplete: PropTypes.arrayOf(PropTypes.string)
 }
 
 
 TagInput.defaultProps = {
-    tags: observable([])
+    tags: observable([]),
+    autocomplete: []
 }
 
 export default TagInput

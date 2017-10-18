@@ -19,7 +19,8 @@ const serverErrorsToRus = {
 }
 
 @inject('store', 'history') @observer
-export default class MentorEdit extends React.Component {
+
+class MentorEdit extends React.Component {
     constructor(props) {
         super(props)
         this.handleSaveResponce = this.handleSaveResponce.bind(this)
@@ -104,10 +105,10 @@ export default class MentorEdit extends React.Component {
     render() {
         const user = this.props.store.user
         const mentorData = this.store.data
-
+        
         if( ! user.auth || ! user.type === 'mentor') {
             user.destination = this.props.history.location.pathname
-            return <Redirect to='/auth/r' />
+            return <Redirect to='/auth/magic/0' />
         }
 
         if( mentorData.error ) {
@@ -121,7 +122,7 @@ export default class MentorEdit extends React.Component {
                 </ViewBox>
             )
         }
-        
+
         return (
             <ViewBox center='horizontal'>
                 <MentorEditPage  {...mentorData}
@@ -137,3 +138,5 @@ export default class MentorEdit extends React.Component {
         )
     }
 }
+
+export default MentorEdit

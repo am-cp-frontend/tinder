@@ -14,7 +14,7 @@ import MentorEdit from '@routes/MentorEdit~'
 const Routes = props => (
     <Switch>
         <Redirect exact form='/' to='/find/' />
-        <Route exact path='/auth/:token' component={<Auth />} />
+        <Route exact path='/auth/magic/:token' component={<Auth />} />
         <Route exact path='/login/' component={<Login />} />
         <Route exact path='/logout/' component={<Logout />} />
     

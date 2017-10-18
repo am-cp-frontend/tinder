@@ -3,6 +3,7 @@ import AsyncDataStore from '@store/AsyncDataStore'
 const memory = {}
 
 const handleError = dataStore => error => {
+    console.error(error)
     if(error.loaded) {
         dataStore.load({
             ok: false,

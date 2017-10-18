@@ -3,19 +3,27 @@
 .host
     position: relative
     width: 100%
-    height: 1px
+    height: 0px
 
 .selection
     position: absolute
     top: 0
     left: 0
     width: 100%
+    min-height: 3.6rem
+    max-height: 40vh
+
     background: $bg-solid
     border: $border-width-m solid $border-color-main
+
+    overflow-y: scroll
+    z-index: 10
 
 .option
     padding: $space-xxs $space-s
     border-top-color: $border-color-main
+    cursor: pointer
+    user-select: none
 
 .optionFocused
     background: $bg-main

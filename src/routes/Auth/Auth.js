@@ -4,8 +4,15 @@ import { inject } from 'mobx-react'
 
 import getAuth from '@utility/getAuth'
 
-const errorToRus = {
-    'Error: Link not found': 'Ссылка для входа устарела, запросите новую'
+const errorToRus = error => {
+    if(error === 'Error: Link not found')
+        return 'Ссылка для входа устарела, запросите новую'
+    
+    if(error === undefined) 
+        return 'Нужно войти по ссылке, которую вам отправили на email'
+
+    console.error(error)
+    return 'Неизвестная ошибка входа, попробуйте еще раз'
 }
 
 const AuthRoute = inject('store')(props => {
@@ -16,12 +23,12 @@ const AuthRoute = inject('store')(props => {
         user.auth = true
         user.type = authResult.data.type
         user.id = authResult.data.id
-        return <Redirect to='/mentor-edit/' />
+        return <Redirect to={user.destination || '/mentor-edit/'} />
     } else {
         user.reset()
-        props.store.notifications.push({
+        props.store.notifications.add({
             type: 'error',
-            message: errorToRus[authResult.data] || 'Ошибка входа'
+            message: errorToRus(authResult.data)
         })
     }
 

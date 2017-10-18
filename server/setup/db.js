@@ -1,4 +1,5 @@
 const fse = require('fs-extra')
+const spawn  = require('child_process').spawn
 const mongoose = require('mongoose'); mongoose.Promise = global.Promise
 
 const Mentor = require('../models/mentorModel')
@@ -13,13 +14,28 @@ const preSetupDB = async (logger, dbPath) => {
 }
 
 
-const setupDB = async (logger, dbUrl) => {
+const setupDB = (logger, dbUrl) => new Promise((resolve, reject) => {
     logger.log('Checking db')
     
-    mongoose.connect(dbUrl, { useMongoClient: true })
+    const db = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'db'])
+
+    db.stdout.on('data', (data) => {
+        if(data.indexOf('waiting for connections') !== -1) {
+            mongoose.connect(dbUrl, { useMongoClient: true })
+            logger.log('db ok \n')
+            resolve()
+        }
+    })
     
-    logger.log('db ok \n')
-}
+    db.stderr.on('data', (data) => {
+        logger.error(`stderr: ${data}`)
+        reject(data)
+    })
+    
+    db.on('close', (code) => {
+        reject(code)
+    })
+})
 
 module.exports = {
     prepare: preSetupDB,

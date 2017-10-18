@@ -1,18 +1,12 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { observable } from 'mobx'
+import { observable, autorun } from 'mobx'
 
 import ViewBox from '@components/_utility/ViewBox~'
 import LoginView from '@components/auth/Login~'
+import AsyncDataStore from '@store/AsyncDataStore'
 
-
-
-//stabs
-import {auth} from '@src/store/fetchStabs.toRemove'
-
-class LoginStore {
-    @observable login = ''
-}
+import request from '@utility/request'
 
 const handleLogin = (authData, userStore, historyStore) => {
     userStore.auth = true
@@ -28,54 +22,81 @@ const handleLogin = (authData, userStore, historyStore) => {
     }
 }
 
-@inject('store', 'history')
+const emailRegexp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+const verifyEmail = email => emailRegexp.test(email)
+
+const errorToRus = error => {
+    if(error === 'Not found')
+        return 'Убедитесь, что вы указали тот же email, что и на сайте СПбГУ'
+
+    console.error(error)
+    return 'Неизвестная ошибка входа, попробуйте еще раз'
+}
+
+@inject('store')
+@observer
 class LoginRoute extends React.Component {
-    constructor(props) { 
-        super(props)
-    }
-
-    handleLoginChange(e) {
-        this.store.login = e.target.value
-    }
-
-    handlePasswordChange(e) {
-        this.store.password = e.target.value
-    }
-
-    attemptLogin() {
-        auth({
-            login: this.store.login,
-            password: this.store.password,
-        }, data => {
-            if(data.error) {
-                return mainStore.notifications.push({
-                    type: 'error', message: data.message
-                })
-            } 
-
-            handleLogin(
-                data,
-                this.props.store.user,
-                this.props.history,
-            )
-        })
-
-        return false
-    }
-
+    @observable sendState = 'todo'
     componentWillMount() {
-        
-        this.store = new LoginStore()
-        
+        this.email = ''
+    }
+
+    sendMagic() {
+        if(verifyEmail(this.email)) {
+            this.sendState = 'sending'
+            const sendStore = new AsyncDataStore({})
+
+            autorun(() => {
+                if(sendStore.loaded) {
+                    if(sendStore.data.ok) {
+                        this.sendState = 'sent'
+                    } else {
+                        this.sendState = 'todo'
+                        sendStore.data.data = sendStore.data.data || {error: 'Неизвестная ошибка'}
+                        this.props.store.notifications.add({
+                            type: 'error',
+                            message: errorToRus(sendStore.data.data.error)
+                        })
+                    }
+                }
+            })
+
+            request({
+                type: 'POST',
+                url: '/auth/sendMagic',
+                data: {email: this.email}
+            }, sendStore)
+        } else {
+            this.props.store.notifications.add({
+                type: 'warning',
+                message: 'Убедитесь, что вы ввели верный email'
+            })
+        }
+    }
+
+    handleEmailChange(e) {
+        this.email = e.target.value
+    }
+
+    handleEmailSwap() {
+        console.log('swap')
+        this.email = ''
+        this.sendState = 'todo'
+    }
+
+    componentWillMount() {        
         document.title = 'Вход'
     }
 
     render() {
         return (
             <ViewBox center='all'>
-                <LoginView handleLoginChange={e => this.handleLoginChange(e)}
-                           handlePasswordChange={e => this.handlePasswordChange(e)}
-                           onSubmit={() => this.attemptLogin()} />
+                <LoginView handleEmailChange={e => this.handleEmailChange(e)}
+                           sendState={this.sendState}
+                           onEmailSwap={() => this.handleEmailSwap()}
+                           onResend={() => this.sendMagic()}
+                           onSubmit={() => this.sendMagic()}
+                           email={this.email} />
             </ViewBox>
         )
     }
