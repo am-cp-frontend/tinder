@@ -38,15 +38,10 @@ class FindMentorStore extends AsyncDataStore {
         })
 
         if(this.hasOwnTopic) {
-            const priorityMentos = []
-            const fineMentors = []
-
             fullDataMentors.forEach(mentor => {
                 if(mentor.inField && mentor.acceptsOwn !== 'none') priorityMentos.push(mentor.data)
                 else if(mentor.acceptsOwn === 'any') fineMentors.push(mentor.data)
             })
-
-            return [...priorityMentos, ...fineMentors]
         }
         else {
             fullDataMentors
@@ -57,9 +52,18 @@ class FindMentorStore extends AsyncDataStore {
                     else 
                         fineMentors.push(mentor.data)
                 })
+        }
 
-            return [...priorityMentos, ...fineMentors]
-        }        
+        return priorityMentos.concat(fineMentors)
+    }
+
+    @computed get mentorTags() {
+        //impure but fast
+        const mentorTags = this.stortedMentors.reduce((oldVal, mentor) => {
+            mentor.fields.toJS().forEach(field => oldVal.add(field))
+            return oldVal
+        }, new Set([]))
+        return [...mentorTags]
     }
 
     load(data) {

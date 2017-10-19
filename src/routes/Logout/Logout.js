@@ -27,7 +27,7 @@ class AuthRoute extends React.Component {
     }
 
     @action resetUser() {
-        console.log(this.props.store.user.reset())
+        this.props.store.user.reset()
     }
 
     render() {

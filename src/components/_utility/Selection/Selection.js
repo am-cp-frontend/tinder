@@ -54,7 +54,7 @@ class Selection extends React.Component {
 
     handleClick(value) {
         return event => {
-            this.props.onChange(value)
+            if(event.which === 1) this.props.onChange(value)
         }
     }
 

@@ -81,10 +81,15 @@ class TagInput extends React.Component {
             [styles.borderFocused]: this.focused
         }) 
 
-        const options = this.props.autocomplete.filter(s => s.startsWith(this.inputValue))
+        const simpleInput = this.inputValue.toLowerCase().trim()
+        const options = this.props.autocomplete
+                            .filter(s => this.tags.indexOf(s) === -1 && s.toLowerCase().startsWith(simpleInput))
         
+        
+
         const shouldRenderPlaceholder = this.tags.length === 0 && this.inputValue === ''
         
+
         return (
             <div className={hostClasses} onClick={this.focusInput}>
                 <label className={styles.label}> 

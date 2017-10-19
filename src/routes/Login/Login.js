@@ -79,7 +79,6 @@ class LoginRoute extends React.Component {
     }
 
     handleEmailSwap() {
-        console.log('swap')
         this.email = ''
         this.sendState = 'todo'
     }

@@ -28,14 +28,15 @@ const FindMentor = props => (
             </Checkbox>
             <TagInput id='FieldOfStudy' 
                       placeholder='Область исследований'
-                      className={styles.tagInput} 
+                      className={styles.tagInput}
+                      autocomplete={props.mentorTags}
                       tags={props.selectedFields} />
         </div>
         <Space bottom='m' />
         {
             props.mentors.length 
             ? <List data={props.mentors} item={MentorCard} getKey={data => data._id}/> 
-            : 'Таких научруков нет :('
+            : 'Подходящих научруков нет :('
         }
     </div>
 )

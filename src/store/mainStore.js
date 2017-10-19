@@ -14,7 +14,6 @@ class MainStore {
         id: '',
         destination: '',
         reset: function() {
-            console.log('reset', this, this.auth)
             this.auth = false,
             this.id = '',
             this.type= defaultUserType
