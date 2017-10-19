@@ -7,7 +7,7 @@ const mentorGet = require('../func/mentor/mentorGet')
 const mentorQuery = require('../func/mentor/mentorQuery')
 const mentorUpdate = require('../func/mentor/mentorUpdate')
 
-const sendEmail = require('../utility/sendEmail')
+const email = require('../utility/email')
 
 const magicLinkGet = require('../func/magicLink/magicLinkGet')
 const magicLinkGenerate = require('../func/magicLink/magicLinkGenerate')
@@ -54,12 +54,14 @@ appRouter
             if(mentorResult.data.length) {
                 const magicLinkResult = await magicLinkGenerate('mentor', mentorResult.data[0])
                 if(magicLinkResult.ok) {
-                    await sendEmail({
-                        to: mentorResult.data[0],
-                        subject: 'Ссылка для входа',
-                        text: `Ссылка для входа:
-                               https://${config.appHost}:${config.appPort}/auth/magic/${magicLinkResult.data.token}`,
-                    })
+                    const emailContent = email.template.magicLink(
+                        magicLinkResult.data.token,
+                        mentorResult.data[0].name
+                    )
+                    await email.send(Object.assign({
+                        to: mentorResult.data[0].mainEmail,
+                        subject: 'Вход в приложение для поиска поднаучных'
+                    }, emailContent))
                     ctx.body = {ok: true}
                 } else {
                     ctx.body = {ok: false, data: {error: magicLinkResult.data}}

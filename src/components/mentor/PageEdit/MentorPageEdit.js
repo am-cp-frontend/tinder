@@ -100,7 +100,7 @@ const MentorPageEdit = observer(props => {
 
 
             <Space bottom='m'>
-                <H level={3}> Принимаете поднаучных со своей темой исследований </H> 
+                <H level={3}> Принимаете учеников со своей темой исследований </H> 
                 <Space bottom='xxs' />
                 <select value={props.acceptsOwn} onChange={props.handleAcceptsOwnChange}>
                     {acceptsOwnEl} 
@@ -110,12 +110,12 @@ const MentorPageEdit = observer(props => {
             <Space bottom='m'>
                 <H level={3}> О себе </H>
                 <RichEditor value={props.about}
-                            placeholder='Необязательно, как и все остальное, но помогает получить поднаучных'
+                            placeholder='Заполняется по желанию, как и все остальное, укажите информацию, для которой не нашли подходящего поля'
                             onChange={props.handleAboutChange} />
             </Space>
 
             <Space bottom='m'>
-                <H level={3}> Задачи для поднаунчных </H> 
+                <H level={3}> Задачи для учеников </H> 
                 <Space bottom='xs' />
                 
                 <List data={props.tasks}

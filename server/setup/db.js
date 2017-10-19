@@ -35,6 +35,11 @@ const setupDB = (logger, dbUrl) => new Promise((resolve, reject) => {
     db.on('close', (code) => {
         reject(code)
     })
+
+    process.on('SIGINT', () => {
+        db.kill('SIGINT')
+        process.exit();
+    })
 })
 
 module.exports = {

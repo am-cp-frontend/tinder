@@ -17,6 +17,8 @@ class FindMentorStore extends AsyncDataStore {
         if(!this.hasOwnTopic && this.selectedFields.length === 0) 
             return this.mentors
         
+        const priorityMentos = []
+        const fineMentors = []
         const simpleFields = this.selectedFields.map(simplify)
 
         const fullDataMentors = this.mentors.map(mentorData => {
@@ -47,9 +49,16 @@ class FindMentorStore extends AsyncDataStore {
             return [...priorityMentos, ...fineMentors]
         }
         else {
-            return fullDataMentors
-                    .filter(mentor => mentor.hasTasks && mentor.inField)
-                    .map(mentor => mentor.data)
+            fullDataMentors
+                .filter(mentor => mentor.inField)
+                .forEach(mentor => {
+                    if(mentor.hasTasks)
+                        priorityMentos.push(mentor.data)
+                    else 
+                        fineMentors.push(mentor.data)
+                })
+
+            return [...priorityMentos, ...fineMentors]
         }        
     }
 
