@@ -12,6 +12,8 @@ const email = require('../utility/email')
 const magicLinkGet = require('../func/magicLink/magicLinkGet')
 const magicLinkGenerate = require('../func/magicLink/magicLinkGenerate')
 
+
+const mentorFields = require('../setup/fields').list
 const cookieOptions = {
     httpOnly:false,
     overwrite: true,
@@ -71,7 +73,6 @@ appRouter
                 ctx.body = {ok: false, data: {error: 'Not found'}}
             }
         } else {
-            console.log('fail')
             ctx.body = {ok: false, data: {error: result.data}}
         }
     })
@@ -89,6 +90,9 @@ appRouter
 
         if(result.ok) ctx.body = result.data
         else ctx.body = {error: result.data}
+    })
+    .get('/data/fields', async (ctx, next) => {
+        ctx.body = mentorFields
     })
     .post('/update/mentor/:id', async (ctx, next) => {
         //verification

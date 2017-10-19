@@ -45,7 +45,7 @@ class TagInput extends React.Component {
     }
 
     handleInput(e) {
-        if(e.which === 13 || e.which === 186 || e.which === 188) {
+        if(e.which === 13 || e.key === ',' || e.key === '.') {
             this.addTag(this.inputValue)
         } else {
             if(e.which === 8 && this.inputValue === '') this.tags.pop()

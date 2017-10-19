@@ -49,12 +49,12 @@ const magicLinkTemplate = (token, name) => {
 
 const sendEmail = message => new Promise((resolve, reject) => {
     const finalMessage = Object.assign({}, emailDefault, message)
-    console.log(message)
     // resolve()
     
+    config.logger.log('sending email to', message.to)
     transporter.sendMail(finalMessage, (err, data) => {
         if(err) reject({ok: false, data: err})
-        console.log('sent fine')
+        config.logger.log('email sent to', message.to)
         resolve({ok: true, data})
     })
 })

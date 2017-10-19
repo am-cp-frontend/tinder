@@ -10,6 +10,7 @@ const config = {
     path: {
         root: __dirname,
         db: __dirname + '/db',
+        fields: __dirname + '/presetFields.txt',
         forms: __dirname + '/forms',
         dist: __dirname + '/dist'
     },

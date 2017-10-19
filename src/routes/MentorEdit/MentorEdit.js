@@ -9,6 +9,7 @@ import Spinner from '@components/_utility/Spinner~'
 
 import MentorEditPage from '@components/mentor/PageEdit/MentorPageEdit'
 import MentorEditStore from './MentorEditStore'
+import AsyncDataStore from '@store/AsyncDataStore'
 
 import request from '@utility/request'
 
@@ -29,12 +30,14 @@ class MentorEdit extends React.Component {
     componentWillMount() {
         const mainStore = this.props.store
         this.store = new MentorEditStore({})
+        this.autocompleteStore = new AsyncDataStore([])
         
         this.mountId = mainStore.mount(this.store)
         
         if(mainStore.user.auth && mainStore.user.type === 'mentor')
             request('/data/mentor/' + mainStore.user.id, this.store)
-        
+            request('data/fields/', this.autocompleteStore)
+
         autorun(() => {
             document.title = 'Ред. ' + this.store.data.name || '...'
         })
@@ -130,6 +133,8 @@ class MentorEdit extends React.Component {
         return (
             <ViewBox center='horizontal'>
                 <MentorEditPage  {...mentorData}
+                                 fieldsAutocomplete={this.autocompleteStore.data}
+
                                  handleNameChange={e => this.handleNameChange(e)}
                                  handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
                                  handleAboutChange={e => this.handleAboutChange(e)}

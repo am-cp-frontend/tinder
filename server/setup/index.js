@@ -8,6 +8,12 @@ const setups = [
             prepare: [config.path.db],
             execute: [config.mongoUrl]
         }
+    }, {
+        funcs: require('./fields'),
+        args: {
+            prepare: [config.path.fields],
+            execute: [config.path.fields]
+        }
     }
 ]
 

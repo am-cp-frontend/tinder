@@ -95,7 +95,8 @@ const MentorPageEdit = observer(props => {
             <Space bottom='m'>
                 <H level={3}> Интересные вам области исследований </H> 
                 <Space bottom='xxs' />
-                <TagInput tags={props.fields} />
+                <TagInput tags={props.fields}
+                          autocomplete={props.fieldsAutocomplete} />
             </Space>
 
 
@@ -110,7 +111,7 @@ const MentorPageEdit = observer(props => {
             <Space bottom='m'>
                 <H level={3}> О себе </H>
                 <RichEditor value={props.about}
-                            placeholder='Заполняется по желанию, как и все остальное, укажите информацию, для которой не нашли подходящего поля'
+                            placeholder='Заполняется по желанию, как и все остальное. Укажите информацию, для которой не нашли подходящего поля'
                             onChange={props.handleAboutChange} />
             </Space>
 
