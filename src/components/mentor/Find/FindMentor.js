@@ -16,7 +16,7 @@ const MentorCard = props => <Card> <MentorBlock {...props} hLevel={4} /> </Card>
 
 const FindMentor = props => (
     <div className={styles.view}>
-        <h2> Поиск научрука </h2>
+        <h2> Поиск научного руководителя </h2>
         <Space bottom='s' />
 
         <div className={styles.filter}> 
@@ -36,7 +36,7 @@ const FindMentor = props => (
         {
             props.mentors.length 
             ? <List data={props.mentors} item={MentorCard} getKey={data => data._id}/> 
-            : 'Подходящих научруков нет :('
+            : 'Подходящих научных руководителей нет :('
         }
     </div>
 )

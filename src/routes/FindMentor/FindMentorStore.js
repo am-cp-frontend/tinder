@@ -70,7 +70,7 @@ class FindMentorStore extends AsyncDataStore {
         if(data.ok === false) {
             mainStore.notifications.add({
                 type: 'error',
-                message: 'Не удалось получть список научруков с сервера'
+                message: 'Не удалось получть список научных руководителей с сервера'
             })
             data = []
         }

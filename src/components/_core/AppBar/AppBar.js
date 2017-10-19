@@ -13,7 +13,7 @@ const NavBlock ={
     student: user => (
         <nav  className={styles.nav}>
             <Link to='/find/' type='block'> 
-                <Button tabIndex='-1'> Поиск научрука </Button>
+                <Button tabIndex='-1'> Поиск </Button>
             </Link>
     
             <Space left='m' />

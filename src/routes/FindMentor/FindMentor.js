@@ -31,7 +31,7 @@ class FindMentor extends React.Component {
 
         request('/data/mentors', this.store)
         
-        document.title = 'Поиск научрука'
+        document.title = 'Поиск научного руководителя'
         
         //url -> state
         const queryPairs = decodeURI(history.location.search).slice(1).split('&').map(pair => {
