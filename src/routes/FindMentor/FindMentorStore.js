@@ -59,7 +59,7 @@ class FindMentorStore extends AsyncDataStore {
 
     @computed get mentorTags() {
         //impure but fast
-        const mentorTags = this.stortedMentors.reduce((oldVal, mentor) => {
+        const mentorTags = this.mentors.reduce((oldVal, mentor) => {
             mentor.fields.toJS().forEach(field => oldVal.add(field))
             return oldVal
         }, new Set([]))

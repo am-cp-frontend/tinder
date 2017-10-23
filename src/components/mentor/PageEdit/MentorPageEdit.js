@@ -89,13 +89,16 @@ const MentorPageEdit = observer(props => {
         
             <Space bottom='m'>
                 <H level={3}> Контакты </H>
-                <TagInput tags={props.contacts} tagProps={{transparent: true}} />
+                <TagInput tags={props.contacts}
+                          placeholder='Любой способ с вами связаться'
+                          tagProps={{transparent: true}} />
             </Space>
 
             <Space bottom='m'>
                 <H level={3}> Интересные вам области исследований </H> 
                 <Space bottom='xxs' />
                 <TagInput tags={props.fields}
+                          placeholder='Вы также можете ввести области отстутствующие в списке, который появится при клике'
                           autocomplete={props.fieldsAutocomplete} />
             </Space>
 
