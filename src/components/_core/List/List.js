@@ -27,13 +27,6 @@ const defaultProps = {
     divider: <Space top='m' />
 }
 
-const ListItem = props => (
-    <div>
-        {props.idx !== 0 ? props.divider : null}
-        {props.children}
-    </div>
-)
-
 const List = observer(props => {
     const items = props.data.map((data, idx) => {
         const key = props.getKey(data, idx)
