@@ -47,13 +47,14 @@ const List = observer(props => {
         }
     })
     
-    const itemEls = items.map((item, i) => (
-        <ListItem key={item.key} idx={i} divider={props.divider}> 
-            {item.el}
-        </ListItem>
-    ))
+    const itemEls = items.reduce((oldVal, item, i) => {
+        const addition = []
+        if(i !== 0) addition.push(props.divider)
+        addition.push(item.el)
+        return oldVal.concat(addition)
+    }, [])
 
-    return <div> {itemEls} </div>
+    return <div className={props.className}> {itemEls} </div>
 })
 
 List.propTypes = propTypes

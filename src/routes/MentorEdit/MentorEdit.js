@@ -39,6 +39,7 @@ class MentorEdit extends React.Component {
             request('data/fields/', this.autocompleteStore)
 
         autorun(() => {
+            console.log(this.autocompleteStore.data)
             document.title = 'Ред. ' + this.store.data.name || '...'
         })
     }
@@ -69,7 +70,20 @@ class MentorEdit extends React.Component {
             titleChange: (e) => tasks[idx].title = e.target.value,
             descChange: (e) => tasks[idx].desc = e.target.value,
             skillsChange: (e) => tasks[idx].skills = e.target.value,
-            remove: () => tasks.splice(idx, 1)
+            remove: () => tasks.splice(idx, 1),
+            addAttachment: () => {
+                tasks[idx].attachments.push({
+                    title: '',
+                    link: ''
+            })},
+            makeAttachmentHandlers: (attachmentIdx) => {
+                const attachment = tasks[idx].attachments[attachmentIdx]
+                return {
+                    titleChange: (e) => attachment.title = e.target.value,
+                    linkChange: (e) => attachment.link = e.target.value,
+                    remove: () => tasks[idx].attachments.splice(attachmentIdx, 1)
+                }
+            }
         }
     }
 

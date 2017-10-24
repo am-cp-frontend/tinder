@@ -133,7 +133,10 @@ class TagInput extends React.Component {
 
 TagInput.propTypes = {
     placeholder: PropTypes.string,
-    autocomplete: PropTypes.arrayOf(PropTypes.string)
+    autocomplete:  PropTypes.oneOfType([
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.objectOf(PropTypes.string)
+    ])
 }
 
 

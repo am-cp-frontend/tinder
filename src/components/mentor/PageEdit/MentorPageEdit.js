@@ -54,10 +54,12 @@ class TaskEditItem extends React.Component {
         return (
             <Card>
                 <TaskEdit {...(this.props)}
-                          handleTitleChange = {handlers.titleChange}
-                          handleDescChange  = {handlers.descChange}
-                          handleSkillsChange= {handlers.skillsChange}
-                          handleRemove      = {handlers.remove} />
+                          handleTitleChange      = {handlers.titleChange}
+                          handleDescChange       = {handlers.descChange}
+                          handleSkillsChange     = {handlers.skillsChange}
+                          handleRemove           = {handlers.remove}
+                          hadnleAddAttachment    = {handlers.addAttachment}
+                          makeAttachmentHandlers = {handlers.makeAttachmentHandlers} />
             </Card>
         )
     }
@@ -72,7 +74,7 @@ const MentorPageEdit = observer(props => {
             </option>
         )
     }
-    
+
     return (
         <div className={styles.view}>
             <Space bottom='m'>
@@ -99,7 +101,7 @@ const MentorPageEdit = observer(props => {
                 <Space bottom='xxs' />
                 <TagInput tags={props.fields}
                           placeholder='Вы также можете ввести области отстутствующие в списке, который появится при клике'
-                          autocomplete={props.fieldsAutocomplete} />
+                          autocomplete={props.fieldsAutocomplete || []} />
             </Space>
 
 
@@ -112,7 +114,7 @@ const MentorPageEdit = observer(props => {
             </Space>
 
             <Space bottom='m'>
-                <H level={3}> О себе </H>
+                <H level={3}> Дополнительная информация </H>
                 <RichEditor value={props.about}
                             placeholder='Заполняется по желанию, как и все остальное. Укажите информацию, для которой не нашли подходящего поля'
                             onChange={props.handleAboutChange} />
@@ -123,10 +125,11 @@ const MentorPageEdit = observer(props => {
                 <Space bottom='xs' />
                 
                 <List data={props.tasks}
-                    getKey={(data, idx) => idx}
-                    divider={<hr />}
-                    item={TaskEditItem}
-                    itemProps={{makeTaskHandlers: props.makeTaskHandlers}} />
+                      getKey={(data, idx) => idx}
+                      divider={<Space bottom='m' />}
+                      item={TaskEditItem}
+                      itemProps={{makeTaskHandlers: props.makeTaskHandlers, 
+                                  makeAttachmentHandlers: props.makeAttachmentHandlers}} />
                 {props.tasks.length ? <Space bottom='m' /> : null}
 
                 <Button onClick={props.handleAddTask}> Добавить задачу </Button> 

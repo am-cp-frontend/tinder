@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import styles from './Text.sass'
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
     type: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func

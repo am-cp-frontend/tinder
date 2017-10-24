@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import styles from './RTE.sass'
 
 const propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     type: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func

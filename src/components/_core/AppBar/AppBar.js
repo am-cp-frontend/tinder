@@ -31,7 +31,7 @@ const NavBlock ={
     
             <Space left='m' />
     
-            <Link to='/logout/' type='block' highlight={true}> 
+            <Link to='/logout/' type='block'> 
                 <Button tabIndex='-1'> Выйти </Button>
             </Link>
         </nav>

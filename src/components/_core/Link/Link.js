@@ -10,13 +10,27 @@ const defaultProps = {
 }
 
 const AppLink = props => {
+    if(props.to.split('?')[0].indexOf('://') === -1) {
+        return (
+            <Link to          = {props.to}
+                  target      = {props.target}
+                  className   = {cls({
+                    [styles.block]: props.type === 'block',
+                    [props.className]: props.className
+            })}>
+                {props.children}
+            </Link>
+        )
+    }
     return (
-        <Link to          = {props.to} 
+        <a    href        = {props.to}
+              target      = {props.target}
               className   = {cls({
-                [styles.block]: props.type === 'block'
+                [styles.block]: props.type === 'block',
+                [props.className]: props.className
         })}>
             {props.children}
-        </Link>
+        </a>
     )
 }
 

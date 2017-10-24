@@ -57,20 +57,10 @@ const MentorPage = props => {
     return (
         <div className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
-            <Space bottom='m' />
-
-            {props.about ? 
-                (
-                    <Space bottom='m'>
-                        <H level={3}> О себе </H> 
-                        {props.about}
-                    </Space>
-                ) : null    
-            }
-            
+            <Space bottom='m' />            
 
             <Space bottom='m'>
-                <H level={3}> Контакты </H> 
+                <H level={3}> {props.contacts.length ? 'Контакты' : 'Не оставил контактов' } </H> 
                 {contactsEl}
             </Space>
             
@@ -82,6 +72,15 @@ const MentorPage = props => {
             <Space bottom='m'>
                 <H level={3}> {ownToRus[props.acceptsOwn]} </H>
             </Space>
+
+            {props.about ? 
+                (
+                    <Space bottom='m'>
+                        <H level={3}> Дополнительная информация </H> 
+                        {props.about}
+                    </Space>
+                ) : null    
+            }
 
             <Space bottom='m'>
                 { props.tasks.length ? (

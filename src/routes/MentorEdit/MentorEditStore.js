@@ -9,6 +9,9 @@ class MentorEditStore extends AsyncDataStore {
     }
 
     load(data) {
+        data.tasks.forEach(task => {
+            task.attachments = task.attachments || []
+        })
         super.load(data)
         this.backup = Object.assign(data)
     }
@@ -17,7 +20,8 @@ class MentorEditStore extends AsyncDataStore {
         this.data.tasks.push({
             title: '',
             desc: '',
-            skills: ''
+            skills: '',
+            attachments: []
         })
     }
 
