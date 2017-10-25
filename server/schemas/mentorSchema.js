@@ -12,6 +12,7 @@ const mentorSchema = new mongoose.Schema({
         index: true,
     },
     
+    decline: Boolean,
     about: String,
 
     acceptsOwn: {

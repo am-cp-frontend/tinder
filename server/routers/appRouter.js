@@ -34,6 +34,7 @@ appRouter
             ctx.session.token = ctx.params.token
             user.type = tokenResult.data.type
             user.id = tokenResult.data.targetId
+            const updateResult = await mentorUpdate(tokenResult.data.targetId, {decline: false})
         } else {
             authError = tokenResult.data
         }
@@ -42,6 +43,22 @@ appRouter
         ctx.cookies.set('authError', authError, cookieOptions)
 
         await next()
+    })
+    .get('/auth/decline/:token', async (ctx, next) => {
+        config.logger.log('auth decline with', ctx.params.token)
+
+        const tokenResult = await magicLinkGet(ctx.params.token)
+        const user = {}
+        let authError = false
+
+
+        if(tokenResult.ok) {
+            const updateResult = await mentorUpdate(tokenResult.data.targetId, {decline: true})
+            if(updateResult.ok) {
+                ctx.body = 'Спасибо, что откликнулись, поднаучные не будут вас беспокоить в этом году.'
+                ctx.body += '\nВы всегда можете изменить свое решение перейдя по ссылке для входа.'
+            }
+        }
     })
     .get('/auth/logout', async (ctx, next) => {
         ctx.session.token = undefined
