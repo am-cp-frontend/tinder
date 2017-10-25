@@ -38,7 +38,7 @@ const magicLinkTemplate = (token, name, ) => {
                 </p>
                 <div>
                 Чтобы приступить к заполнению информации просто нажмите на эту кнопку.
-                    <div style="margin: 15px 0;>
+                    <div style="margin: 15px 0;">
                         <a href="${link}" style="color: #212121; text-decoration: none;"> 
                             <div style="padding: 10px 25px; background: #eee; display: inline-block;"> 
                                 Войти
