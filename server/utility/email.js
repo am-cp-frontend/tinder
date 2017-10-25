@@ -23,13 +23,13 @@ const magicLinkTemplate = (token, name, ) => {
                 <h1> Поиск учеников для научного руководства [Веб сервис] </h1>
                 <p>
                     Здравствуйте, ${name}!
-                    Студенческое научной общества факультета ПМ-ПУ проанализировало ситуацию 
+                    Студенческое научное общество факультета ПМ-ПУ проанализировало ситуацию 
                     с поиском научных руководителей студентами факультета.
-                    Многие из них сталкивались или сталкнулись в данных момент с проблемой 
+                    Многие из них сталкивались или столкнулись в данных момент с проблемой 
                     отсутствия информации о тех задачах, которыми занимаются преподаватели факультета. 
                 </p>
                 <p>
-                    Чтобы хоть как-то им помочь, мы разарботали специальный сервис,
+                    Чтобы хоть как-то им помочь, мы разработали специальный сервис,
                     который позволит преподавателю найти себе учеников,
                     а студентам определиться с выбором научного руководителя. 
                     ${name.split(' ').slice(1).join(' ')}, пожалуйста,
@@ -38,14 +38,14 @@ const magicLinkTemplate = (token, name, ) => {
                 </p>
                 <div>
                 Чтобы приступить к заполнению информации просто нажмите на эту кнопку.
-                    <div>
-                        <a href="${link}" style="color: #212121; display: block"> 
-                            <div style="padding: 10px 25px; background: #eee;"> 
+                    <div style="margin: 15px 0;>
+                        <a href="${link}" style="color: #212121; text-decoration: none;"> 
+                            <div style="padding: 10px 25px; background: #eee; display: inline-block;"> 
                                 Войти
                             </div> 
                         </a>
-                        <a href="${declineLink}" style="color: #212121; display: block">
-                            <div style="padding: 10px 25px; background: #eee;"> 
+                        <a href="${declineLink}" style="color: #212121; text-decoration: none; margin-left: 15px;">
+                            <div style="padding: 10px 25px; background: #eee; display: inline-block;"> 
                                 Не набираю учеников в этом году
                             </div> 
                         </a>
@@ -53,9 +53,11 @@ const magicLinkTemplate = (token, name, ) => {
                 </div>
             </div>
             Если кнопка не работает, пожалуйста, скопируйте ссылку           <br />
-            Для входа:         <a href="${link}">        ${link}        </a> <br />
-            Если не набираете: <a href="${declineLink}"> ${declineLink} </a> <br />
-            В адресную строку вашего браузерач
+            Для входа: <br />
+            <a href="${link}"> ${link} </a> <br />
+            Если не набираете: <br />
+            <a href="${declineLink}"> ${declineLink} </a> <br />
+            В адресную строку вашего браузера
 
             <hr />
             Вопросы и предложения по работе сервиса вы можете направлять на
