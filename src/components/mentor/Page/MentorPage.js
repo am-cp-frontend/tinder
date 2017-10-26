@@ -64,12 +64,18 @@ const MentorPage = observer(props => {
             <Space bottom='m' />            
 
             <Space bottom='m'>
-                <H level={3}> {props.contacts.length ? 'Контакты' : 'Не оставил контактов' } </H> 
+                <H level={3}> {props.contacts.length 
+                    ? 'Контакты' 
+                    : 'Контакты не указаны' } 
+                </H> 
                 {contactsEl}
             </Space>
             
             <Space bottom='m'>
-                <H level={3}> Области исследований </H> 
+                <H level={3}> {props.fields.length 
+                    ? 'Области исследований' 
+                    : 'Не указаны интересующие области исследований' } 
+                </H> 
                 {fieldsEl}
             </Space>
 
