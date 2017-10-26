@@ -24,18 +24,26 @@ const Attachment = observer(props => (
 
 const TaskBlock = observer(props => (
     <Space all={props.innerSpace || 'm'}>
-         <H level={props.hLevel}> {props.title} </H>
-         <Space bottom='xxs' />
+        <H level={props.hLevel}> {props.title} </H>
+            <Space bottom='xxs' />
 
-         <H level={props.hLevel + 1}> Описание </H>
-         <Space bottom='xxs' />
-         {props.desc} 
-         
-         <Space bottom='s' />
+            <H level={props.hLevel + 1}> Описание </H>
+            <Space bottom='xxs' />
+            {
+                props.desc.split('\n').map((item, key) => {
+                    return <span key={key}> {item} <br/> </span>
+                })
+            } 
+            
+            <Space bottom='s' />
 
-         <H level={props.hLevel + 1}> Необходимые навыки </H>
-         <Space bottom='xxs' />
-         {props.skills} 
+            <H level={props.hLevel + 1}> Необходимые навыки </H>
+            <Space bottom='xxs' />
+            {
+                props.skills.split('\n').map((item, key) => {
+                    return <span key={key}> {item} <br/> </span>
+                })
+            } 
 
         {props.attachments.map(e => null) /* hack to bind attachments */}
         { props.attachments.length ? (
@@ -43,9 +51,9 @@ const TaskBlock = observer(props => (
                 <H level={props.hLevel + 1}> Вложения </H>
                 <Space bottom='xxs' />
                 <List data={props.attachments} 
-                      divider={<Space left='s' />}
-                      className={styles.attachments}
-                      item={Attachment} />
+                        divider={<Space left='s' />}
+                        className={styles.attachments}
+                        item={Attachment} />
             </Space>
         ) : null }
     </Space>
