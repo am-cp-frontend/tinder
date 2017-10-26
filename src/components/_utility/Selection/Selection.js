@@ -87,7 +87,7 @@ class Selection extends React.Component {
                 }
 
                 if(focusedRect.top < selectionRect.top) {
-                    this.$selection.scrollTop -= sselectionRect.top - focusedRect.top
+                    this.$selection.scrollTop -= selectionRect.top - focusedRect.top
                 }
             }
         }
