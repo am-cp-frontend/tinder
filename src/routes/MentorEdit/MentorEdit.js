@@ -6,13 +6,17 @@ import { Redirect } from 'react-mobx-router'
 
 import ViewBox from '@components/_utility/ViewBox~'
 import Spinner from '@components/_utility/Spinner~'
+import Space from '@components/_core/Space~'
+import Card from '@components/_core/Card~'
 
+import MentorPage from '@components/mentor/Page/MentorPage'
 import MentorEditPage from '@components/mentor/PageEdit/MentorPageEdit'
 import MentorEditStore from './MentorEditStore'
 import AsyncDataStore from '@store/AsyncDataStore'
 
 import request from '@utility/request'
 
+import styles from './MentorEdit.sass'
 
 const serverErrorsToRus = {
     'No rights': 'У вас нет прав для редактирования этой страницы',
@@ -145,20 +149,31 @@ class MentorEdit extends React.Component {
         }
 
         return (
-            <ViewBox center='horizontal'>
-                <MentorEditPage  {...mentorData}
-                                 fieldsAutocomplete={this.autocompleteStore.data}
+            <div className={styles.row}>
+                <ViewBox center='horizontal'>
+                    <MentorEditPage  {...mentorData}
+                                    fieldsAutocomplete={this.autocompleteStore.data}
 
-                                 handleNameChange={e => this.handleNameChange(e)}
-                                 handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
-                                 handleAboutChange={e => this.handleAboutChange(e)}
+                                    handleNameChange={e => this.handleNameChange(e)}
+                                    handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
+                                    handleAboutChange={e => this.handleAboutChange(e)}
 
-                                 handleAddTask={e => this.handleAddTask(e)}
-                                 makeTaskHandlers={idx => this.makeTaskHandlers(idx)}
+                                    handleAddTask={e => this.handleAddTask(e)}
+                                    makeTaskHandlers={idx => this.makeTaskHandlers(idx)}
 
-                                 handleRevert={() => this.handleRevert()}
-                                 handleSave={() => this.handleSave()} />  
-            </ViewBox>
+                                    handleRevert={() => this.handleRevert()}
+                                    handleSave={() => this.handleSave()} />  
+                </ViewBox>
+                <ViewBox center='horizontal'>
+                    <Card> 
+                        <Space all='s'>
+                            <h3> Предварительный просмотр </h3>
+                        </Space> 
+                    </Card>
+                    <Space bottom='m' />
+                    <MentorPage {...mentorData} />
+                </ViewBox>
+            </div>
         )
     }
 }

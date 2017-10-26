@@ -52,7 +52,7 @@ class TaskEditItem extends React.Component {
         const handlers = this.props.makeTaskHandlers(this.props.keyValue)
 
         return (
-            <Card>
+            <Card key={this.props.key}>
                 <TaskEdit {...(this.props)}
                           handleTitleChange      = {handlers.titleChange}
                           handleDescChange       = {handlers.descChange}

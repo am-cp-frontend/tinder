@@ -1,0 +1,12 @@
+@import '@utility/vars.sass'
+
+.row
+    display: flex
+    flex-direction: row
+
+@media (max-width: 1024px)
+    .row
+        flex-direction: column
+
+    .row>div:last-child
+        display: none

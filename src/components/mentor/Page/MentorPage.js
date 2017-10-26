@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { observer } from 'mobx-react'
+
 import Card from '@components/_core/Card~'
 import List from '@components/_core/List~'
 import Space from '@components/_core/Space~'
@@ -47,12 +49,14 @@ const ownToRus = {
     any: 'Примает поднаучных со своими исследованиями в любой области'
 }
 
-const MentorPage = props => {
+const MentorPage = observer(props => {
     const contactsEl = <TagList tags={props.contacts} tagProps={{transparent: true}} />
     const fieldsEl = <TagList tags={props.fields} tagProps={{transparent: true}} />
 
     const taskCard = props => <Card> <TaskBlock {...props} hLevel={5} /> </Card>
     const exCard = props => <Card> <StudentBlock {...props} hLevel={5} /> </Card>
+
+    console.log(props)
 
     return (
         <div className={styles.view}>
@@ -105,7 +109,7 @@ const MentorPage = props => {
             ) : <H level={3}> Прошлые поднаучные не оставили своих контактов </H> }
         </div>
     )
-}
+})
 
 MentorPage.propTypes    = propTypes
 MentorPage.defaultProps = defaultProps

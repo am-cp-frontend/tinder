@@ -79,7 +79,7 @@ appRouter
                     )
                     await email.send(Object.assign({
                         to: mentorResult.data[0].mainEmail,
-                        subject: 'Вход в приложение для поиска поднаучных'
+                        subject: 'Поиск учеников для научного руководства'
                     }, emailContent))
                     ctx.body = {ok: true}
                 } else {

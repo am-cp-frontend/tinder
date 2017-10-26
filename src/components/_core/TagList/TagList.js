@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
+
 
 import Space from '@components/_core/Space~'
 import Tag from '@components/_core/Tag~'
@@ -53,6 +55,7 @@ const ListItem = props => (
     </Space>
 )
 
+@observer
 class TagList extends React.Component {
     constructor(props) {
         super(props)
