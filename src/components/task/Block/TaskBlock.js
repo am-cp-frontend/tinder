@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { observer } from 'mobx-react'
 
 import H from '@components/_core/Header~'
 import Link from '@components/_core/Link~'
@@ -15,13 +16,13 @@ const propTypes = {
     desc: PropTypes.string.isRequired,
 }
 
-const Attachment = props => (
+const Attachment = observer(props => (
     <Link type='block' to={props.link} target='_blank' className={styles.attachment}> 
         <Button tabIndex='-1'> {props.title} </Button>
     </Link>
-)
+))
 
-const TaskBlock = props => (
+const TaskBlock = observer(props => (
     <Space all={props.innerSpace || 'm'}>
          <H level={props.hLevel}> {props.title} </H>
          <Space bottom='xxs' />
@@ -36,6 +37,7 @@ const TaskBlock = props => (
          <Space bottom='xxs' />
          {props.skills} 
 
+        {props.attachments.map(e => null) /* hack to bind attachments */}
         { props.attachments.length ? (
             <Space top='s'>
                 <H level={props.hLevel + 1}> Вложения </H>
@@ -47,7 +49,7 @@ const TaskBlock = props => (
             </Space>
         ) : null }
     </Space>
-)
+))
 
 TaskBlock.propTypes = propTypes
 TaskBlock.defaultProps = {
