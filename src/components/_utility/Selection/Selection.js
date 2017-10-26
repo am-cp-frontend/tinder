@@ -71,6 +71,28 @@ class Selection extends React.Component {
         document.removeEventListener('keydown', this.handleKey)
     }
 
+    componentDidUpdate() {
+        if(this.$selection) {
+            const $focused = this.$selection.querySelector('.' + styles.optionFocused)
+            
+            if($focused) {
+                const focusedRect = $focused.getBoundingClientRect()
+                const selectionRect = this.$selection.getBoundingClientRect()
+
+                const focusEnd = focusedRect.top + focusedRect.height
+                const selectionEnd = selectionRect.top + selectionRect.height
+
+                if(focusEnd > selectionEnd) {
+                    this.$selection.scrollTop += focusEnd - selectionEnd
+                }
+
+                if(focusedRect.top < selectionRect.top) {
+                    this.$selection.scrollTop -= sselectionRect.top - focusedRect.top
+                }
+            }
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if(this.props.options !== nextProps.options)
             this.focusIdx = 0
@@ -91,7 +113,8 @@ class Selection extends React.Component {
                 [this.props.className]: this.props.className
             })}>
                 {(this.props.show || this.props.focus) && optionEls.length
-                    ? <div className={styles.selection}> {optionEls} </div>
+                    ? <div className={styles.selection} 
+                           ref={el => {this.$selection = el;}}> {optionEls} </div>
                     : null
                 }
             </div>
