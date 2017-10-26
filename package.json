@@ -6,9 +6,9 @@
   "scripts": {
     "serve": "cd __config__ && node ../node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "watch": "cd __config__ && node ../node_modules/webpack/bin/webpack --w",
-    "build-test": "cd __config__ && node ../node_modules/webpack/bin/webpack",
-    "build-analyze": "cd __config__ && node ../node_modules/webpack/bin/webpack --env.analyze --env.production",
-    "build": "cd __config__ && node ../node_modules/webpack/bin/webpack --env.production",
+    "build-test": "cd __config__ && node ../node_modules/webpack/bin/webpack --progress --hide-modules",
+    "build-analyze": "cd __config__ && node ../node_modules/webpack/bin/webpack --env.analyze --env.production --progress --hide-modules",
+    "build": "cd __config__ && node ../node_modules/webpack/bin/webpack --env.production --progress --hide-modules",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "author": "Vsevolod Trofimov",
