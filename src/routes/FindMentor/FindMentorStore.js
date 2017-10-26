@@ -10,7 +10,17 @@ class FindMentorStore extends AsyncDataStore {
     @observable hasOwnTopic = false
     
     @computed get mentors() {
-        return this.data
+        const priorityMentos = []
+        const fineMentors = []
+
+        this.data.forEach(mentor => {
+            if(mentor.fields < 10)
+                priorityMentos.push(mentor)
+            else 
+                fineMentors.push(mentor)
+        })
+
+        return priorityMentos.concat(fineMentors)
     }
     
     @computed get stortedMentors() {
