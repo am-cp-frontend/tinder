@@ -1,6 +1,7 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { autorun, toJS } from 'mobx'
+import deepEqual from 'deep-equal'
 
 import { Redirect } from 'react-mobx-router'
 
@@ -29,53 +30,91 @@ class MentorEdit extends React.Component {
     constructor(props) {
         super(props)
         this.handleSaveResponce = this.handleSaveResponce.bind(this)
+        this.handleSave = this.handleSave.bind(this)
     }
 
     componentWillMount() {
         const mainStore = this.props.store
         this.store = new MentorEditStore({})
         this.autocompleteStore = new AsyncDataStore([])
-        
+
+        this.autosaveTimeout = setTimeout(() => {}, 0)
         this.mountId = mainStore.mount(this.store)
         
         if(mainStore.user.auth && mainStore.user.type === 'mentor')
             request('/data/mentor/' + mainStore.user.id, this.store)
             request('data/fields/', this.autocompleteStore)
 
+        let oldFields = [], oldContacts = []
+        let initialSet = false
+
         autorun(() => {
-            console.log(this.autocompleteStore.data)
             document.title = 'Ред. ' + this.store.data.name || '...'
+
+            if(this.store.loaded && !initialSet) {
+                oldFields = this.store.data.fields.toJS()
+                oldContacts = this.store.data.contacts.toJS()
+                initialSet = true
+            }
+
+            //binding
+            if(this.store.data.fields && this.store.data.contacts) {
+                const newFields = this.store.data.fields.toJS()
+                const newContacts = this.store.data.contacts.toJS()
+                
+                console.log(deepEqual(oldFields, newFields), newFields, oldFields)
+                console.log(deepEqual(oldFields, newFields), newContacts, oldContacts)
+
+                if(! deepEqual(newContacts, oldContacts)
+                || ! deepEqual(newFields, oldFields)) {
+                    oldFields = newFields
+                    oldContacts = newContacts
+                    if(initialSet) this.autosave()
+                }
+            }
         })
     }
 
     componentWillUnmount() {
         this.props.store.unmount(this.mountId)
+        clearTimeout(this.autosaveTimeout)
     }
 
     handleNameChange(e) {
         this.store.data.name = e.target.value
+        this.autosave()
     }
 
     handleAcceptsOwnChange(e) {
         this.store.data.acceptsOwn = e.target.value
+        this.autosave()
     }
     
     handleAboutChange(e) {
         this.store.data.about = e.target.value
+        this.autosave()
     }
 
     handleAddTask() {
         this.store.addTask()
+        this.autosave()
+    }
+
+    autosave() {
+        clearTimeout(this.autosaveTimeout)
+        this.autosaveTimeout = setTimeout(this.handleSave, 1000)
     }
 
     makeTaskHandlers(idx) {
+        const autosave = this.autosave.bind(this)
         const tasks = this.store.data.tasks
         return {
-            titleChange: (e) => tasks[idx].title = e.target.value,
-            descChange: (e) => tasks[idx].desc = e.target.value,
-            skillsChange: (e) => tasks[idx].skills = e.target.value,
-            remove: () => tasks.splice(idx, 1),
+            titleChange:  (e) => {tasks[idx].title = e.target.value; autosave()},
+            descChange:   (e) => {tasks[idx].desc = e.target.value; autosave()},
+            skillsChange: (e) => {tasks[idx].skills = e.target.value; autosave()},
+            remove: () => {tasks.splice(idx, 1); autosave()},
             addAttachment: () => {
+                autosave()
                 tasks[idx].attachments.push({
                     title: '',
                     link: ''
@@ -83,9 +122,9 @@ class MentorEdit extends React.Component {
             makeAttachmentHandlers: (attachmentIdx) => {
                 const attachment = tasks[idx].attachments[attachmentIdx]
                 return {
-                    titleChange: (e) => attachment.title = e.target.value,
-                    linkChange: (e) => attachment.link = e.target.value,
-                    remove: () => tasks[idx].attachments.splice(attachmentIdx, 1)
+                    titleChange: (e) => {attachment.title = e.target.value; autosave()},
+                    linkChange:  (e) => {attachment.link = e.target.value; autosave()},
+                    remove: () => {tasks[idx].attachments.splice(attachmentIdx, 1); autosave()}
                 }
             }
         }
@@ -93,6 +132,7 @@ class MentorEdit extends React.Component {
 
     handleRevert() {
         this.store.revert()
+        this.autosave()
     }
 
     handleSave() {

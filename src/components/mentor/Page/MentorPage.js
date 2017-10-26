@@ -55,9 +55,7 @@ const MentorPage = observer(props => {
 
     const taskCard = props => <Card> <TaskBlock {...props} hLevel={5} /> </Card>
     const exCard = props => <Card> <StudentBlock {...props} hLevel={5} /> </Card>
-
-    console.log(props)
-
+    
     return (
         <div className={styles.view}>
             <H level={props.hLevel}> {props.name} </H>
