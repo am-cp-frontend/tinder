@@ -1,5 +1,3 @@
-const mongoose = require('mongoose')
-
 const config  = require('../../config')
 const Mentor  = require('../../models/mentorModel')
 

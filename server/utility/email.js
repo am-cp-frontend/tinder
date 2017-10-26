@@ -72,7 +72,7 @@ const sendEmail = message => new Promise((resolve, reject) => {
     
     config.logger.log('sending email to', message.to)
     transporter.sendMail(finalMessage, (err, data) => {
-        if(err) reject({ok: false, data: err})
+        if(err) resolve({ok: false, data: err})
         config.logger.log('email sent to', message.to)
         resolve({ok: true, data})
     })

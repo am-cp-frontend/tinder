@@ -29,11 +29,17 @@ const setupDB = (logger, dbUrl) => new Promise((resolve, reject) => {
     
     db.stderr.on('data', (data) => {
         logger.error(`stderr: ${data}`)
-        reject(data)
     })
     
     db.on('close', (code) => {
-        reject(code)
+        //this is pretty much already running
+        if(code === 100) {
+            mongoose.connect(dbUrl, { useMongoClient: true })
+            logger.log('db ok \n')
+            resolve()
+        }
+        else
+            reject(code)
     })
 
     process.on('SIGINT', () => {
