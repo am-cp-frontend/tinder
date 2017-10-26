@@ -93,11 +93,11 @@ const MentorPage = observer(props => {
             }
 
             <Space bottom='m'>
-                { props.tasks.length ? (
+                { props.tasks.filter(t => t.title.trim().length || t.desc.trim().length).length ? (
                     <div>
                         <H level={3}> Предлагаемые задачи </H>
                         <Space bottom='s' />
-                        <List data={props.tasks} 
+                        <List data={props.tasks.filter(t => t.title.trim().length || t.desc.trim().length)} 
                                 item={taskCard}
                                 divider={<Space top={props.innerSpace} />} />
                     </div>

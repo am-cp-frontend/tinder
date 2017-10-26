@@ -52,7 +52,6 @@ const MentorBlock = observer(props => {
     
     const taskEl = task => <TaskBlock {...task} hLevel={props.hLevel + 1} innerSpace={props.innerSpace} />
 
-
     return (
         <div>
             <Link to={`/mentor/${props._id}`} type='block'>
@@ -68,12 +67,12 @@ const MentorBlock = observer(props => {
                 </div>
             </Link>
             
-            { props.tasks.length ? (
+            { props.tasks.filter(t => t.title.trim().length || t.desc.trim().length).length ? (
                 <Accordion toExpandBtn='Показать предлагаемые темы исследований' 
                            togglePos='after'
                            expanded={props.expandAllTasks}>
                     <TaskDivider innerSpace={props.innerSpace} />
-                    <List data={props.tasks}
+                    <List data={props.tasks.filter(t => t.title.trim().length || t.desc.trim().length)}
                           divider={<TaskDivider innerSpace={props.innerSpace} />}
                           item={taskEl} />
                 </Accordion>) : null }
