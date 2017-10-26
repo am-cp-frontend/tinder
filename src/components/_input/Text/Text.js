@@ -41,7 +41,8 @@ class TextInput extends React.Component {
                     <input type={type} 
                         id={props.id}
                         className={styles.input}
-                        defaultValue={props.defaultValue || props.value}
+                        value={props.value}
+                        defaultValue={props.defaultValue}
                         ref={el => this.input = el}
                         onChange={props.onChange}
                         onKeyDown={composeKeyHandler(props.onKeyUp)}

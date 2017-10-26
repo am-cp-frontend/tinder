@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { autorun, toJS } from 'mobx'
+import { autorun, toJS, observable, action } from 'mobx'
 import deepEqual from 'deep-equal'
 
 import { Redirect } from 'react-mobx-router'
@@ -27,6 +27,9 @@ const serverErrorsToRus = {
 @inject('store', 'history') @observer
 
 class MentorEdit extends React.Component {
+    @observable tmpVals = {
+        reinforce: ''
+    }
     constructor(props) {
         super(props)
         this.handleSaveResponce = this.handleSaveResponce.bind(this)
@@ -61,9 +64,6 @@ class MentorEdit extends React.Component {
             if(this.store.data.fields && this.store.data.contacts) {
                 const newFields = this.store.data.fields.toJS()
                 const newContacts = this.store.data.contacts.toJS()
-                
-                console.log(deepEqual(oldFields, newFields), newFields, oldFields)
-                console.log(deepEqual(oldFields, newFields), newContacts, oldContacts)
 
                 if(! deepEqual(newContacts, oldContacts)
                 || ! deepEqual(newFields, oldFields)) {
@@ -83,6 +83,15 @@ class MentorEdit extends React.Component {
     handleNameChange(e) {
         this.store.data.name = e.target.value
         this.autosave()
+    }
+
+    handleFieldsReinforceChange(e) {
+        this.tmpVals.reinforce = e.target.value
+    }
+
+    @action handleFieldsReinforceAdd() {
+        this.store.data.fields.push(this.tmpVals.reinforce)
+        this.tmpVals.reinforce = ''
     }
 
     handleAcceptsOwnChange(e) {
@@ -192,11 +201,15 @@ class MentorEdit extends React.Component {
             <div className={styles.row}>
                 <ViewBox center='horizontal'>
                     <MentorEditPage  {...mentorData}
+                                    tmpVals={this.tmpVals}
                                     fieldsAutocomplete={this.autocompleteStore.data}
 
                                     handleNameChange={e => this.handleNameChange(e)}
                                     handleAcceptsOwnChange={e => this.handleAcceptsOwnChange(e)}
                                     handleAboutChange={e => this.handleAboutChange(e)}
+
+                                    handleFieldsReinforceChange={e => this.handleFieldsReinforceChange(e)}
+                                    handleFieldsReinforceAdd={e => this.handleFieldsReinforceAdd()}
 
                                     handleAddTask={e => this.handleAddTask(e)}
                                     makeTaskHandlers={idx => this.makeTaskHandlers(idx)}

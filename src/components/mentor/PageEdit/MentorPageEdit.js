@@ -102,6 +102,22 @@ const MentorPageEdit = observer(props => {
                 <TagInput tags={props.fields}
                           placeholder='Вы также можете ввести области отстутствующие в списке, который появится при клике'
                           autocomplete={props.fieldsAutocomplete || []} />
+
+                <Space bottom='m' />
+                <div className={styles.row}>
+                    <Space right='xs' className={styles.flexPriority}>
+                        <TextInput id='FieldsReinforce' 
+                                value={props.tmpVals.reinforce}
+                                onChange={props.handleFieldsReinforceChange}
+                                onKeyUp={[
+                                    {key: 13, cb: props.handleFieldsReinforceAdd}
+                                ]}
+                                placeholder='Дополнительная область' />
+                    </Space>
+                    <Button onClick={props.handleFieldsReinforceAdd}> 
+                        Добавить область
+                    </Button>
+                </div>
             </Space>
 
 
