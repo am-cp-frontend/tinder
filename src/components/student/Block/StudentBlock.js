@@ -29,11 +29,13 @@ const defaultProps = {
 }
 
 const StudentBlock = props => (
+        <Link to={`http://${props.contacts[0]}`} type='block'>
         <Space all={props.innerSpace}>
             <H level={props.hLevel}> {props.name} </H>
             <Space bottom='s' />
             <TagList tags={props.contacts} tagProps={{transparent: true}} />
         </Space>
+        </Link>
 )
 
 StudentBlock.propTypes    = propTypes

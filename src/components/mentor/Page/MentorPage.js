@@ -106,13 +106,13 @@ const MentorPage = observer(props => {
 
             { props.ex.length ? (
                 <div>
-                    <H level={3}> Прошлые поднаучные </H>
+                    <H level={3}> Ученики предыдущих лет </H>
                     <Space bottom='s' />
                     <List data={props.ex}
                           item={exCard} 
                           divider={<Space top={props.innerSpace} />} />
                 </div>
-            ) : <H level={3}> Прошлые поднаучные не оставили своих контактов </H> }
+            ) : <H level={3}> Ученики предыдущих лет не оставили своих контактов </H> }
         </div>
     )
 })
