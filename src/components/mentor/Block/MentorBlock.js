@@ -53,7 +53,7 @@ const MentorBlock = observer(props => {
     const taskEl = task => <TaskBlock {...task} hLevel={props.hLevel + 1} innerSpace={props.innerSpace} />
 
     return (
-        <div>
+        <div id={props._id}>
             <Link to={`/mentor/${props._id}`} type='block'>
                 <div className={styles.linkInnerSpace}>
                     <H level={props.hLevel}> {props.name} </H>

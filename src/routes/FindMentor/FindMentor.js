@@ -23,7 +23,7 @@ class FindMentor extends React.Component {
     componentWillMount() {
         const mainStore = this.props.store
         const history = this.props.history
-    
+
         //state setup
         this.store = new FindMentorStore([])
 
@@ -81,7 +81,26 @@ class FindMentor extends React.Component {
         })
     }
 
+    scrollToLastMentor() {
+        const mainStore = this.props.store
+        if(this.view && this.view.$el) {
+            if(mainStore.user.lastMentor) {
+                const lastMentorOffset = document.getElementById(mainStore.user.lastMentor)
+                                            .getBoundingClientRect().top
+
+                this.view.$el.scrollTop = lastMentorOffset
+            }
+        } else {
+            this.scrollTimeout = setTimeout(this.scrollToLastMentor.bind(this), 500)
+        }
+    }
+
+    componentDidMount() {
+        this.scrollToLastMentor()
+    } 
+
     componentWillUnmount() {
+        clearTimeout(this.scrollTimeout)
         this.stopHistoryUpdate()
         this.props.store.unmount(this.mountId)
     }
@@ -89,7 +108,7 @@ class FindMentor extends React.Component {
     render() {
         if(this.store.loaded) {
             return (
-                <ViewBox center='horizontal'>
+                <ViewBox center='horizontal' ref={view => this.view = view}>
                     <FindMentorView mentors={this.store.stortedMentors}
                                     mentorTags={this.store.mentorTags}
                                     hasOwnTopicValue={this.store.hasOwnTopic}

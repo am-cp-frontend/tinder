@@ -20,8 +20,9 @@ export default class MentorPage extends React.Component {
 
     componentWillMount() {
         const store = this.props.store
-        this.store = new AsyncDataStore({})
+        store.user.lastMentor = this.props.id
 
+        this.store = new AsyncDataStore({})
         this.mountId = store.mount(this.store)
 
         request('/data/mentor/' + this.props.id, this.store)
