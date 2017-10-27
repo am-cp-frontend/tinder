@@ -16,7 +16,52 @@
 </head>
 
 <body>
-    <div id='root'> Loading... </div>
+    <div id='root'> 
+            <style> 
+                    body {
+                        margin: 0;
+                    }
+                    .box {
+                        box-sizing: border-box;
+                        padding: 25px;
+                        height: 100vh;
+                        width: 100vw;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .spinner {
+                        width: 35px;
+                        height: 35px;
+                        background: #396afc;
+                        animation: sk-rotatePlane 1.2s infinite ease-in-out;
+                    }
+            
+                    @keyframes sk-rotatePlane {
+                        0% {
+                            transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+                        }
+                        50% {
+                            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+                        }
+                        100% {
+                            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg) 
+                        }
+                    }
+                </style>
+                <div class='box'>
+                    <div class="spinner"> </div>   
+                </div>
+    </div>
+    <script type="text/javascript">
+        window._mfq = window._mfq || [];
+        (function() {
+            var mf = document.createElement("script");
+            mf.type = "text/javascript"; mf.async = true;
+            mf.src = "//cdn.mouseflow.com/projects/65ee590a-c636-4488-a4b0-b93cfc1400ca.js";
+            document.getElementsByTagName("head")[0].appendChild(mf);
+        })();
+    </script>
 </body>
 
 </html>
