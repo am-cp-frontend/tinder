@@ -1,4 +1,6 @@
 import AsyncDataStore from '@store/AsyncDataStore'
+import 'whatwg-fetch'
+require('es6-promise').polyfill()
 
 const memory = {}
 

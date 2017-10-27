@@ -36,7 +36,7 @@ class FindMentorStore extends AsyncDataStore {
             let hasTasks = mentorData.tasks.length > 0
 
             simpleFields.forEach(field => {
-                if(mentorData._simpleFields.includes(field)) inField = true
+                if(mentorData._simpleFields.indexOf(field) !== -1) inField = true
             })
 
             return {

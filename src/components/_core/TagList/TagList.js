@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react'
 
-
 import Space from '@components/_core/Space~'
 import Tag from '@components/_core/Tag~'
 
@@ -50,7 +49,7 @@ const makeTag = props => (
 const ListItem = props => (
     <Space bottom={props.spacing ? 's' : 0} 
            right={props.spacing && props.last !== 0 ? 's' : 0}
-           className={props.className}>
+           className={styles.listItem + ' ' + props.className}>
         {props.children ? props.children : makeTag(props)}
     </Space>
 )
