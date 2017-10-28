@@ -90,8 +90,17 @@ class MentorEdit extends React.Component {
     }
 
     @action handleFieldsReinforceAdd() {
-        this.store.data.fields.push(this.tmpVals.reinforce)
-        this.tmpVals.reinforce = ''
+        if(this.$reinforce && this.tmpVals.reinforce === '') {
+            this.$reinforce.focus()
+        } else {
+            this.store.data.fields.push(this.tmpVals.reinforce)
+            this.tmpVals.reinforce = ''
+        }
+    }
+
+    setFieldsReinforce($el) {
+        if( ! this.$reinforce)
+            this.$reinforce = $el.input
     }
 
     handleAcceptsOwnChange(e) {
@@ -210,6 +219,7 @@ class MentorEdit extends React.Component {
 
                                     handleFieldsReinforceChange={e => this.handleFieldsReinforceChange(e)}
                                     handleFieldsReinforceAdd={e => this.handleFieldsReinforceAdd()}
+                                    setFieldsReinforce = {$el => this.setFieldsReinforce($el)}
 
                                     handleAddTask={e => this.handleAddTask(e)}
                                     makeTaskHandlers={idx => this.makeTaskHandlers(idx)}

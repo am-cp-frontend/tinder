@@ -89,7 +89,7 @@ class TaskEdit extends React.Component {
                     <Button onClick={this.props.hadnleAddAttachment}> Добавить вложение </Button> 
                 </Space>
 
-                <Button onClick={this.props.handleRemove}> Удалить </Button>
+                <Button onClick={this.props.handleRemove}> Удалить задачу </Button>
             </Space>
         )
     }

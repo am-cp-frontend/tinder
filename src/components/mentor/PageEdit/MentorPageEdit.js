@@ -109,6 +109,7 @@ const MentorPageEdit = observer(props => {
                         <TextInput id='FieldsReinforce' 
                                 value={props.tmpVals.reinforce}
                                 onChange={props.handleFieldsReinforceChange}
+                                ref={props.setFieldsReinforce}
                                 onKeyUp={[
                                     {key: 13, cb: props.handleFieldsReinforceAdd}
                                 ]}
@@ -151,7 +152,7 @@ const MentorPageEdit = observer(props => {
                 <Button onClick={props.handleAddTask}> Добавить задачу </Button> 
             </Space>
 
-            <Space bottom='0'>
+            {/* <Space bottom='0'>
                 <H level={3}> Сохранить изменения? </H> 
                 <Space bottom='xs' />
                 <div className={styles.row}>
@@ -160,7 +161,7 @@ const MentorPageEdit = observer(props => {
                     </Space>
                     <Button onClick={props.handleRevert}> Вернуть как было </Button>
                 </div>
-            </Space>
+            </Space> */}
         </div>
     )
 })
