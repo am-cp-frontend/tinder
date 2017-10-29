@@ -36,7 +36,7 @@ class TagInput extends React.Component {
     }
 
     focusInput() {
-        setTiemout(() =>    this.textInput.focus(), 0)
+        setTimeout(() => this.textInput.focus(), 0)
     }
     
     reset() {
