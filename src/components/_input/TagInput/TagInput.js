@@ -36,6 +36,7 @@ class TagInput extends React.Component {
     }
 
     focusInput() {
+        console.log('Trying to focus')
         setTimeout(() => this.textInput.focus(), 0)
     }
     
@@ -54,6 +55,7 @@ class TagInput extends React.Component {
     }
 
     handleBlur(event) {
+        console.log('blurry')
         if(this.inputValue) this.addTag(this.inputValue)
         this.focused = false
     }
@@ -115,7 +117,7 @@ class TagInput extends React.Component {
                     >
                         <input className={styles.realInput}
                             onKeyUp={this.handleInput} 
-                            onFocus={e => this.focused = true}
+                            onFocus={e => {this.focused = true; console.log('focused')}}
                             onBlur={this.handleBlur}
                             ref={el => this.textInput = el}
                             autoFocus={this.props.autoFocus} />
