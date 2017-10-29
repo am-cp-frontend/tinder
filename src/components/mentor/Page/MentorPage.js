@@ -85,7 +85,9 @@ const MentorPage = observer(props => {
                 (
                     <Space bottom='m'>
                         <H level={3}> Дополнительная информация </H> 
-                        {props.about}
+                        {props.about.split('\n').map((item, key) => {
+                            return <span key={key}> {item} <br/> </span>
+                        })}
                     </Space>
                 ) : null    
             }
