@@ -14,7 +14,7 @@ class FindMentorStore extends AsyncDataStore {
         const fineMentors = []
 
         this.data.forEach(mentor => {
-            if(mentor.fields.length < 10)
+            if(mentor.fields.length < 14)
                 priorityMentos.push(mentor)
             else 
                 fineMentors.push(mentor)
