@@ -53,7 +53,10 @@
                     <div class="spinner"> </div>   
                 </div>
     </div>
+    <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js"
+    crossorigin="anonymous"></script>
     <script type="text/javascript">
+        Raven.config('https://25fed14767174cb5a5d425b22d0050da@sentry.io/237952').install()
         window._mfq = window._mfq || [];
         (function() {
             var mf = document.createElement("script");
