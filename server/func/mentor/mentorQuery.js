@@ -2,9 +2,12 @@ const config  = require('../../config')
 const Mentor  = require('../../models/mentorModel')
 
 const defaultQuery = {
-    $or: [
-        {acceptsOwn: 'any'},
-        {fields: {$not: {$size: 0}}}
+    $and: [
+        {$or: [
+            {acceptsOwn: 'any'},
+            {fields: {$not: {$size: 0}}}
+        ]},
+        {decline: {$ne: true}}
     ]
 }
 
