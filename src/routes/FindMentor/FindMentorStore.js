@@ -73,7 +73,7 @@ class FindMentorStore extends AsyncDataStore {
             mentor.fields.toJS().forEach(field => oldVal.add(field))
             return oldVal
         }, new Set([]))
-        return [...mentorTags]
+        return [...mentorTags].sort()
     }
 
     load(data) {

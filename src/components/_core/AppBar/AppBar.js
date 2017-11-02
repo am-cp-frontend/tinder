@@ -19,7 +19,7 @@ const NavBlock ={
             <Space left='m' />
     
             <Link to='/mentor-edit/' type='block'> 
-                <Button tabIndex='-1'> Я &mdash; научый руководитель </Button>
+                <Button tabIndex='-1'> Я &mdash; научный руководитель </Button>
             </Link>
         </nav>
     ),
