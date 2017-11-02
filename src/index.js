@@ -25,7 +25,6 @@ if(authResult.ok) {
     store.user.reset()
 }
 
-
 const App = () => (
     <BrowserRouter> 
         <Provider store={store}>
@@ -39,3 +38,13 @@ const App = () => (
 )
 
 render(<App />, document.getElementById('root'))
+
+
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+
+if(isSafari) {
+    store.notifications.add({
+        type: 'warning',
+        message: 'В Safari временно возможны неплоладки, пожалуйста, воспользуйтесь Chrome \\ Firefox'
+    })
+}

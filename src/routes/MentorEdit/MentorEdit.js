@@ -73,15 +73,6 @@ class MentorEdit extends React.Component {
                 }
             }
         })
-
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-
-        if(isSafari) {
-            mainStore.notifications.add({
-                type: 'warning',
-                message: 'В Safari временно возможны неплоладки, пожалуйста, воспользуйтесь Chrome \\ Firefox'
-            })
-        }
     }
 
     componentWillUnmount() {
