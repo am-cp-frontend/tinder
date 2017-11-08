@@ -111,6 +111,16 @@ const MentorPage = observer(props => {
                     <List data={props.ex}
                           item={exCard} 
                           divider={<Space top={props.innerSpace} />} />
+                    <Space top='s' className={styles.sidenote}>
+                        Данный список может быть не полным. 
+                        Здесь указаны лишь те ученики, 
+                        которые представили нам свои контактные данные. 
+                        <br />
+                        Если вы тоже учились у этого человека, то, пожалуйста, 
+                        заполните <a href='https://goo.gl/forms/98UKbAnYTUoKw0wH2'> 
+                            форму.
+                        </a>
+                    </Space>
                 </div>
             ) : <H level={3}> Ученики предыдущих лет не оставили своих контактов </H> }
         </div>
