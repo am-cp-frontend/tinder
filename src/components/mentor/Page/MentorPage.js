@@ -117,9 +117,9 @@ const MentorPage = observer(props => {
                         которые представили нам свои контактные данные. 
                         <br />
                         Если вы тоже учились у этого человека, то, пожалуйста, 
-                        заполните <a href='https://goo.gl/forms/98UKbAnYTUoKw0wH2'> 
-                            форму.
-                        </a>
+                        заполните <a href='https://goo.gl/forms/98UKbAnYTUoKw0wH2' target='_blank'> 
+                            форму
+                        </a>.
                     </Space>
                 </div>
             ) : <H level={3}> Ученики предыдущих лет не оставили своих контактов </H> }
