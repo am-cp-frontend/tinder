@@ -101,7 +101,7 @@ const MentorPage = observer(props => {
                                 item={taskCard}
                                 divider={<Space top={props.innerSpace} />} />
                     </div>
-                ) : <H level={3}> Не предлагает задач </H> }
+                ) : <H level={3}> Преподаватель не указал конкретные задачи </H> }
             </Space>
 
             { props.ex.length ? (
