@@ -55,15 +55,17 @@
     </div>
     <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js"
     crossorigin="anonymous"></script>
-    <script type="text/javascript">
+    <script async defer type="text/javascript">
         Raven.config('https://25fed14767174cb5a5d425b22d0050da@sentry.io/237952').install()
-        window._mfq = window._mfq || [];
-        (function() {
-            var mf = document.createElement("script");
-            mf.type = "text/javascript"; mf.async = true;
-            mf.src = "//cdn.mouseflow.com/projects/65ee590a-c636-4488-a4b0-b93cfc1400ca.js";
-            document.getElementsByTagName("head")[0].appendChild(mf);
-        })();
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110554867-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110554867-1');
     </script>
 </body>
 
