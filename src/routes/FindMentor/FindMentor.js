@@ -14,10 +14,16 @@ class FindMentor extends React.Component {
     constructor(props) { 
         super(props)
         this.hasOwnTopicChange = this.hasOwnTopicChange.bind(this)
+        this.handleTagClick = this.handleTagClick.bind(this)
     }
 
     hasOwnTopicChange() {
         this.store.hasOwnTopic = !this.store.hasOwnTopic
+    }
+
+    handleTagClick(tag, e) {
+        e.preventDefault()
+        this.store.selectedFields.push(tag)
     }
 
     componentWillMount() {
@@ -111,6 +117,7 @@ class FindMentor extends React.Component {
                 <ViewBox center='horizontal' ref={view => this.view = view}>
                     <FindMentorView mentors={this.store.stortedMentors}
                                     mentorTags={this.store.mentorTags}
+                                    mentorTagCick={this.handleTagClick}
                                     hasOwnTopicValue={this.store.hasOwnTopic}
                                     hasOwnTopicChange={this.hasOwnTopicChange}
                                     selectedFields={this.store.selectedFields} />

@@ -35,7 +35,7 @@ const FindMentor = props => (
         <Space bottom='m' />
         {
             props.mentors.length 
-            ? <List data={props.mentors} item={MentorCard} getKey={data => data._id}/> 
+            ? <List data={props.mentors} item={MentorCard} itemProps={{onTagClick: props.mentorTagCick}} getKey={data => data._id}/> 
             : 'Подходящих научных руководителей нет :('
         }
     </div>

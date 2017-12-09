@@ -48,7 +48,7 @@ const TaskDivider = props => <Space horizontal={props.innerSpace}> <hr /> </Spac
 const MentorBlock = observer(props => {
     
     const contactsEl = <TagList tags={props.contacts} tagProps={{transparent: true}} />
-    const fieldsEl = <TagList tags={props.fields} />
+    const fieldsEl = <TagList tags={props.fields} onTagClick={props.onTagClick} />
     
     const taskEl = task => <TaskBlock {...task} hLevel={props.hLevel + 1} innerSpace={props.innerSpace} />
 

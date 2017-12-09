@@ -9,7 +9,12 @@ import styles from './Tag.sass'
 
 const propTypes = {
     withDivider: PropTypes.bool,
-    transparent: PropTypes.bool
+    transparent: PropTypes.bool,
+    onClick: PropTypes.func
+}
+
+const defaultProps = {
+    onClick: () => {}
 }
 
 const Tag = props => {
@@ -27,7 +32,7 @@ const Tag = props => {
             {[styles.withDivider]: props.withDivider && !props.transparent},
             {[styles.transparent]: props.transparent}
         )} {...padding}> 
-            <div> {props.children} </div>
+            <div onClick={props.onClick}> {props.children} </div>
             {props.actions ? (
                 <Space left='xxs' right='xs' className={styles.actions}>
                     <ActionBox actions={props.actions} hostData={props.children} />

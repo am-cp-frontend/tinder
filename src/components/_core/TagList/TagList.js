@@ -41,7 +41,8 @@ const isRow = (tagListRef) => {
 const makeTag = props => (
     <Tag {...props.tagProps}
         withDivider={props.idx !== 0 && !props.spacing}
-        actions={props.tagActions}> 
+        actions={props.tagActions} 
+        onClick={props.onClick} >
         {props.tagValue}
     </Tag>
 )
@@ -96,6 +97,7 @@ class TagList extends React.Component {
                               spacing={ ! this.state.isRow}
                               tagActions={this.props.tagActions}
                               tagValue={tag}
+                              onClick={e => this.props.onTagClick(tag, e)}
                               last={this.props.tags.length === i+1 && !this.props.children} />)
                 )}
                 {this.props.children ? (
