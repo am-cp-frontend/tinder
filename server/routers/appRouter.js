@@ -23,8 +23,11 @@ const cookieOptions = {
 appRouter
     //wouldn't bother with security right now
     .get('/auth/magic/:token', async (ctx, next) => {
-        config.logger.log('auth attempt with', ctx.params.token)
+        // favicon auth bug fix
+        if(token.indexOf('favicon.') !== -1) return;
+        
 
+        config.logger.log('auth attempt with', ctx.params.token)
         const tokenResult = await magicLinkGet(ctx.params.token)
         const user = {}
         let authError = false
