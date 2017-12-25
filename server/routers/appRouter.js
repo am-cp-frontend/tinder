@@ -24,7 +24,7 @@ appRouter
     //wouldn't bother with security right now
     .get('/auth/magic/:token', async (ctx, next) => {
         // favicon auth bug fix
-        if(token.indexOf('favicon.') !== -1) return;
+        if(ctx.params.token.indexOf('favicon.') !== -1) return;
         
 
         config.logger.log('auth attempt with', ctx.params.token)
