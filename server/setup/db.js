@@ -7,16 +7,16 @@ const Student = require('../models/studentModel')
 
 const preSetupDB = async (logger, dbPath) => {
     logger.log('Ensuring db folder')
-    
+
     await fse.ensureDir(dbPath)
-    
+
     logger.log('db folder confirmed \n')
 }
 
 
 const setupDB = (logger, dbUrl) => new Promise((resolve, reject) => {
     logger.log('Checking db')
-    
+
     const db = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'db'])
 
     db.stdout.on('data', (data) => {
@@ -26,14 +26,14 @@ const setupDB = (logger, dbUrl) => new Promise((resolve, reject) => {
             resolve()
         }
     })
-    
+
     db.stderr.on('data', (data) => {
         logger.error(`stderr: ${data}`)
     })
-    
+
     db.on('close', (code) => {
         //this is pretty much already running
-        if(code === 100) {
+        if(code === 100 || code === 48) {
             mongoose.connect(dbUrl, { useMongoClient: true })
             logger.log('db ok \n')
             resolve()
